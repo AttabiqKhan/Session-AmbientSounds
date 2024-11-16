@@ -11,8 +11,7 @@ class ImageView: UIImageView {
 
     init(imageName: String, cornerRadius: CGFloat = 0, backgroundColor: UIColor = .clear) {
         super.init(frame: .zero)
-        //self.image = UIImage(named: imageName)
-        self.image = UIImage()
+        self.image = UIImage(named: imageName)
         self.layer.cornerRadius = cornerRadius
         self.backgroundColor = backgroundColor
         self.translatesAutoresizingMaskIntoConstraints = false

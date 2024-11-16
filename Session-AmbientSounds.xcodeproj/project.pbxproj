@@ -30,6 +30,9 @@
 		591B23A62CE8ECE700E737A5 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591B23A22CE8ECE700E737A5 /* OnboardingViewController.swift */; };
 		591B23A72CE8ECE700E737A5 /* OnboardingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591B23A32CE8ECE700E737A5 /* OnboardingCell.swift */; };
 		591B23A82CE8ECE700E737A5 /* CustomPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591B23A42CE8ECE700E737A5 /* CustomPageControl.swift */; };
+		591B23AC2CE8F6E400E737A5 /* BottomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591B23AA2CE8F6E400E737A5 /* BottomTabBarView.swift */; };
+		591B23AD2CE8F6E400E737A5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591B23AB2CE8F6E400E737A5 /* BaseViewController.swift */; };
+		591B23AF2CE8F87600E737A5 /* ButtonWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591B23AE2CE8F87600E737A5 /* ButtonWithImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +61,9 @@
 		591B23A22CE8ECE700E737A5 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		591B23A32CE8ECE700E737A5 /* OnboardingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingCell.swift; sourceTree = "<group>"; };
 		591B23A42CE8ECE700E737A5 /* CustomPageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
+		591B23AA2CE8F6E400E737A5 /* BottomTabBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomTabBarView.swift; sourceTree = "<group>"; };
+		591B23AB2CE8F6E400E737A5 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		591B23AE2CE8F87600E737A5 /* ButtonWithImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonWithImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,18 +127,19 @@
 		591B237A2CE8E8EF00E737A5 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				591B237B2CE8E91300E737A5 /* On Boarding */,
+				591B23A92CE8F6A600E737A5 /* Base */,
+				591B237B2CE8E91300E737A5 /* OnBoarding */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
 		};
-		591B237B2CE8E91300E737A5 /* On Boarding */ = {
+		591B237B2CE8E91300E737A5 /* OnBoarding */ = {
 			isa = PBXGroup;
 			children = (
 				591B239E2CE8EC5200E737A5 /* Model */,
 				591B239D2CE8EC4800E737A5 /* View */,
 			);
-			path = "On Boarding";
+			path = OnBoarding;
 			sourceTree = "<group>";
 		};
 		591B237C2CE8E92900E737A5 /* Extensions */ = {
@@ -150,6 +157,7 @@
 		591B237D2CE8E93700E737A5 /* UI Components */ = {
 			isa = PBXGroup;
 			children = (
+				591B23AE2CE8F87600E737A5 /* ButtonWithImage.swift */,
 				591B237F2CE8E98500E737A5 /* Button.swift */,
 				591B23812CE8E98500E737A5 /* ImageView.swift */,
 				591B23802CE8E98500E737A5 /* Label.swift */,
@@ -188,6 +196,15 @@
 				591B239F2CE8ECDC00E737A5 /* OnboardingItem.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		591B23A92CE8F6A600E737A5 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				591B23AB2CE8F6E400E737A5 /* BaseViewController.swift */,
+				591B23AA2CE8F6E400E737A5 /* BottomTabBarView.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,12 +284,15 @@
 				591B23A72CE8ECE700E737A5 /* OnboardingCell.swift in Sources */,
 				591B23872CE8E98500E737A5 /* View.swift in Sources */,
 				591B23842CE8E98500E737A5 /* Button.swift in Sources */,
+				591B23AF2CE8F87600E737A5 /* ButtonWithImage.swift in Sources */,
 				591B23912CE8E9E200E737A5 /* UIColorExtensions.swift in Sources */,
+				591B23AD2CE8F6E400E737A5 /* BaseViewController.swift in Sources */,
 				591B238E2CE8E9E200E737A5 /* UIViewControllerExtensions.swift in Sources */,
 				591B23852CE8E98500E737A5 /* Label.swift in Sources */,
 				591B23652CE8E79C00E737A5 /* AppDelegate.swift in Sources */,
 				591B23672CE8E79C00E737A5 /* SceneDelegate.swift in Sources */,
 				591B23862CE8E98500E737A5 /* ImageView.swift in Sources */,
+				591B23AC2CE8F6E400E737A5 /* BottomTabBarView.swift in Sources */,
 				591B238D2CE8E9E200E737A5 /* UIViewExtensions.swift in Sources */,
 				591B23832CE8E98500E737A5 /* TextField.swift in Sources */,
 				591B23A62CE8ECE700E737A5 /* OnboardingViewController.swift in Sources */,

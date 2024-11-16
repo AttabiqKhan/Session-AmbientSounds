@@ -111,8 +111,8 @@ class OnboardingViewController: UIViewController {
 
         if currentIndex == onboardingItems.count - 1 {
             // Navigate to the next view controller after the last page
-//            let vc = DummyViewController()
-//            navigationController?.pushViewController(vc, animated: true)
+            let vc = BaseViewController()
+            navigationController?.pushViewController(vc, animated: true)
             print("Life is beautiful")
         } else {
             // Calculate the next index's offset
