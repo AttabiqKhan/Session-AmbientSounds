@@ -111,7 +111,7 @@ class OnboardingViewController: UIViewController {
 
         if currentIndex == onboardingItems.count - 1 {
             // Navigate to the next view controller after the last page
-            let vc = BaseViewController()
+            let vc = HomeViewController()
             navigationController?.pushViewController(vc, animated: true)
             print("Life is beautiful")
         } else {

@@ -24,4 +24,7 @@ public extension UIFont {
     static func extraBold(ofSize size: CGFloat) -> UIFont {
         return UIFont(name: "Figtree-ExtraBold", size: size) ?? UIFont()
     }
+    static func poppinsMedium(ofSize size: CGFloat) -> UIFont {
+        return UIFont(name: "Poppins-Medium", size: size) ?? UIFont.systemFont(ofSize: size)
+    }
 }

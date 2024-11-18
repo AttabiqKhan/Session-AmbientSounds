@@ -19,7 +19,6 @@ class OnboardingCell: UICollectionViewCell {
     }()
     private let titleLabel: UILabel = {
         let label = UILabel()
-        //label.font = UIFont(name: "Figtree-ExtraBold", size: 40)
         label.font = .extraBold(ofSize: 40.autoSized)
         label.textAlignment = .center
         label.numberOfLines = 2
@@ -28,7 +27,6 @@ class OnboardingCell: UICollectionViewCell {
     }()
     private let subtitleLabel: UILabel = {
         let label = UILabel()
-        //label.font = UIFont(name: "Figtree-Regular", size: 16)
         label.font = .regular(ofSize: 16.autoSized)
         label.textAlignment = .center
         label.numberOfLines = 0

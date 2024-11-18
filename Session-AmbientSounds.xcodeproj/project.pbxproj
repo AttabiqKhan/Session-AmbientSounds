@@ -26,13 +26,21 @@
 		591B239B2CE8EA5900E737A5 /* Figtree-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 591B23952CE8EA5900E737A5 /* Figtree-Regular.ttf */; };
 		591B239C2CE8EA5900E737A5 /* Figtree-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 591B23962CE8EA5900E737A5 /* Figtree-SemiBold.ttf */; };
 		591B23A02CE8ECDC00E737A5 /* OnboardingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591B239F2CE8ECDC00E737A5 /* OnboardingItem.swift */; };
-		591B23A52CE8ECE700E737A5 /* DummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591B23A12CE8ECE700E737A5 /* DummyViewController.swift */; };
 		591B23A62CE8ECE700E737A5 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591B23A22CE8ECE700E737A5 /* OnboardingViewController.swift */; };
 		591B23A72CE8ECE700E737A5 /* OnboardingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591B23A32CE8ECE700E737A5 /* OnboardingCell.swift */; };
 		591B23A82CE8ECE700E737A5 /* CustomPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591B23A42CE8ECE700E737A5 /* CustomPageControl.swift */; };
 		591B23AC2CE8F6E400E737A5 /* BottomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591B23AA2CE8F6E400E737A5 /* BottomTabBarView.swift */; };
 		591B23AD2CE8F6E400E737A5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591B23AB2CE8F6E400E737A5 /* BaseViewController.swift */; };
 		591B23AF2CE8F87600E737A5 /* ButtonWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591B23AE2CE8F87600E737A5 /* ButtonWithImage.swift */; };
+		591B23B32CE8FF4900E737A5 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591B23B22CE8FF4900E737A5 /* HomeViewController.swift */; };
+		591B23BA2CE9114100E737A5 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591B23B92CE9114100E737A5 /* Model.swift */; };
+		591B23BC2CE911B900E737A5 /* MoodCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591B23BB2CE911B900E737A5 /* MoodCollectionViewCell.swift */; };
+		596151D92CEB196C00C34AFD /* NavigationSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 596151D82CEB196C00C34AFD /* NavigationSlider.swift */; };
+		596151DB2CEB1EDA00C34AFD /* CustomSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 596151DA2CEB1EDA00C34AFD /* CustomSliderView.swift */; };
+		596151DD2CEB478F00C34AFD /* MoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 596151DC2CEB478F00C34AFD /* MoodViewController.swift */; };
+		596151DF2CEB622F00C34AFD /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 596151DE2CEB622F00C34AFD /* CustomSlider.swift */; };
+		59D9E4432CE9FFDE007778F8 /* MoodSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D9E4422CE9FFDE007778F8 /* MoodSelectionViewController.swift */; };
+		59D9E4452CEA1522007778F8 /* MoodSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D9E4442CEA1522007778F8 /* MoodSelectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,13 +65,22 @@
 		591B23952CE8EA5900E737A5 /* Figtree-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Figtree-Regular.ttf"; sourceTree = "<group>"; };
 		591B23962CE8EA5900E737A5 /* Figtree-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Figtree-SemiBold.ttf"; sourceTree = "<group>"; };
 		591B239F2CE8ECDC00E737A5 /* OnboardingItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingItem.swift; sourceTree = "<group>"; };
-		591B23A12CE8ECE700E737A5 /* DummyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyViewController.swift; sourceTree = "<group>"; };
 		591B23A22CE8ECE700E737A5 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		591B23A32CE8ECE700E737A5 /* OnboardingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingCell.swift; sourceTree = "<group>"; };
 		591B23A42CE8ECE700E737A5 /* CustomPageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
 		591B23AA2CE8F6E400E737A5 /* BottomTabBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomTabBarView.swift; sourceTree = "<group>"; };
 		591B23AB2CE8F6E400E737A5 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		591B23AE2CE8F87600E737A5 /* ButtonWithImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonWithImage.swift; sourceTree = "<group>"; };
+		591B23B22CE8FF4900E737A5 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		591B23B62CE90B3F00E737A5 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
+		591B23B92CE9114100E737A5 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		591B23BB2CE911B900E737A5 /* MoodCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodCollectionViewCell.swift; sourceTree = "<group>"; };
+		596151D82CEB196C00C34AFD /* NavigationSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationSlider.swift; sourceTree = "<group>"; };
+		596151DA2CEB1EDA00C34AFD /* CustomSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSliderView.swift; sourceTree = "<group>"; };
+		596151DC2CEB478F00C34AFD /* MoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodViewController.swift; sourceTree = "<group>"; };
+		596151DE2CEB622F00C34AFD /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
+		59D9E4422CE9FFDE007778F8 /* MoodSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodSelectionViewController.swift; sourceTree = "<group>"; };
+		59D9E4442CEA1522007778F8 /* MoodSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodSelectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,11 +113,11 @@
 		591B23632CE8E79C00E737A5 /* Session-AmbientSounds */ = {
 			isa = PBXGroup;
 			children = (
+				591B23722CE8E79D00E737A5 /* Info.plist */,
+				591B23782CE8E86700E737A5 /* Application */,
+				591B237A2CE8E8EF00E737A5 /* Modules */,
 				591B237D2CE8E93700E737A5 /* UI Components */,
 				591B237C2CE8E92900E737A5 /* Extensions */,
-				591B23782CE8E86700E737A5 /* Application */,
-				591B23722CE8E79D00E737A5 /* Info.plist */,
-				591B237A2CE8E8EF00E737A5 /* Modules */,
 				591B23792CE8E88D00E737A5 /* Store */,
 			);
 			path = "Session-AmbientSounds";
@@ -118,6 +135,7 @@
 		591B23792CE8E88D00E737A5 /* Store */ = {
 			isa = PBXGroup;
 			children = (
+				591B23B52CE906C600E737A5 /* Poppins */,
 				591B23972CE8EA5900E737A5 /* Figtree */,
 				591B236D2CE8E79D00E737A5 /* Assets.xcassets */,
 			);
@@ -129,6 +147,8 @@
 			children = (
 				591B23A92CE8F6A600E737A5 /* Base */,
 				591B237B2CE8E91300E737A5 /* OnBoarding */,
+				59D9E4412CE9FF46007778F8 /* Mood */,
+				591B23B02CE8FF0900E737A5 /* Home */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -184,7 +204,6 @@
 			children = (
 				591B23A22CE8ECE700E737A5 /* OnboardingViewController.swift */,
 				591B23A42CE8ECE700E737A5 /* CustomPageControl.swift */,
-				591B23A12CE8ECE700E737A5 /* DummyViewController.swift */,
 				591B23A32CE8ECE700E737A5 /* OnboardingCell.swift */,
 			);
 			path = View;
@@ -205,6 +224,69 @@
 				591B23AA2CE8F6E400E737A5 /* BottomTabBarView.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		591B23B02CE8FF0900E737A5 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				591B23B82CE9113400E737A5 /* Model */,
+				591B23B12CE8FF3900E737A5 /* View */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		591B23B12CE8FF3900E737A5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				591B23B22CE8FF4900E737A5 /* HomeViewController.swift */,
+				591B23BB2CE911B900E737A5 /* MoodCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		591B23B52CE906C600E737A5 /* Poppins */ = {
+			isa = PBXGroup;
+			children = (
+				591B23B62CE90B3F00E737A5 /* Poppins-Medium.ttf */,
+			);
+			path = Poppins;
+			sourceTree = "<group>";
+		};
+		591B23B82CE9113400E737A5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				591B23B92CE9114100E737A5 /* Model.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		596151D62CEB18F000C34AFD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				59D9E4422CE9FFDE007778F8 /* MoodSelectionViewController.swift */,
+				59D9E4442CEA1522007778F8 /* MoodSelectionView.swift */,
+				596151DA2CEB1EDA00C34AFD /* CustomSliderView.swift */,
+				596151DC2CEB478F00C34AFD /* MoodViewController.swift */,
+				596151DE2CEB622F00C34AFD /* CustomSlider.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		596151D72CEB190500C34AFD /* UI Components */ = {
+			isa = PBXGroup;
+			children = (
+				596151D82CEB196C00C34AFD /* NavigationSlider.swift */,
+			);
+			path = "UI Components";
+			sourceTree = "<group>";
+		};
+		59D9E4412CE9FF46007778F8 /* Mood */ = {
+			isa = PBXGroup;
+			children = (
+				596151D72CEB190500C34AFD /* UI Components */,
+				596151D62CEB18F000C34AFD /* View */,
+			);
+			path = Mood;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -281,16 +363,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				591B23BA2CE9114100E737A5 /* Model.swift in Sources */,
 				591B23A72CE8ECE700E737A5 /* OnboardingCell.swift in Sources */,
+				596151DB2CEB1EDA00C34AFD /* CustomSliderView.swift in Sources */,
 				591B23872CE8E98500E737A5 /* View.swift in Sources */,
+				591B23BC2CE911B900E737A5 /* MoodCollectionViewCell.swift in Sources */,
 				591B23842CE8E98500E737A5 /* Button.swift in Sources */,
 				591B23AF2CE8F87600E737A5 /* ButtonWithImage.swift in Sources */,
 				591B23912CE8E9E200E737A5 /* UIColorExtensions.swift in Sources */,
+				591B23B32CE8FF4900E737A5 /* HomeViewController.swift in Sources */,
+				59D9E4432CE9FFDE007778F8 /* MoodSelectionViewController.swift in Sources */,
 				591B23AD2CE8F6E400E737A5 /* BaseViewController.swift in Sources */,
+				59D9E4452CEA1522007778F8 /* MoodSelectionView.swift in Sources */,
 				591B238E2CE8E9E200E737A5 /* UIViewControllerExtensions.swift in Sources */,
 				591B23852CE8E98500E737A5 /* Label.swift in Sources */,
+				596151DD2CEB478F00C34AFD /* MoodViewController.swift in Sources */,
+				596151DF2CEB622F00C34AFD /* CustomSlider.swift in Sources */,
 				591B23652CE8E79C00E737A5 /* AppDelegate.swift in Sources */,
 				591B23672CE8E79C00E737A5 /* SceneDelegate.swift in Sources */,
+				596151D92CEB196C00C34AFD /* NavigationSlider.swift in Sources */,
 				591B23862CE8E98500E737A5 /* ImageView.swift in Sources */,
 				591B23AC2CE8F6E400E737A5 /* BottomTabBarView.swift in Sources */,
 				591B238D2CE8E9E200E737A5 /* UIViewExtensions.swift in Sources */,
@@ -298,7 +389,6 @@
 				591B23A62CE8ECE700E737A5 /* OnboardingViewController.swift in Sources */,
 				591B23A02CE8ECDC00E737A5 /* OnboardingItem.swift in Sources */,
 				591B238F2CE8E9E200E737A5 /* UIFontExtension.swift in Sources */,
-				591B23A52CE8ECE700E737A5 /* DummyViewController.swift in Sources */,
 				591B23902CE8E9E200E737A5 /* AutoresizingExtension.swift in Sources */,
 				591B23A82CE8ECE700E737A5 /* CustomPageControl.swift in Sources */,
 			);
