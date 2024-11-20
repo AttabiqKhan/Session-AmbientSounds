@@ -29,7 +29,20 @@ class CustomSlider: UIView {
         
         return button
     }()
-    
+    private let leftImage: UIImageView = {
+        let iv = UIImageView()
+        iv.image = UIImage(systemName: "chevron.left")
+        iv.tintColor = .gray
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        return iv
+    }()
+    private let rightImage: UIImageView = {
+        let iv = UIImageView()
+        iv.image = UIImage(systemName: "chevron.right")
+        iv.tintColor = .gray
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        return iv
+    }()
     // Property to store the button's initial position
     private var circularButtonInitialX: CGFloat = 4
     
@@ -60,14 +73,26 @@ class CustomSlider: UIView {
         
         // Add circular button
         addSubview(circularButton)
+        circularButton.addSubview(leftImage)
+        circularButton.addSubview(rightImage)
         
         NSLayoutConstraint.activate([
             self.heightAnchor.constraint(equalToConstant: 48.autoSized),
             
             circularButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: circularButtonInitialX),
-            circularButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 4.autoSized),
-            circularButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -4.autoSized),
-            circularButton.widthAnchor.constraint(equalTo: circularButton.heightAnchor)
+            circularButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 3.autoSized),
+            circularButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -3.autoSized),
+            circularButton.widthAnchor.constraint(equalTo: circularButton.heightAnchor),
+            
+            leftImage.leadingAnchor.constraint(equalTo: circularButton.leadingAnchor, constant: 6.widthRatio),
+            leftImage.widthAnchor.constraint(equalToConstant: 4.widthRatio),
+            leftImage.heightAnchor.constraint(equalToConstant: 8.autoSized),
+            leftImage.centerYAnchor.constraint(equalTo: circularButton.centerYAnchor),
+            
+            rightImage.trailingAnchor.constraint(equalTo: circularButton.trailingAnchor, constant: -6.widthRatio),
+            rightImage.widthAnchor.constraint(equalToConstant: 4.widthRatio),
+            rightImage.heightAnchor.constraint(equalToConstant: 8.autoSized),
+            rightImage.centerYAnchor.constraint(equalTo: circularButton.centerYAnchor),
         ])
         
         // Add Pan Gesture Recognizer

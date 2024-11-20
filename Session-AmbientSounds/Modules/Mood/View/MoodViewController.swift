@@ -59,7 +59,7 @@ enum MoodStates {
         case 0.8..<1.0:
             return .veryPleasant
         default:
-            return .neutral // Default to neutral if out of range
+            return .veryPleasant 
         }
     }
 }
@@ -94,6 +94,7 @@ class MoodViewController: UIViewController {
     private let emojiLabel: UILabel = {
         let label = UILabel()
         label.font = .poppinsMedium(ofSize: 72.autoSized)
+        label.text = "😢"
         label.textAlignment = .center
         return label
     }()
@@ -102,6 +103,7 @@ class MoodViewController: UIViewController {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 28.autoSized)
         label.textColor = .darkGray
+        label.text = "Very Unpleasant"
         label.textAlignment = .center
         return label
     }()
