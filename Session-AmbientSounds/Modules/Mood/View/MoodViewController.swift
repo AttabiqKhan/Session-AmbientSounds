@@ -150,6 +150,7 @@ class MoodViewController: UIViewController {
         setupUI()
     }
     
+    // MARK: - Functions
     private func setupUI() {
         view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         containerView.layer.cornerRadius = 40.autoSized
