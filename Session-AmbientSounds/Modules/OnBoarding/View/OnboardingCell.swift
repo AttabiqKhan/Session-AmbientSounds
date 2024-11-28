@@ -10,7 +10,7 @@ import UIKit
 
 class OnboardingCell: UICollectionViewCell {
         
-    // MARK: - UI Components
+    // MARK: - UI Elements
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -34,7 +34,7 @@ class OnboardingCell: UICollectionViewCell {
         return label
     }()
     
-    // MARK: - Initialization
+    // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -43,10 +43,9 @@ class OnboardingCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Overriden Functions
+    // MARK: - Reusability
     override func prepareForReuse() {
         super.prepareForReuse()
-
         imageView.image = nil
         titleLabel.text = nil
         subtitleLabel.text = nil
@@ -62,7 +61,7 @@ class OnboardingCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 131.autoSized),
             imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: 212.widthRatio),
+            imageView.widthAnchor.constraint(equalToConstant: 212.autoSized),
             imageView.heightAnchor.constraint(equalToConstant: 272.autoSized),
             
             titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 24.autoSized),

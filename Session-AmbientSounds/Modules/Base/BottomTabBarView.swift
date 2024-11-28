@@ -14,15 +14,18 @@ protocol BottomTabBarDelegate: AnyObject {
 
 class BottomTabBarView: UIView {
     
+    // MARK: - UI Elements
     private let borderView = View(backgroundColor: .greyishPurple)
     private let homeButton = TabBarButton(buttonText: "Home", buttonImage: "home_icon")
     private let soundsButton = TabBarButton(buttonText: "Sounds", buttonImage: "sounds_icon")
     private let addButton = ButtonWithImage(imageName: "add_icon", backgroundColor: .dustyOrange, cornerRadius: 40)
     private let exploreButton = TabBarButton(buttonText: "Explore", buttonImage: "explore_icon")
     private let libraryButton = TabBarButton(buttonText: "Library", buttonImage: "library_icon")
-    var delegate: BottomTabBarDelegate?
-
     
+    // MARK: - Properties
+    var delegate: BottomTabBarDelegate?
+    
+    // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -30,10 +33,11 @@ class BottomTabBarView: UIView {
         setupViews()
         handleTaps()
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Functions
     private func setupViews() {
         addSubview(borderView)
         addSubview(homeButton)
@@ -73,22 +77,26 @@ class BottomTabBarView: UIView {
         exploreButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedExplore)))
         exploreButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedLibrary)))
     }
+    
+    // MARK: - Selectors
     @objc func tappedHome() {delegate?.didSelectTab(.home)}
     @objc func tappedSounds() {delegate?.didSelectTab(.sounds)}
     @objc func tappedAdd() {delegate?.didSelectTab(.add)}
     @objc func tappedExplore() {delegate?.didSelectTab(.explore)}
     @objc func tappedLibrary() {delegate?.didSelectTab(.library)}
 }
-    
+
 class TabBarButton: UIView {
     
+    // MARK: - UI Elements
     private let buttonImage = ImageView(imageName: "home_icon")
-    //private let buttonLabel = Label(texttitle: "Home", textcolor: .black, font: .semiBold(ofSize: 11), numOflines: 0, textalignment: .center)
     private let buttonLabel: Label = {
         let label = Label(text: "Home", textAlignment: .center)
         label.font = .semiBold(ofSize: 11.autoSized)
         return label
     }()
+    
+    // MARK: - Initializers
     init(buttonText: String, buttonImage: String) {
         self.buttonImage.image = UIImage(named: buttonImage)
         self.buttonLabel.text = buttonText
@@ -97,16 +105,16 @@ class TabBarButton: UIView {
         self.backgroundColor = .clear
         setupViews()
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Functions
     private func setupViews() {
         addSubview(buttonImage)
         addSubview(buttonLabel)
         
         NSLayoutConstraint.activate([
-            
             buttonImage.topAnchor.constraint(equalTo: topAnchor, constant: 20.autoSized),
             buttonImage.heightAnchor.constraint(equalToConstant: 20.autoSized),
             buttonImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24.widthRatio),
@@ -115,7 +123,6 @@ class TabBarButton: UIView {
             buttonLabel.topAnchor.constraint(equalTo: buttonImage.bottomAnchor, constant: 8.autoSized),
             buttonLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             buttonLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20.autoSized),
-        
         ])
     }
 }

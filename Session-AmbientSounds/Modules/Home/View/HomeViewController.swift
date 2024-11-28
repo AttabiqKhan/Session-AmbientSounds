@@ -9,6 +9,7 @@ import UIKit
 
 class HomeViewController: BaseViewController {
     
+    // MARK: - UI Elements
     private let headingLabel: Label = {
         let label = Label(text: "Based on\nyour mood", textAlignment: .left, numberOfLines: 0, textColor: .black)
         label.font = .bold(ofSize: 28.autoSized)
@@ -17,8 +18,6 @@ class HomeViewController: BaseViewController {
     private let emojiView = View(backgroundColor: .emojiBackground, cornerRadius: 24.autoSized)
     private let emoji: Label = {
         let label = Label(text: "🙂")
-        //label.font = UIFont(name: "Poppins-Medium", size: 32)
-        //label.font = .boldSystemFont(ofSize: 32)
         label.font = .poppinsMedium(ofSize: 32)
         return label
     }()
@@ -34,12 +33,13 @@ class HomeViewController: BaseViewController {
         return collectionView
     }()
     
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        emojiView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapEmojiView)))
     }
     
+    // MARK: - Functions
     override func setupViews() {
         super.setupViews()
         view.addSubview(headingLabel)
@@ -64,20 +64,11 @@ class HomeViewController: BaseViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25.widthRatio),
             //collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20.autoSized)
         ])
+        emojiView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapEmojiView)))
     }
+    
+    // MARK: - Selectors
     @objc private func didTapEmojiView() {
-//        bottomTabBar.alpha = 0
-//        let moodSelectionView = MoodSelectionView()
-//        moodSelectionView.layer.cornerRadius = 40.autoSized
-//        moodSelectionView.translatesAutoresizingMaskIntoConstraints = false
-//        view.addSubview(moodSelectionView)
-//        
-//        NSLayoutConstraint.activate([
-//            moodSelectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            moodSelectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            moodSelectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-//            moodSelectionView.heightAnchor.constraint(equalToConstant: 596.autoSized)
-//        ])
         let controller = MoodViewController()
         controller.modalPresentationStyle = .overCurrentContext
         self.present(controller, animated: false)
@@ -85,15 +76,13 @@ class HomeViewController: BaseViewController {
 }
 
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 4
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MoodCollectionViewCell.identifier, for: indexPath) as! MoodCollectionViewCell
         cell.backgroundColor = .midnightPurple
         return cell
     }
-    
-    
 }

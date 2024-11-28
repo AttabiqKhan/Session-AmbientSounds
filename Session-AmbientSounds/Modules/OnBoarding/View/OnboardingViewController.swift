@@ -10,6 +10,37 @@ import UIKit
 
 class OnboardingViewController: UIViewController {
     
+    // MARK: - UI Elements
+    private lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        layout.sectionInset = .zero
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .clear
+        collectionView.isPagingEnabled = true
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(OnboardingCell.self, forCellWithReuseIdentifier: "OnboardingCell")
+        collectionView.bounces = false
+        return collectionView
+    }()
+    private lazy var pageControl: CustomPageControl = {
+        let pageControl = CustomPageControl(numberOfPages: onboardingItems.count)
+        return pageControl
+    }()
+    private lazy var actionButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = .midnightPurple
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 32.autoSized
+        button.setTitle("Next", for: .normal)
+        button.titleLabel?.font = UIFont(name: "Figtree-SemiBold", size: 16.autoSized)
+        button.addTarget(self, action: #selector(actionButtonTapped), for: .touchUpInside)
+        return button
+    }()
     
     // MARK: - Properties
     private let onboardingItems: [OnboardingItem] = [
@@ -33,40 +64,7 @@ class OnboardingViewController: UIViewController {
         )
     ]
     
-    // MARK: - UI Components
-    private lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0
-        layout.sectionInset = .zero
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .clear
-        collectionView.isPagingEnabled = true
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(OnboardingCell.self, forCellWithReuseIdentifier: "OnboardingCell")
-        collectionView.bounces = false // Prevent bouncing at edges
-        return collectionView
-    }()
-    private lazy var pageControl: CustomPageControl = {
-        let pageControl = CustomPageControl(numberOfPages: onboardingItems.count)
-        return pageControl
-    }()
-    private lazy var actionButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = .midnightPurple
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 32.autoSized
-        button.setTitle("Next", for: .normal)
-        //button.titleLabel.font = .semiBold(ofSize: 16.autoSized)
-        button.titleLabel?.font = UIFont(name: "Figtree-SemiBold", size: 16.autoSized)
-        button.addTarget(self, action: #selector(actionButtonTapped), for: .touchUpInside)
-        return button
-    }()
-    
-    // MARK: - Overriden Functions
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -85,7 +83,6 @@ class OnboardingViewController: UIViewController {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
         }
-        
         NSLayoutConstraint.activate([
             pageControl.bottomAnchor.constraint(equalTo: actionButton.topAnchor, constant: -32.autoSized),
             pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -97,28 +94,28 @@ class OnboardingViewController: UIViewController {
         ])
     }
     func updateActionButtonTitle(for item: OnboardingItem) {
-            if item.isLastItem {
-                actionButton.setTitle("Done", for: .normal)
-            } else {
-                actionButton.setTitle("Next", for: .normal)
-            }
+        if item.isLastItem {
+            actionButton.setTitle("Done", for: .normal)
+        } else {
+            actionButton.setTitle("Next", for: .normal)
         }
+    }
     
     // MARK: - Selectors
+    // Note: actionButtonTapped function may seem difficult to understand hence the comments are written
     @objc private func actionButtonTapped() {
         let currentIndex = pageControl.currentPage
         print("Current Index: \(currentIndex)")
-
+        
         if currentIndex == onboardingItems.count - 1 {
             // Navigate to the next view controller after the last page
             let vc = HomeViewController()
             navigationController?.pushViewController(vc, animated: true)
-            print("Life is beautiful")
         } else {
             // Calculate the next index's offset
             let nextIndex = currentIndex + 1
             let contentOffset = CGPoint(x: CGFloat(nextIndex) * collectionView.frame.width, y: 0)
-
+            
             // Scroll to the next page using contentOffset
             collectionView.setContentOffset(contentOffset, animated: false)
             

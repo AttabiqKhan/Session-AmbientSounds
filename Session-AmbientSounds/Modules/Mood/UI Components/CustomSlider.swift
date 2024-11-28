@@ -15,63 +15,59 @@ protocol CustomSliderDelegate: AnyObject {
 
 class CustomSlider: UIView {
     
+    // MARK: - UI Elements
     private let circularButton: CircularView = {
         let button = CircularView()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .white
-        
-        // Shadow properties
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.3
-        button.layer.shadowOffset = CGSize(width: 2, height: 2)
-        button.layer.shadowRadius = 4
-        button.layer.masksToBounds = false // Ensure shadow isn't clipped
-        
+        button.layer.shadowOffset = CGSize(width: 2.autoSized, height: 2.autoSized)
+        button.layer.shadowRadius = 4.autoSized
+        button.layer.masksToBounds = false
         return button
     }()
     private let leftImage: UIImageView = {
         let iv = UIImageView()
-        iv.image = UIImage(systemName: "chevron.left")
+        iv.image = UIImage(named: "left_chevron")
         iv.tintColor = .gray
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
     }()
     private let rightImage: UIImageView = {
         let iv = UIImageView()
-        iv.image = UIImage(systemName: "chevron.right")
+        iv.image = UIImage(named: "right_chevron")
         iv.tintColor = .gray
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
     }()
-    // Property to store the button's initial position
-    private var circularButtonInitialX: CGFloat = 4
     
+    // MARK: - Properties
+    private var circularButtonInitialX: CGFloat = 4
     override var bounds: CGRect {
         didSet {
             self.layer.cornerRadius = self.bounds.height / 2
         }
     }
-    
     weak var delegate: CustomSliderDelegate?
     
+    // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
     }
-    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupView()
     }
     
+    // MARK: - Functions
     private func setupView() {
-        // Setup slider background
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = .sliderContainerColor
         self.layer.borderColor = UIColor.sliderBorderColor.cgColor
         self.layer.borderWidth = 1
         
-        // Add circular button
         addSubview(circularButton)
         circularButton.addSubview(leftImage)
         circularButton.addSubview(rightImage)
@@ -85,22 +81,21 @@ class CustomSlider: UIView {
             circularButton.widthAnchor.constraint(equalTo: circularButton.heightAnchor),
             
             leftImage.leadingAnchor.constraint(equalTo: circularButton.leadingAnchor, constant: 6.widthRatio),
-            leftImage.widthAnchor.constraint(equalToConstant: 4.widthRatio),
+            leftImage.widthAnchor.constraint(equalToConstant: 4.autoSized),
             leftImage.heightAnchor.constraint(equalToConstant: 8.autoSized),
             leftImage.centerYAnchor.constraint(equalTo: circularButton.centerYAnchor),
             
             rightImage.trailingAnchor.constraint(equalTo: circularButton.trailingAnchor, constant: -6.widthRatio),
-            rightImage.widthAnchor.constraint(equalToConstant: 4.widthRatio),
+            rightImage.widthAnchor.constraint(equalToConstant: 4.autoSized),
             rightImage.heightAnchor.constraint(equalToConstant: 8.autoSized),
             rightImage.centerYAnchor.constraint(equalTo: circularButton.centerYAnchor),
         ])
-        
-        // Add Pan Gesture Recognizer
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
         circularButton.addGestureRecognizer(panGesture)
-        circularButton.isUserInteractionEnabled = true
     }
     
+    // MARK: - Selectors
+    // Note: handlePanGesture function may seem difficult to understand hence the comments are written
     @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: self)
         gesture.setTranslation(.zero, in: self) // Reset translation to avoid compounding

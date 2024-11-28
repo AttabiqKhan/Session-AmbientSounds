@@ -59,7 +59,7 @@ enum MoodStates {
         case 0.8..<1.0:
             return .veryPleasant
         default:
-            return .veryPleasant 
+            return .veryPleasant
         }
     }
 }
@@ -73,7 +73,6 @@ class MoodViewController: UIViewController {
         view.layer.cornerRadius = 2.5
         return view
     }()
-    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "How are you feeling\ntoday?"
@@ -83,14 +82,12 @@ class MoodViewController: UIViewController {
         label.numberOfLines = 2
         return label
     }()
-    
     private let emojiContainer: UIView = {
         let view = UIView()
         view.backgroundColor = .lightGray
         view.layer.cornerRadius = 76.autoSized
         return view
     }()
-    
     private let emojiLabel: UILabel = {
         let label = UILabel()
         label.font = .poppinsMedium(ofSize: 72.autoSized)
@@ -98,7 +95,6 @@ class MoodViewController: UIViewController {
         label.textAlignment = .center
         return label
     }()
-    
     private let moodDescriptionLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 28.autoSized)
@@ -107,27 +103,6 @@ class MoodViewController: UIViewController {
         label.textAlignment = .center
         return label
     }()
-    
-    //    private lazy var moodSlider: UISlider = {
-    //        let slider = UISlider()
-    //        slider.minimumValue = 0
-    //        slider.maximumValue = 4
-    //        slider.value = 2 // Start at neutral
-    //        slider.minimumTrackTintColor = .gray
-    //        slider.maximumTrackTintColor = .lightGray
-    //        slider.thumbTintColor = .purple
-    //        slider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
-    //        return slider
-    //    }()
-    //        private lazy var moodSlider: CustomSliderView = {
-    //            let slider = CustomSliderView()
-    //            slider.minimumValue = 0
-    //            slider.maximumValue = 4
-    //            slider.currentValue = 2 // Start at neutral
-    //            slider.translatesAutoresizingMaskIntoConstraints = false
-    ////            slider.delegate = self
-    //            return slider
-    //        }()
     private lazy var moodSlider: CustomSlider = {
         let slider = CustomSlider()
         slider.delegate = self
@@ -144,12 +119,14 @@ class MoodViewController: UIViewController {
         return button
     }()
     
-    // View lifecycle
+    // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        addPanGesture()
     }
     
+    // MARK: - Functions
     private func setupUI() {
         view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         containerView.layer.cornerRadius = 40.autoSized
@@ -159,12 +136,10 @@ class MoodViewController: UIViewController {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         view.addSubview(containerView)
-        containerView.addSubview(lineView)
-        containerView.addSubview(titleLabel)
-        containerView.addSubview(emojiContainer)
-        containerView.addSubview(moodDescriptionLabel)
-        containerView.addSubview(moodSlider)
-        containerView.addSubview(doneButton)
+        
+        [lineView, titleLabel, emojiContainer, moodDescriptionLabel, moodSlider, doneButton].forEach {
+            containerView.addSubview($0)
+        }
         emojiContainer.addSubview(emojiLabel)
         
         NSLayoutConstraint.activate([
@@ -183,7 +158,7 @@ class MoodViewController: UIViewController {
             emojiContainer.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 32.autoSized),
             emojiContainer.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             emojiContainer.heightAnchor.constraint(equalToConstant: 152.autoSized),
-            emojiContainer.widthAnchor.constraint(equalToConstant: 152.widthRatio),
+            emojiContainer.widthAnchor.constraint(equalToConstant: 152.autoSized),
             
             emojiLabel.centerYAnchor.constraint(equalTo: emojiContainer.centerYAnchor),
             emojiLabel.centerXAnchor.constraint(equalTo: emojiContainer.centerXAnchor),
@@ -201,39 +176,73 @@ class MoodViewController: UIViewController {
             doneButton.heightAnchor.constraint(equalToConstant: 64.autoSized),
             doneButton.bottomAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.bottomAnchor, constant: -32.autoSized)
         ])
-        
-        //updateMood(for: moodSlider.currentValue)
+    }
+    private func addPanGesture() {
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
+        view.addGestureRecognizer(panGesture)
+    }
+    private func dismissSelf() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.containerView.transform = CGAffineTransform(translationX: 0, y: self.view.bounds.height)
+            self.view.backgroundColor = .clear
+        }, completion: { _ in
+            self.dismiss(animated: false, completion: nil)
+        })
+    }
+    private func presentSelf() {
+        containerView.transform = CGAffineTransform(translationX: 0, y: view.bounds.height)
+        UIView.animate(withDuration: 0.3) {
+            self.view.backgroundColor = UIColor.black.withAlphaComponent(0.4)
+            self.containerView.transform = .identity
+        }
     }
     
-    //    @objc private func sliderValueChanged(_ sender: UISlider) {
-    //        updateMood(for: sender.value)
-    //    }
-    
-    //    private func updateMood(for value: Float) {
-    //        let mood: (emoji: String, description: String, color: UIColor)
-    //
-    //        switch value {
-    //        case 0..<1:
-    //            mood = ("😢", "Very Unpleasant", UIColor(red: 0.5, green: 0.2, blue: 0.7, alpha: 1.0))
-    //        case 1..<2:
-    //            mood = ("😕", "Unpleasant", UIColor(red: 0.2, green: 0.4, blue: 0.8, alpha: 1.0))
-    //        case 2..<3:
-    //            mood = ("😐", "Neutral", UIColor(red: 0.3, green: 0.8, blue: 0.8, alpha: 1.0))
-    //        case 3..<4:
-    //            mood = ("😊", "Pleasant", UIColor(red: 0.4, green: 0.8, blue: 0.6, alpha: 1.0))
-    //        default:
-    //            mood = ("😁", "Very Pleasant", UIColor(red: 1.0, green: 0.8, blue: 0.3, alpha: 1.0))
-    //        }
-    //
-    //        emojiLabel.text = mood.emoji
-    //        moodDescriptionLabel.text = mood.description
-    //    }
-    
+    // MARK: - Selectors
+    // Note: handlePanGesture function may seem difficult to understand hence the comments are written
+    @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
+        // Get the vertical translation of the gesture relative to the containerView.
+        let translation = gesture.translation(in: containerView)
+        
+        // Calculate the progress of the drag as a fraction of the containerView's height.
+        let progress = translation.y / containerView.bounds.height
+        
+        switch gesture.state {
+        case .changed:
+            // If the user is dragging downwards (positive Y direction), update the containerView's position.
+            if translation.y > 0 {
+                containerView.transform = CGAffineTransform(translationX: 0, y: translation.y)
+            }
+            
+        case .ended, .cancelled:
+            // Get the vertical velocity of the gesture.
+            let velocity = gesture.velocity(in: containerView).y
+            
+            // Determine if the gesture should result in dismissing the view.
+            // Conditions:
+            // 1. Drag progress exceeds 30% of the containerView's height.
+            // 2. Gesture velocity exceeds 1000 points per second in the downward direction.
+            let shouldDismiss = progress > 0.3 || velocity > 1000
+            if shouldDismiss {
+                // If dismiss conditions are met, dismiss the view.
+                dismissSelf()
+            } else {
+                // If dismiss conditions are not met, animate the containerView back to its original position.
+                UIView.animate(withDuration: 0.3) {
+                    self.containerView.transform = .identity
+                }
+            }
+            
+        default:
+            // Do nothing for other gesture states.
+            break
+        }
+    }
     @objc private func doneButtonTapped() {
         dismiss(animated: true, completion: nil)
     }
 }
 
+// MARK: - To handle the changes when slider is moved
 extension MoodViewController: CustomSliderDelegate {
     
     func customSliderDidChangeValue(_ slider: CustomSlider, value: CGFloat) {

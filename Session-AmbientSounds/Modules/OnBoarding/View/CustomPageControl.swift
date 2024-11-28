@@ -9,7 +9,10 @@ import UIKit
 
 class CustomPageControl: UIView {
     
-    // MARK: - Variables
+    // MARK: - UI Elements
+    private var indicatorViews: [UIView] = []
+    
+    // MARK: - Properties
     private var numberOfPages: Int = 0
     var currentPage: Int = 0 {
         didSet {
@@ -20,8 +23,12 @@ class CustomPageControl: UIView {
     private let inactiveIndicatorWidth: CGFloat = 24.autoSized
     private let indicatorHeight: CGFloat = 4.autoSized
     private let spacing: CGFloat = 8.autoSized
-    private var indicatorViews: [UIView] = []
-    
+    override var intrinsicContentSize: CGSize {
+        let totalWidth = activeIndicatorWidth +
+        CGFloat(numberOfPages - 1) * (inactiveIndicatorWidth + spacing)
+        return CGSize(width: totalWidth, height: indicatorHeight)
+    }
+   
     // MARK: - Initializers
     init(numberOfPages: Int) {
         super.init(frame: .zero)
@@ -32,7 +39,7 @@ class CustomPageControl: UIView {
         super.init(coder: coder)
     }
     
-    // MARK: - Overriden Functions
+    // MARK: - LifeCycle
     override func layoutSubviews() {
         super.layoutSubviews()
         updateIndicators()
@@ -79,9 +86,5 @@ class CustomPageControl: UIView {
         updateIndicators()
     }
     
-    override var intrinsicContentSize: CGSize {
-        let totalWidth = activeIndicatorWidth +
-            CGFloat(numberOfPages - 1) * (inactiveIndicatorWidth + spacing)
-        return CGSize(width: totalWidth, height: indicatorHeight)
-    }
+  
 }
