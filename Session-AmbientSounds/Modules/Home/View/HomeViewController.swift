@@ -69,7 +69,7 @@ class HomeViewController: BaseViewController {
     
     // MARK: - Selectors
     @objc private func didTapEmojiView() {
-        let controller = MoodViewController()
+        let controller = PlayViewController()
         controller.modalPresentationStyle = .overCurrentContext
         self.present(controller, animated: false)
     }

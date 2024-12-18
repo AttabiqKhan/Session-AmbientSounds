@@ -122,10 +122,3 @@ class CustomSlider: UIView {
     }
 }
 
-class CircularView: UIView {
-    override var bounds: CGRect {
-        didSet {
-            self.layer.cornerRadius = self.bounds.height / 2
-        }
-    }
-}

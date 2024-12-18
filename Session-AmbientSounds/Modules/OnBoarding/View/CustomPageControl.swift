@@ -85,6 +85,4 @@ class CustomPageControl: UIView {
         currentPage = page
         updateIndicators()
     }
-    
-  
 }

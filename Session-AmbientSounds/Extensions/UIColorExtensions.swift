@@ -5,7 +5,6 @@
 //  Created by Ali on 30/10/2024.
 //
 
-//import Foundation
 import UIKit
 
 public extension UIColor {
@@ -54,5 +53,68 @@ public extension UIColor {
     }
     @nonobjc class var sliderBorderColor: UIColor {
         return UIColor(red: 0.0 / 255.0, green: 0.0 / 255.0, blue: 0.0 / 255.0, alpha: 0.05)
+    }
+    @nonobjc class var imageContainerBorderColor: UIColor {
+        return UIColor(red: 0.0 / 255.0, green: 0.0 / 255.0, blue: 0.0 / 255.0, alpha: 0.14)
+    }
+    @nonobjc class var tertiary: UIColor {
+        return UIColor(red: 249 / 255.0, green: 249 / 255.0, blue: 249 / 255.0, alpha: 0.7)
+    }
+    @nonobjc class var rainColor: UIColor {
+        return UIColor(red: 242 / 255.0, green: 249 / 255.0, blue: 249 / 255.0, alpha: 1)
+    }
+    @nonobjc class var forestColor: UIColor {
+        return UIColor(red: 243 / 255.0, green: 255 / 255.0, blue: 243 / 255.0, alpha: 1)
+    }
+    @nonobjc class var scubaColor: UIColor {
+        return UIColor(red: 242 / 255.0, green: 254 / 255.0, blue: 249 / 255.0, alpha: 1)
+    }
+    @nonobjc class var birdsColor: UIColor {
+        return UIColor(red: 255 / 255.0, green: 252 / 255.0, blue: 242 / 255.0, alpha: 1)
+    }
+    @nonobjc class var wavesColor: UIColor {
+        return UIColor(red: 242 / 255.0, green: 255 / 255.0, blue: 252 / 255.0, alpha: 1)
+    }
+    @nonobjc class var dropletsColor: UIColor {
+        return UIColor(red: 241 / 255.0, green: 244 / 255.0, blue: 255 / 255.0, alpha: 1)
+    }
+    @nonobjc class var pianoColor: UIColor {
+        return UIColor(red: 245 / 255.0, green: 242 / 255.0, blue: 249 / 255.0, alpha: 1)
+    }
+    @nonobjc class var orchestraColor: UIColor {
+        return UIColor(red: 255 / 255.0, green: 242 / 255.0, blue: 245 / 255.0, alpha: 1)
+    }
+    @nonobjc class var guitarColor: UIColor {
+        return UIColor(red: 255 / 255.0, green: 248 / 255.0, blue: 242 / 255.0, alpha: 1)
+    }
+    @nonobjc class var drumsColor: UIColor {
+        return UIColor(red: 255 / 255.0, green: 242 / 255.0, blue: 242 / 255.0, alpha: 1)
+    }
+    @nonobjc class var thunderColor: UIColor {
+        return UIColor(red: 242 / 255.0, green: 246 / 255.0, blue: 255 / 255.0, alpha: 1)
+    }
+    @nonobjc class var windColor: UIColor {
+        return UIColor(red: 242 / 255.0, green: 255 / 255.0, blue: 254 / 255.0, alpha: 1)
+    }
+    @nonobjc class var nightColor: UIColor {
+        return UIColor(red: 251 / 255.0, green: 242 / 255.0, blue: 255 / 255.0, alpha: 1)
+    }
+    @nonobjc class var morningColor: UIColor {
+        return UIColor(red: 255 / 255.0, green: 247 / 255.0, blue: 242 / 255.0, alpha: 1)
+    }
+    @nonobjc class var snowColor: UIColor {
+        return UIColor(red: 242 / 255.0, green: 251 / 255.0, blue: 255 / 255.0, alpha: 1)
+    }
+    @nonobjc class var coffeeColor: UIColor {
+        return UIColor(red: 255 / 255.0, green: 249 / 255.0, blue: 242 / 255.0, alpha: 1)
+    }
+    @nonobjc class var fireColor: UIColor {
+        return UIColor(red: 255 / 255.0, green: 246 / 255.0, blue: 242 / 255.0, alpha: 1)
+    }
+    @nonobjc class var libraryColor: UIColor {
+        return UIColor(red: 255 / 255.0, green: 249 / 255.0, blue: 242 / 255.0, alpha: 1)
+    }
+    @nonobjc class var lavenderMist: UIColor {
+        return UIColor(red: 100.0 / 255.0, green: 73.0 / 255.0, blue: 133.0 / 255.0, alpha: 1.0)
     }
 }

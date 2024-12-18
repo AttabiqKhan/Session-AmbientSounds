@@ -1,6 +1,6 @@
 //
 //  OnboardingItem.swift
-//  DummyOnboarding
+//
 //
 //  Created by Attabiq Khan on 04/11/2024.
 //

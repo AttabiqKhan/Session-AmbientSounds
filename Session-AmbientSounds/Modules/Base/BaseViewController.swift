@@ -1,6 +1,6 @@
 //
 //  BaseViewController.swift
-//  AmbientSoundApp
+//  
 //
 //  Created by Ali on 30/10/2024.
 //
@@ -22,6 +22,7 @@ class BaseViewController: UIViewController {
     
     init() {
         super.init(nibName: nil, bundle: nil)
+        bottomTabBar.delegate = self
     }
     required public init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -48,15 +49,15 @@ extension BaseViewController: BottomTabBarDelegate {
     func didSelectTab(_ tab: TabBarFeatures) {
         switch tab {
         case .home:
-            print("")
+            print("Home")
         case .sounds:
-            print("")
+            print("Sounds")
         case .add:
-            print("")
+            print("Add")
         case .explore:
-            print("")
+            print("Explore")
         case .library:
-            print("")
+            print("Library")
         }
     }
 }

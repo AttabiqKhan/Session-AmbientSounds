@@ -66,6 +66,7 @@ enum MoodStates {
 
 class MoodViewController: UIViewController {
     
+    // MARK: - UI Elements
     private let containerView = View(backgroundColor: .white)
     private let lineView: UIView = {
         let view = UIView()

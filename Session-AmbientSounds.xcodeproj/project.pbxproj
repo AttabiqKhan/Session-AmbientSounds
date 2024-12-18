@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5913DE902CF85B7E00BC04E8 /* PlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5913DE8F2CF85B7E00BC04E8 /* PlayViewController.swift */; };
+		5913DE922CF8670A00BC04E8 /* CircularView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5913DE912CF8670A00BC04E8 /* CircularView.swift */; };
 		591B23652CE8E79C00E737A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591B23642CE8E79C00E737A5 /* AppDelegate.swift */; };
 		591B23672CE8E79C00E737A5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591B23662CE8E79C00E737A5 /* SceneDelegate.swift */; };
 		591B236E2CE8E79D00E737A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 591B236D2CE8E79D00E737A5 /* Assets.xcassets */; };
@@ -35,11 +37,36 @@
 		591B23B32CE8FF4900E737A5 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591B23B22CE8FF4900E737A5 /* HomeViewController.swift */; };
 		591B23BA2CE9114100E737A5 /* Mood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591B23B92CE9114100E737A5 /* Mood.swift */; };
 		591B23BC2CE911B900E737A5 /* MoodCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591B23BB2CE911B900E737A5 /* MoodCollectionViewCell.swift */; };
+		5960B1912D01837100C8068C /* coffee shop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5960B17B2D01837000C8068C /* coffee shop.mp3 */; };
+		5960B1922D01837100C8068C /* fire.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5960B17C2D01837000C8068C /* fire.mp3 */; };
+		5960B1932D01837100C8068C /* library.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5960B17D2D01837000C8068C /* library.mp3 */; };
+		5960B1942D01837100C8068C /* drums.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5960B17F2D01837000C8068C /* drums.mp3 */; };
+		5960B1952D01837100C8068C /* guitar.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5960B1802D01837000C8068C /* guitar.mp3 */; };
+		5960B1962D01837100C8068C /* orchestra.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5960B1812D01837000C8068C /* orchestra.mp3 */; };
+		5960B1972D01837100C8068C /* piano.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5960B1822D01837000C8068C /* piano.mp3 */; };
+		5960B1982D01837100C8068C /* birds.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5960B1842D01837000C8068C /* birds.mp3 */; };
+		5960B1992D01837100C8068C /* droplets.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5960B1852D01837000C8068C /* droplets.mp3 */; };
+		5960B19A2D01837100C8068C /* forest.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5960B1862D01837000C8068C /* forest.mp3 */; };
+		5960B19B2D01837100C8068C /* rain.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5960B1872D01837000C8068C /* rain.mp3 */; };
+		5960B19C2D01837100C8068C /* scuba.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5960B1882D01837000C8068C /* scuba.mp3 */; };
+		5960B19D2D01837100C8068C /* waves.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5960B1892D01837000C8068C /* waves.mp3 */; };
+		5960B19E2D01837100C8068C /* morning.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5960B18B2D01837000C8068C /* morning.mp3 */; };
+		5960B19F2D01837100C8068C /* night.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5960B18C2D01837000C8068C /* night.mp3 */; };
+		5960B1A02D01837100C8068C /* Thunder.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5960B18D2D01837000C8068C /* Thunder.mp3 */; };
+		5960B1A12D01837100C8068C /* wind.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5960B18E2D01837000C8068C /* wind.mp3 */; };
 		596151DD2CEB478F00C34AFD /* MoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 596151DC2CEB478F00C34AFD /* MoodViewController.swift */; };
 		596151DF2CEB622F00C34AFD /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 596151DE2CEB622F00C34AFD /* CustomSlider.swift */; };
+		59CC31BA2D1187F700F9DDAE /* ColorsForSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CC31B92D1187F700F9DDAE /* ColorsForSound.swift */; };
+		59CC31BC2D11A65800F9DDAE /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CC31BB2D11A65800F9DDAE /* AlertController.swift */; };
+		59DBE2722D0F268C0085B8A1 /* RecommendedSoundCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DBE2712D0F268C0085B8A1 /* RecommendedSoundCollectionViewCell.swift */; };
+		59DBE2752D0F285B0085B8A1 /* SoundCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DBE2742D0F285B0085B8A1 /* SoundCategory.swift */; };
+		59DD9C212D129F4300EC91A0 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DD9C202D129F4300EC91A0 /* UIApplication.swift */; };
+		59E751292CF995A000FAE5F8 /* RenamingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E751282CF9959F00FAE5F8 /* RenamingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5913DE8F2CF85B7E00BC04E8 /* PlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayViewController.swift; sourceTree = "<group>"; };
+		5913DE912CF8670A00BC04E8 /* CircularView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularView.swift; sourceTree = "<group>"; };
 		591B23612CE8E79C00E737A5 /* Session-AmbientSounds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Session-AmbientSounds.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		591B23642CE8E79C00E737A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		591B23662CE8E79C00E737A5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -71,8 +98,31 @@
 		591B23B62CE90B3F00E737A5 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
 		591B23B92CE9114100E737A5 /* Mood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mood.swift; sourceTree = "<group>"; };
 		591B23BB2CE911B900E737A5 /* MoodCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodCollectionViewCell.swift; sourceTree = "<group>"; };
+		5960B17B2D01837000C8068C /* coffee shop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "coffee shop.mp3"; sourceTree = "<group>"; };
+		5960B17C2D01837000C8068C /* fire.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fire.mp3; sourceTree = "<group>"; };
+		5960B17D2D01837000C8068C /* library.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = library.mp3; sourceTree = "<group>"; };
+		5960B17F2D01837000C8068C /* drums.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = drums.mp3; sourceTree = "<group>"; };
+		5960B1802D01837000C8068C /* guitar.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = guitar.mp3; sourceTree = "<group>"; };
+		5960B1812D01837000C8068C /* orchestra.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = orchestra.mp3; sourceTree = "<group>"; };
+		5960B1822D01837000C8068C /* piano.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = piano.mp3; sourceTree = "<group>"; };
+		5960B1842D01837000C8068C /* birds.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = birds.mp3; sourceTree = "<group>"; };
+		5960B1852D01837000C8068C /* droplets.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = droplets.mp3; sourceTree = "<group>"; };
+		5960B1862D01837000C8068C /* forest.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = forest.mp3; sourceTree = "<group>"; };
+		5960B1872D01837000C8068C /* rain.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = rain.mp3; sourceTree = "<group>"; };
+		5960B1882D01837000C8068C /* scuba.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = scuba.mp3; sourceTree = "<group>"; };
+		5960B1892D01837000C8068C /* waves.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = waves.mp3; sourceTree = "<group>"; };
+		5960B18B2D01837000C8068C /* morning.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = morning.mp3; sourceTree = "<group>"; };
+		5960B18C2D01837000C8068C /* night.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = night.mp3; sourceTree = "<group>"; };
+		5960B18D2D01837000C8068C /* Thunder.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Thunder.mp3; sourceTree = "<group>"; };
+		5960B18E2D01837000C8068C /* wind.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = wind.mp3; sourceTree = "<group>"; };
 		596151DC2CEB478F00C34AFD /* MoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodViewController.swift; sourceTree = "<group>"; };
 		596151DE2CEB622F00C34AFD /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
+		59CC31B92D1187F700F9DDAE /* ColorsForSound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsForSound.swift; sourceTree = "<group>"; };
+		59CC31BB2D11A65800F9DDAE /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
+		59DBE2712D0F268C0085B8A1 /* RecommendedSoundCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedSoundCollectionViewCell.swift; sourceTree = "<group>"; };
+		59DBE2742D0F285B0085B8A1 /* SoundCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundCategory.swift; sourceTree = "<group>"; };
+		59DD9C202D129F4300EC91A0 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
+		59E751282CF9959F00FAE5F8 /* RenamingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenamingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +136,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5913DE8D2CF85B1500BC04E8 /* Play */ = {
+			isa = PBXGroup;
+			children = (
+				59DBE2732D0F282A0085B8A1 /* Model */,
+				5913DE8E2CF85B6400BC04E8 /* View */,
+			);
+			path = Play;
+			sourceTree = "<group>";
+		};
+		5913DE8E2CF85B6400BC04E8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5913DE8F2CF85B7E00BC04E8 /* PlayViewController.swift */,
+				59E751282CF9959F00FAE5F8 /* RenamingViewController.swift */,
+				59DBE2712D0F268C0085B8A1 /* RecommendedSoundCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		591B23582CE8E79C00E737A5 = {
 			isa = PBXGroup;
 			children = (
@@ -105,6 +174,7 @@
 		591B23632CE8E79C00E737A5 /* Session-AmbientSounds */ = {
 			isa = PBXGroup;
 			children = (
+				59CC31B82D1187DA00F9DDAE /* Helpers */,
 				591B23722CE8E79D00E737A5 /* Info.plist */,
 				591B23782CE8E86700E737A5 /* Application */,
 				591B237A2CE8E8EF00E737A5 /* Modules */,
@@ -127,6 +197,7 @@
 		591B23792CE8E88D00E737A5 /* Store */ = {
 			isa = PBXGroup;
 			children = (
+				5960B1902D01837000C8068C /* Session */,
 				591B23B52CE906C600E737A5 /* Poppins */,
 				591B23972CE8EA5900E737A5 /* Figtree */,
 				591B236D2CE8E79D00E737A5 /* Assets.xcassets */,
@@ -141,6 +212,7 @@
 				591B237B2CE8E91300E737A5 /* OnBoarding */,
 				59D9E4412CE9FF46007778F8 /* Mood */,
 				591B23B02CE8FF0900E737A5 /* Home */,
+				5913DE8D2CF85B1500BC04E8 /* Play */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -162,6 +234,7 @@
 				591B238A2CE8E9E200E737A5 /* UIFontExtension.swift */,
 				591B23892CE8E9E200E737A5 /* UIViewControllerExtensions.swift */,
 				591B23882CE8E9E100E737A5 /* UIViewExtensions.swift */,
+				59DD9C202D129F4300EC91A0 /* UIApplication.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -175,6 +248,7 @@
 				591B23802CE8E98500E737A5 /* Label.swift */,
 				591B237E2CE8E98500E737A5 /* TextField.swift */,
 				591B23822CE8E98500E737A5 /* View.swift */,
+				5913DE912CF8670A00BC04E8 /* CircularView.swift */,
 			);
 			path = "UI Components";
 			sourceTree = "<group>";
@@ -252,6 +326,62 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		5960B17E2D01837000C8068C /* cozy indoor */ = {
+			isa = PBXGroup;
+			children = (
+				5960B17B2D01837000C8068C /* coffee shop.mp3 */,
+				5960B17C2D01837000C8068C /* fire.mp3 */,
+				5960B17D2D01837000C8068C /* library.mp3 */,
+			);
+			path = "cozy indoor";
+			sourceTree = "<group>";
+		};
+		5960B1832D01837000C8068C /* Instruments */ = {
+			isa = PBXGroup;
+			children = (
+				5960B17F2D01837000C8068C /* drums.mp3 */,
+				5960B1802D01837000C8068C /* guitar.mp3 */,
+				5960B1812D01837000C8068C /* orchestra.mp3 */,
+				5960B1822D01837000C8068C /* piano.mp3 */,
+			);
+			path = Instruments;
+			sourceTree = "<group>";
+		};
+		5960B18A2D01837000C8068C /* Nature */ = {
+			isa = PBXGroup;
+			children = (
+				5960B1842D01837000C8068C /* birds.mp3 */,
+				5960B1852D01837000C8068C /* droplets.mp3 */,
+				5960B1862D01837000C8068C /* forest.mp3 */,
+				5960B1872D01837000C8068C /* rain.mp3 */,
+				5960B1882D01837000C8068C /* scuba.mp3 */,
+				5960B1892D01837000C8068C /* waves.mp3 */,
+			);
+			path = Nature;
+			sourceTree = "<group>";
+		};
+		5960B18F2D01837000C8068C /* Weather */ = {
+			isa = PBXGroup;
+			children = (
+				5960B18B2D01837000C8068C /* morning.mp3 */,
+				5960B18C2D01837000C8068C /* night.mp3 */,
+				5960B18D2D01837000C8068C /* Thunder.mp3 */,
+				5960B18E2D01837000C8068C /* wind.mp3 */,
+			);
+			path = Weather;
+			sourceTree = "<group>";
+		};
+		5960B1902D01837000C8068C /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				5960B17E2D01837000C8068C /* cozy indoor */,
+				5960B1832D01837000C8068C /* Instruments */,
+				5960B18A2D01837000C8068C /* Nature */,
+				5960B18F2D01837000C8068C /* Weather */,
+			);
+			path = Session;
+			sourceTree = "<group>";
+		};
 		596151D62CEB18F000C34AFD /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -268,6 +398,15 @@
 			path = "UI Components";
 			sourceTree = "<group>";
 		};
+		59CC31B82D1187DA00F9DDAE /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				59CC31B92D1187F700F9DDAE /* ColorsForSound.swift */,
+				59CC31BB2D11A65800F9DDAE /* AlertController.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		59D9E4412CE9FF46007778F8 /* Mood */ = {
 			isa = PBXGroup;
 			children = (
@@ -275,6 +414,14 @@
 				596151D62CEB18F000C34AFD /* View */,
 			);
 			path = Mood;
+			sourceTree = "<group>";
+		};
+		59DBE2732D0F282A0085B8A1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				59DBE2742D0F285B0085B8A1 /* SoundCategory.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -336,11 +483,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				591B239C2CE8EA5900E737A5 /* Figtree-SemiBold.ttf in Resources */,
+				5960B19C2D01837100C8068C /* scuba.mp3 in Resources */,
+				5960B1932D01837100C8068C /* library.mp3 in Resources */,
+				5960B19F2D01837100C8068C /* night.mp3 in Resources */,
+				5960B1962D01837100C8068C /* orchestra.mp3 in Resources */,
+				5960B1942D01837100C8068C /* drums.mp3 in Resources */,
 				591B23992CE8EA5900E737A5 /* Figtree-ExtraBold.ttf in Resources */,
+				5960B1A02D01837100C8068C /* Thunder.mp3 in Resources */,
 				591B23982CE8EA5900E737A5 /* Figtree-Bold.ttf in Resources */,
+				5960B1912D01837100C8068C /* coffee shop.mp3 in Resources */,
+				5960B19B2D01837100C8068C /* rain.mp3 in Resources */,
+				5960B1922D01837100C8068C /* fire.mp3 in Resources */,
+				5960B1992D01837100C8068C /* droplets.mp3 in Resources */,
 				591B239A2CE8EA5900E737A5 /* Figtree-Medium.ttf in Resources */,
+				5960B1952D01837100C8068C /* guitar.mp3 in Resources */,
+				5960B19D2D01837100C8068C /* waves.mp3 in Resources */,
+				5960B19A2D01837100C8068C /* forest.mp3 in Resources */,
+				5960B19E2D01837100C8068C /* morning.mp3 in Resources */,
+				5960B1A12D01837100C8068C /* wind.mp3 in Resources */,
+				5960B1972D01837100C8068C /* piano.mp3 in Resources */,
 				591B236E2CE8E79D00E737A5 /* Assets.xcassets in Resources */,
 				591B239B2CE8EA5900E737A5 /* Figtree-Regular.ttf in Resources */,
+				5960B1982D01837100C8068C /* birds.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,17 +515,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59DD9C212D129F4300EC91A0 /* UIApplication.swift in Sources */,
 				591B23BA2CE9114100E737A5 /* Mood.swift in Sources */,
 				591B23A72CE8ECE700E737A5 /* OnboardingCell.swift in Sources */,
+				59DBE2722D0F268C0085B8A1 /* RecommendedSoundCollectionViewCell.swift in Sources */,
+				59E751292CF995A000FAE5F8 /* RenamingViewController.swift in Sources */,
 				591B23872CE8E98500E737A5 /* View.swift in Sources */,
 				591B23BC2CE911B900E737A5 /* MoodCollectionViewCell.swift in Sources */,
 				591B23842CE8E98500E737A5 /* Button.swift in Sources */,
+				59DBE2752D0F285B0085B8A1 /* SoundCategory.swift in Sources */,
 				591B23AF2CE8F87600E737A5 /* ButtonWithImage.swift in Sources */,
+				59CC31BC2D11A65800F9DDAE /* AlertController.swift in Sources */,
 				591B23912CE8E9E200E737A5 /* UIColorExtensions.swift in Sources */,
 				591B23B32CE8FF4900E737A5 /* HomeViewController.swift in Sources */,
+				5913DE922CF8670A00BC04E8 /* CircularView.swift in Sources */,
 				591B23AD2CE8F6E400E737A5 /* BaseViewController.swift in Sources */,
+				59CC31BA2D1187F700F9DDAE /* ColorsForSound.swift in Sources */,
 				591B238E2CE8E9E200E737A5 /* UIViewControllerExtensions.swift in Sources */,
 				591B23852CE8E98500E737A5 /* Label.swift in Sources */,
+				5913DE902CF85B7E00BC04E8 /* PlayViewController.swift in Sources */,
 				596151DD2CEB478F00C34AFD /* MoodViewController.swift in Sources */,
 				596151DF2CEB622F00C34AFD /* CustomSlider.swift in Sources */,
 				591B23652CE8E79C00E737A5 /* AppDelegate.swift in Sources */,
