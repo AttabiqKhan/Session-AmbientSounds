@@ -84,6 +84,11 @@ class PlayViewController: UIViewController {
         label.font = .bold(ofSize: 28.autoSized)
         return label
     }()
+    private let mixSoundsLabel: Label = {
+        let label = Label(text: "Mix Sounds", textColor: .titleColor)
+        label.font = .bold(ofSize: 19.autoSized)
+        return label
+    }()
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 73.autoSized, height: 94.autoSized)
@@ -103,6 +108,15 @@ class PlayViewController: UIViewController {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = 6.autoSized
+        stackView.alignment = .fill
+        stackView.distribution = .fill
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    private let volumeControlStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 16.autoSized
         stackView.alignment = .fill
         stackView.distribution = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -165,7 +179,9 @@ class PlayViewController: UIViewController {
             volumeIcon,
             recommendedLabel,
             collectionView,
-            playingSoundsStackView
+            playingSoundsStackView,
+            mixSoundsLabel,
+            volumeControlStackView
         ].forEach {
             containerView.addSubview(
                 $0
@@ -226,7 +242,15 @@ class PlayViewController: UIViewController {
             volumeSlider.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -25.widthRatio),
             volumeSlider.heightAnchor.constraint(equalToConstant: 6.autoSized),
             
-            recommendedLabel.topAnchor.constraint(equalTo: volumeSlider.bottomAnchor, constant: 172.autoSized),
+            mixSoundsLabel.topAnchor.constraint(equalTo: volumeSlider.bottomAnchor, constant: 32.autoSized),
+            mixSoundsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25.widthRatio),
+            mixSoundsLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25.widthRatio),
+            
+            volumeControlStackView.topAnchor.constraint(equalTo: mixSoundsLabel.bottomAnchor, constant: 24.autoSized),
+            volumeControlStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25.widthRatio),
+            volumeControlStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25.widthRatio),
+            
+            recommendedLabel.topAnchor.constraint(equalTo: volumeControlStackView.bottomAnchor, constant: 32.autoSized),
             recommendedLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25.widthRatio),
             recommendedLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25.widthRatio),
             
@@ -244,7 +268,7 @@ class PlayViewController: UIViewController {
         addPlayingSoundView(for: "Rain")
     }
     private func addPlayingSoundView(for soundName: String) {
-       
+        
         let backgroundColor = colorForSoundName(soundName)
         let playingSoundView: UIView = {
             let view = UIView()
@@ -264,18 +288,95 @@ class PlayViewController: UIViewController {
         }()
         playingSoundsStackView.addArrangedSubview(playingSoundView)
         playingSoundView.addSubview(playingSoundImage)
-       
+        
         NSLayoutConstraint.activate([
             playingSoundView.heightAnchor.constraint(equalToConstant: 32.autoSized),
             playingSoundView.widthAnchor.constraint(equalToConstant: 32.autoSized),
-    
+            
             playingSoundImage.centerXAnchor.constraint(equalTo: playingSoundView.centerXAnchor),
             playingSoundImage.centerYAnchor.constraint(equalTo: playingSoundView.centerYAnchor),
             playingSoundImage.heightAnchor.constraint(equalTo: playingSoundView.heightAnchor, multiplier: 0.8),
             playingSoundImage.widthAnchor.constraint(equalTo: playingSoundView.widthAnchor, multiplier: 0.8)
         ])
     }
-
+    private func addVolumeView(for soundName: String) {
+        
+        let backgroundColor = colorForSoundName(soundName)
+        let container: UIView = {
+            let view = UIView()
+            view.translatesAutoresizingMaskIntoConstraints = false
+            return view
+        }()
+        let playingSoundView: UIView = {
+            let view = UIView()
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.layer.cornerRadius = 28.autoSized
+            view.backgroundColor = backgroundColor
+            view.layer.borderColor = UIColor.black.withAlphaComponent(0.03).cgColor
+            view.layer.borderWidth = 0.8
+            return view
+        }()
+        let playingSoundImage: UIImageView = {
+            let imageView = UIImageView()
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.image = UIImage(named: soundName.lowercased())
+            imageView.contentMode = .scaleAspectFit
+            return imageView
+        }()
+        let volumeSlider: UISlider = {
+            let slider = UISlider()
+            slider.minimumValue = 0
+            slider.maximumValue = 1
+            slider.value = 0.65
+            slider.tintColor = .midnightPurple
+            slider.thumbTintColor = .midnightPurple
+            slider.translatesAutoresizingMaskIntoConstraints = false
+            return slider
+        }()
+        
+        volumeControlStackView.addArrangedSubview(container)
+        container.addSubview(playingSoundView)
+        container.addSubview(volumeSlider)
+        playingSoundView.addSubview(playingSoundImage)
+        
+        NSLayoutConstraint.activate([
+            container.heightAnchor.constraint(equalToConstant: 56.autoSized),
+            
+            playingSoundView.heightAnchor.constraint(equalToConstant: 56.autoSized),
+            playingSoundView.widthAnchor.constraint(equalToConstant: 56.autoSized),
+            playingSoundView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+            playingSoundView.centerYAnchor.constraint(equalTo: container.centerYAnchor),
+            
+            playingSoundImage.centerXAnchor.constraint(equalTo: playingSoundView.centerXAnchor),
+            playingSoundImage.centerYAnchor.constraint(equalTo: playingSoundView.centerYAnchor),
+            playingSoundImage.heightAnchor.constraint(equalToConstant: 20.autoSized),
+            playingSoundImage.widthAnchor.constraint(equalToConstant: 20.autoSized),
+            
+            volumeSlider.leadingAnchor.constraint(equalTo: playingSoundView.trailingAnchor, constant: 16.autoSized),
+            volumeSlider.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+            volumeSlider.centerYAnchor.constraint(equalTo: container.centerYAnchor),
+            volumeSlider.heightAnchor.constraint(equalToConstant: 6.autoSized)
+        ])
+    }
+    private func removeVolumeView(for soundName: String) {
+        // Find and remove the container view that matches the sound name
+        for arrangedSubview in volumeControlStackView.arrangedSubviews {
+            // Check if this container has the playingSoundView with matching image
+            if let playingSoundView = arrangedSubview.subviews.first(where: { $0.subviews.first is UIImageView }),
+               let imageView = playingSoundView.subviews.first as? UIImageView,
+               imageView.image == UIImage(named: soundName.lowercased()) {
+                
+                // Remove the container from the stack view
+                arrangedSubview.removeFromSuperview()
+                
+                // Animate the removal if needed
+                UIView.animate(withDuration: 0.2) {
+                    self.volumeControlStackView.layoutIfNeeded()
+                }
+                break
+            }
+        }
+    }
     private func removePlayingSoundView(for soundName: String) {
         // Remove view from stack view
         for arrangedSubview in playingSoundsStackView.arrangedSubviews {
@@ -292,10 +393,12 @@ class PlayViewController: UIViewController {
             // Stop sound and remove the view
             playingSounds.removeAll { $0 == soundName }
             removePlayingSoundView(for: soundName)
+            removeVolumeView(for: soundName)
         } else {
             // Play sound and add the view
             playingSounds.append(soundName)
             addPlayingSoundView(for: soundName)
+            addVolumeView(for: soundName)
         }
     }
     private func setupAudioSession() {
@@ -355,7 +458,7 @@ class PlayViewController: UIViewController {
             }
             if players.compactMap({ $0 }).count >= 4 {
                 let alertController = AlertController(title: "Sorry! We can’t add more sounds :(")
-                alertController.presentAlert(from: self)
+                alertController.presentAlert(from: self, duration: 6.0)
                 return
             }
             // Create or reset the player for the tapped audio
@@ -411,7 +514,7 @@ class PlayViewController: UIViewController {
             playImageView.image = UIImage(named: "play_button")
         }
     }
-
+    
     // MARK: - Selectors
     // Note: handlePanGesture function may seem difficult to understand hence the comments are written
     @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
