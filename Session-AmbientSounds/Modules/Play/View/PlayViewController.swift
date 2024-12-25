@@ -266,6 +266,7 @@ class PlayViewController: UIViewController {
     private func setupInitialPlayingView() {
         // Add one initial dummy playing view
         addPlayingSoundView(for: "Rain")
+        addVolumeView(for: "Rain")
     }
     private func addPlayingSoundView(for soundName: String) {
         
@@ -300,7 +301,6 @@ class PlayViewController: UIViewController {
         ])
     }
     private func addVolumeView(for soundName: String) {
-        
         let backgroundColor = colorForSoundName(soundName)
         let container: UIView = {
             let view = UIView()
@@ -323,6 +323,17 @@ class PlayViewController: UIViewController {
             imageView.contentMode = .scaleAspectFit
             return imageView
         }()
+        let crossButton: UIButton = {
+            let button = UIButton()
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.layer.cornerRadius = 8.autoSized
+            button.backgroundColor = .titleColor
+            button.setImage(UIImage(named: "cross_button")?.withRenderingMode(.alwaysTemplate), for: .normal)
+            button.tintColor = .white
+            button.accessibilityIdentifier = soundName
+            button.addTarget(self, action: #selector(didTapDismissButton(_:)), for: .touchUpInside)
+            return button
+        }()
         let volumeSlider: UISlider = {
             let slider = UISlider()
             slider.minimumValue = 0
@@ -331,13 +342,15 @@ class PlayViewController: UIViewController {
             slider.tintColor = .midnightPurple
             slider.thumbTintColor = .midnightPurple
             slider.translatesAutoresizingMaskIntoConstraints = false
+            slider.accessibilityIdentifier = soundName
+            slider.addTarget(self, action: #selector(volumeSliderValueChanged(_:)), for: .valueChanged)
             return slider
         }()
-        
         volumeControlStackView.addArrangedSubview(container)
         container.addSubview(playingSoundView)
         container.addSubview(volumeSlider)
         playingSoundView.addSubview(playingSoundImage)
+        playingSoundView.addSubview(crossButton)
         
         NSLayoutConstraint.activate([
             container.heightAnchor.constraint(equalToConstant: 56.autoSized),
@@ -352,8 +365,13 @@ class PlayViewController: UIViewController {
             playingSoundImage.heightAnchor.constraint(equalToConstant: 20.autoSized),
             playingSoundImage.widthAnchor.constraint(equalToConstant: 20.autoSized),
             
+            crossButton.topAnchor.constraint(equalTo: playingSoundView.topAnchor),
+            crossButton.leadingAnchor.constraint(equalTo: playingSoundView.leadingAnchor),
+            crossButton.widthAnchor.constraint(equalToConstant: 16.autoSized),
+            crossButton.heightAnchor.constraint(equalToConstant: 16.autoSized),
+            
             volumeSlider.leadingAnchor.constraint(equalTo: playingSoundView.trailingAnchor, constant: 16.autoSized),
-            volumeSlider.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+            volumeSlider.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -16.autoSized),
             volumeSlider.centerYAnchor.constraint(equalTo: container.centerYAnchor),
             volumeSlider.heightAnchor.constraint(equalToConstant: 6.autoSized)
         ])
@@ -438,10 +456,11 @@ class PlayViewController: UIViewController {
         let option = recommendedSounds[index].name.lowercased()
         
         // Check if the tapped audio is already playing
-        if let player = players[index], player.isPlaying {
+        if let playingPlayer = players[index], playingPlayer.isPlaying {
             // Pause the currently playing audio for this cell
             print("Pausing audio for option: \(option)")
-            player.stop()
+            playingPlayer.stop()
+            player.play()
             toggleSound(option)
             players[index] = nil
             return
@@ -488,6 +507,19 @@ class PlayViewController: UIViewController {
         }
         player.play()
     }
+    private func stopSound(for soundName: String) {
+        // Find the index of the SoundItem with the matching name
+        if let index = recommendedSounds.firstIndex(where: { $0.name.lowercased() == soundName }) {
+            // Access the corresponding player in the players array
+            if let player = players[index] {
+                player.stop()
+                player.currentTime = 0
+                players[index] = nil
+            }
+        } else {
+            print("Sound not found in recommendedSounds: \(soundName)")
+        }
+    }
     private func addPanGesture() {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
         view.addGestureRecognizer(panGesture)
@@ -514,7 +546,7 @@ class PlayViewController: UIViewController {
             playImageView.image = UIImage(named: "play_button")
         }
     }
-    
+
     // MARK: - Selectors
     // Note: handlePanGesture function may seem difficult to understand hence the comments are written
     @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
@@ -570,6 +602,22 @@ class PlayViewController: UIViewController {
     }
     @objc private func didChangeVolume(_ sender: UISlider) {
         player?.volume = sender.value
+    }
+    @objc private func volumeSliderValueChanged(_ sender: UISlider) {
+        guard let soundName = sender.accessibilityIdentifier,
+              let index = recommendedSounds.firstIndex(where: { $0.name.lowercased() == soundName }),
+              let audioPlayer = players[index] else { return }
+        
+        let volume = sender.value
+        audioPlayer.volume = volume
+    }
+    @objc private func didTapDismissButton(_ sender: UIButton) {
+        guard let soundName = sender.accessibilityIdentifier else { return }
+        stopSound(for: soundName)
+        playingSounds.removeAll { $0 == soundName }
+        removeVolumeView(for: soundName)
+        removePlayingSoundView(for: soundName)
+        
     }
 }
 
