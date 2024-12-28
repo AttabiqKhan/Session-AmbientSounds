@@ -9,7 +9,10 @@ import UIKit
 
 class View: UIView {
 
-    init(backgroundColor: UIColor = .clear, cornerRadius: CGFloat = 0) {
+    init(
+        backgroundColor: UIColor = .clear,
+        cornerRadius: CGFloat = 0
+    ) {
         super.init(frame: .zero)
         self.backgroundColor = backgroundColor
         self.layer.cornerRadius = cornerRadius

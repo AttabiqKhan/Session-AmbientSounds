@@ -13,76 +13,70 @@ class PlayViewController: UIViewController {
     
     // MARK: - UI Elements
     private let containerView = View(backgroundColor: .white)
-    private let lineView = View(backgroundColor: .lineColor, cornerRadius: 2.5)
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Title"
-        label.textAlignment = .center
-        label.textColor = .titleColor
+    private let lineView = View(
+        backgroundColor: .lineColor,
+        cornerRadius: 2.5
+    )
+    private let titleLabel: Label = {
+        let label = Label(
+            text: "Title",
+            textAlignment: .center,
+            textColor: .titleColor
+        )
         label.font = .bold(ofSize: 33.autoSized)
         return label
     }()
-    private let favouriteContainer: UIView = {
-        let container = UIView()
-        container.layer.cornerRadius = 28.autoSized
+    private lazy var favouriteContainer: View = {
+        let container = View(
+            backgroundColor: .clear,
+            cornerRadius: 28.autoSized
+        )
+        container.layer.borderColor = UIColor.imageContainerBorderColor.cgColor
+        container.layer.borderWidth = 1
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapFavouriteView))
+        container.addGestureRecognizer(tapGesture)
+        return container
+    }()
+    private let favouriteImageView = ImageView(imageName: "favourite")
+    private let libraryContainer: View = {
+        let container = View(
+            backgroundColor: .clear,
+            cornerRadius: 28.autoSized
+        )
         container.layer.borderColor = UIColor.imageContainerBorderColor.cgColor
         container.layer.borderWidth = 1
         return container
     }()
-    private let favouriteImageView: UIImageView = {
-        let iv = UIImageView()
-        iv.image = UIImage(named: "favourite")
-        return iv
-    }()
-    private let libraryContainer: UIView = {
-        let container = UIView()
-        container.layer.cornerRadius = 28.autoSized
-        container.layer.borderColor = UIColor.imageContainerBorderColor.cgColor
+    private let libraryImageView = ImageView(imageName: "add_to_library")
+    private let playView: View = {
+        let container = View(
+            backgroundColor: .midnightPurple,
+            cornerRadius: 40.autoSized
+        )
         container.layer.borderWidth = 1
         return container
     }()
-    private let libraryImageView: UIImageView = {
-        let iv = UIImageView()
-        iv.image = UIImage(named: "add_to_library")
-        return iv
-    }()
-    private let playView: UIView = {
-        let container = UIView()
-        container.backgroundColor = .midnightPurple
-        container.layer.cornerRadius = 40.autoSized
-        container.layer.borderWidth = 1
-        return container
-    }()
-    private lazy var playImageView: UIImageView = {
-        let iv = UIImageView()
-        iv.image = UIImage(named: "play_button")
-        iv.isUserInteractionEnabled = true
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapPlayButton))
-        iv.addGestureRecognizer(tapGesture)
-        return iv
-    }()
-    private let volumeIcon: UIImageView = {
-        let iv = UIImageView()
-        iv.image = UIImage(named: "volume")
-        return iv
-    }()
-    private lazy var volumeSlider: UISlider = {
-        let slider = UISlider()
-        slider.minimumValue = 0
-        slider.maximumValue = 1
-        slider.value = 0.5
-        slider.tintColor = .midnightPurple
-        slider.thumbTintColor = .midnightPurple
-        slider.addTarget(self, action: #selector(didChangeVolume(_:)), for: .valueChanged)
-        return slider
-    }()
-    private let recommendedLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Recommended sounds"
-        label.textAlignment = .left
-        label.textColor = .titleColor
+    private let playImageView = ImageView(imageName: "play_button")
+    private let volumeIcon = ImageView(imageName: "volume")
+    private let recommendedLabel: Label = {
+        let label = Label(
+            text: "Recommended sounds",
+            textAlignment: .left,
+            textColor: .titleColor
+        )
         label.font = .bold(ofSize: 28.autoSized)
         return label
+    }()
+    private lazy var volumeSlider: Slider = {
+        let slider = Slider(
+            minimumValue: 0,
+            maximumValue: 1,
+            value: 1.0,
+            tintColor: .midnightPurple,
+            thumbTintColor: .midnightPurple
+        )
+        slider.addTarget(self, action: #selector(didChangeVolume(_:)), for: .valueChanged)
+        return slider
     }()
     private let mixSoundsLabel: Label = {
         let label = Label(text: "Mix Sounds", textColor: .titleColor)
@@ -104,27 +98,20 @@ class PlayViewController: UIViewController {
         collectionView.backgroundColor = .clear
         return collectionView
     }()
-    private let playingSoundsStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 6.autoSized
-        stackView.alignment = .fill
-        stackView.distribution = .fill
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    private let volumeControlStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 16.autoSized
-        stackView.alignment = .fill
-        stackView.distribution = .fill
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
+    private let playingSoundsStackView = StackView(
+        axis: .horizontal,
+        spacing: 6.autoSized,
+        alignment: .fill,
+        distribution: .fill
+    )
+    private let volumeControlStackView = StackView(
+        axis: .vertical,
+        spacing: 16.autoSized,
+        alignment: .fill,
+        distribution: .fill
+    )
+
     // MARK: - Properties
-    private var player: AVAudioPlayer!
     private var recommendedSounds: [SoundItem] = [
         SoundItem(name: "Piano", icon: UIImage(named: "piano"), backgroundColor: .pianoColor),
         SoundItem(name: "Birds", icon: UIImage(named: "birds"), backgroundColor: .birdsColor),
@@ -137,6 +124,17 @@ class PlayViewController: UIViewController {
     ]
     private lazy var players: [AVAudioPlayer?] = Array(repeating: nil, count: recommendedSounds.count)
     private var playingSounds: [String] = []
+    private var individualVolumes: [String: Float] = [:]
+    private var initialSoundTitle: String
+    
+    // MARK: - Initializers
+    init(initialSoundTitle: String) {
+        self.initialSoundTitle = initialSoundTitle
+        super.init(nibName: nil, bundle: nil)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -144,8 +142,7 @@ class PlayViewController: UIViewController {
         setupUI()
         addPanGesture()
         setupAudioSession()
-        playInitialAudio()
-        setupInitialPlayingView()
+        playSound(for: initialSoundTitle)
     }
     
     // MARK: - Functions
@@ -154,20 +151,6 @@ class PlayViewController: UIViewController {
         containerView.layer.cornerRadius = 40.autoSized
         containerView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         
-        [
-            titleLabel,
-            favouriteContainer,
-            favouriteImageView,
-            libraryContainer,
-            libraryImageView,
-            playView,
-            playImageView,
-            volumeIcon,
-            volumeSlider,
-            recommendedLabel
-        ].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
         view.addSubview(containerView)
         [
             titleLabel,
@@ -183,9 +166,7 @@ class PlayViewController: UIViewController {
             mixSoundsLabel,
             volumeControlStackView
         ].forEach {
-            containerView.addSubview(
-                $0
-            )
+            containerView.addSubview($0)
         }
         favouriteContainer.addSubview(favouriteImageView)
         libraryContainer.addSubview(libraryImageView)
@@ -260,8 +241,6 @@ class PlayViewController: UIViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20.widthRatio),
             collectionView.bottomAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.bottomAnchor, constant: -0.autoSized)
         ])
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapFavouriteView))
-        favouriteContainer.addGestureRecognizer(tapGesture)
     }
     private func setupInitialPlayingView() {
         // Add one initial dummy playing view
@@ -271,19 +250,14 @@ class PlayViewController: UIViewController {
     private func addPlayingSoundView(for soundName: String) {
         
         let backgroundColor = colorForSoundName(soundName)
-        let playingSoundView: UIView = {
-            let view = UIView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.layer.cornerRadius = 16.autoSized
-            view.backgroundColor = backgroundColor
+        let playingSoundView: View = {
+            let view = View(backgroundColor: backgroundColor, cornerRadius: 16.autoSized)
             view.layer.borderColor = UIColor.black.withAlphaComponent(0.03).cgColor
             view.layer.borderWidth = 1.3
             return view
         }()
-        let playingSoundImage: UIImageView = {
-            let imageView = UIImageView()
-            imageView.translatesAutoresizingMaskIntoConstraints = false
-            imageView.image = UIImage(named: soundName.lowercased())
+        let playingSoundImage: ImageView = {
+            let imageView = ImageView(imageName: soundName.lowercased())
             imageView.contentMode = .scaleAspectFit
             return imageView
         }()
@@ -302,50 +276,41 @@ class PlayViewController: UIViewController {
     }
     private func addVolumeView(for soundName: String) {
         let backgroundColor = colorForSoundName(soundName)
-        let container: UIView = {
-            let view = UIView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            return view
-        }()
-        let playingSoundView: UIView = {
-            let view = UIView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.layer.cornerRadius = 28.autoSized
-            view.backgroundColor = backgroundColor
+
+        let container = View()
+        let playingSoundView: View = {
+            let view = View(backgroundColor: backgroundColor, cornerRadius: 28.autoSized)
             view.layer.borderColor = UIColor.black.withAlphaComponent(0.03).cgColor
             view.layer.borderWidth = 0.8
             return view
         }()
-        let playingSoundImage: UIImageView = {
-            let imageView = UIImageView()
-            imageView.translatesAutoresizingMaskIntoConstraints = false
-            imageView.image = UIImage(named: soundName.lowercased())
+        let playingSoundImage: ImageView = {
+            let imageView = ImageView(imageName: soundName.lowercased())
             imageView.contentMode = .scaleAspectFit
             return imageView
         }()
-        let crossButton: UIButton = {
-            let button = UIButton()
-            button.translatesAutoresizingMaskIntoConstraints = false
+        let crossButton: Button = {
+            let button = Button(type: .system, image: UIImage(named: "cross_button")?.withRenderingMode(.alwaysTemplate), tintColor: .white)
             button.layer.cornerRadius = 8.autoSized
             button.backgroundColor = .titleColor
-            button.setImage(UIImage(named: "cross_button")?.withRenderingMode(.alwaysTemplate), for: .normal)
-            button.tintColor = .white
             button.accessibilityIdentifier = soundName
             button.addTarget(self, action: #selector(didTapDismissButton(_:)), for: .touchUpInside)
             return button
         }()
-        let volumeSlider: UISlider = {
-            let slider = UISlider()
-            slider.minimumValue = 0
-            slider.maximumValue = 1
-            slider.value = 0.65
-            slider.tintColor = .midnightPurple
-            slider.thumbTintColor = .midnightPurple
-            slider.translatesAutoresizingMaskIntoConstraints = false
+        let volumeSlider: Slider = {
+            let slider = Slider(
+                minimumValue: 0,
+                maximumValue: 1,
+                value: 1.0,
+                tintColor: .midnightPurple,
+                thumbTintColor: .midnightPurple
+            )
             slider.accessibilityIdentifier = soundName
+            individualVolumes[soundName.lowercased()] = 1.0
             slider.addTarget(self, action: #selector(volumeSliderValueChanged(_:)), for: .valueChanged)
             return slider
         }()
+
         volumeControlStackView.addArrangedSubview(container)
         container.addSubview(playingSoundView)
         container.addSubview(volumeSlider)
@@ -430,94 +395,147 @@ class PlayViewController: UIViewController {
             print("Error setting up audio session: \(error.localizedDescription)")
         }
     }
-    private func playInitialAudio() {
-        playAudio(forPlayer: &player)
-    }
-    private func playAudio(forPlayer player: inout AVAudioPlayer?) {
-        let fileName = "rain" // Hardcoded file name, need to change later
-        let fileExtension = "mp3" // Hardcoded file extension, need to change later
+//    private func playSound(for soundName: String) {
+//        let option = soundName.lowercased()
+//        
+//        // Find the index for this sound name
+//        guard let index = recommendedSounds.firstIndex(where: { $0.name.lowercased() == option }) else {
+//            print("Sound not found: \(option)")
+//            return
+//        }
+//        
+//        // Check if the tapped audio is already playing
+//        if let playingPlayer = players[index], playingPlayer.isPlaying {
+//            // Pause the currently playing audio for this cell
+//            print("Pausing audio for option: \(option)")
+//            playingPlayer.stop()
+//            //player.play()
+//            toggleSound(option)
+//            players[index] = nil
+//            return
+//        } else {
+//            // Stop, reset, and play all other audio players from the beginning
+//            for (i, otherPlayer) in players.enumerated() {
+//                if let otherPlayer = otherPlayer {
+//                    // Stop and reset other players
+//                    print("Stopping and resetting audio for option: \(recommendedSounds[i].name.lowercased())")
+//                    otherPlayer.stop()
+//                    otherPlayer.currentTime = 0
+//                    otherPlayer.play()
+//                }
+//            }
+//            
+//            if players.compactMap({ $0 }).count >= 4 {
+//                let alertController = AlertController(title: "Sorry! We can't add more sounds :(")
+//                alertController.presentAlert(from: self, duration: 6.0)
+//                return
+//            }
+//            
+//            // Create or reset the player for the tapped audio
+//            if players[index] == nil {
+//                // Create a new player for the tapped audio
+//                guard let url = Bundle.main.url(forResource: option, withExtension: "mp3") else {
+//                    print("Audio file not found for option: \(option)")
+//                    return
+//                }
+//                do {
+//                    let newPlayer = try AVAudioPlayer(contentsOf: url)
+//                    newPlayer.numberOfLoops = -1
+//                    newPlayer.volume = volumeSlider.value
+//                    players[index] = newPlayer
+//                    newPlayer.play()
+//                    toggleSound(option)
+//                    print("Playing new audio for option: \(option)")
+//                } catch {
+//                    print("Error initializing player for option \(option): \(error.localizedDescription)")
+//                }
+//            } else {
+//                players[index]?.play()
+//                print("Playing audio for option: \(option) from the beginning.")
+//            }
+//        }
+//    }
+    private func playSound(for soundName: String) {
+        let option = soundName.lowercased()
         
-        guard let url = Bundle.main.url(forResource: fileName, withExtension: fileExtension) else {
-            print("Audio file not found")
-            return
-        }
-        do {
-            player = try AVAudioPlayer(contentsOf: url)
-            player?.numberOfLoops = -1
-            player?.volume = volumeSlider.value
-            player?.play()
-        } catch {
-            print("Error initializing player: \(error.localizedDescription)")
-        }
-    }
-    private func playSound(for index: Int) {
-        player.stop()
-        player.currentTime = 0
-        let option = recommendedSounds[index].name.lowercased()
+        // Find index of existing player for this sound
+        let existingPlayerIndex = players.firstIndex(where: { player in
+            if let player = player,
+               let playerURL = Bundle.main.url(forResource: option, withExtension: "mp3") {
+                return player.url == playerURL && player.isPlaying
+            }
+            return false
+        })
         
-        // Check if the tapped audio is already playing
-        if let playingPlayer = players[index], playingPlayer.isPlaying {
-            // Pause the currently playing audio for this cell
+        // If sound is already playing, stop it
+        if let index = existingPlayerIndex {
             print("Pausing audio for option: \(option)")
-            playingPlayer.stop()
-            player.play()
-            toggleSound(option)
+            players[index]?.stop()
             players[index] = nil
+            toggleSound(option)
             return
-        } else {
-            // Stop, reset, and play all other audio players from the beginning
-            for (i, otherPlayer) in players.enumerated() {
-                if let otherPlayer = otherPlayer {
-                    // Stop and reset other players
-                    print("Stopping and resetting audio for option: \(recommendedSounds[i].name.lowercased())")
-                    otherPlayer.stop() // Stop the audio
-                    otherPlayer.currentTime = 0 // Reset to the beginning
-                    otherPlayer.play() // Start the audio again from the beginning
-                }
-            }
-            if players.compactMap({ $0 }).count >= 4 {
-                let alertController = AlertController(title: "Sorry! We can’t add more sounds :(")
-                alertController.presentAlert(from: self, duration: 6.0)
-                return
-            }
-            // Create or reset the player for the tapped audio
-            if players[index] == nil {
-                // Create a new player for the tapped audio
-                guard let url = Bundle.main.url(forResource: option, withExtension: "mp3") else {
-                    print("Audio file not found for option: \(option)")
-                    return
-                }
-                do {
-                    let newPlayer = try AVAudioPlayer(contentsOf: url)
-                    newPlayer.numberOfLoops = -1
-                    newPlayer.volume = volumeSlider.value
-                    players[index] = newPlayer
-                    newPlayer.play()  // Play the new audio
-                    toggleSound(option)
-                    print("Playing new audio for option: \(option)")
-                } catch {
-                    print("Error initializing player for option \(option): \(error.localizedDescription)")
-                }
-            } else {
-                // If the player exists, reset it to the beginning and play
-                //players[index]?.currentTime = 0
-                players[index]?.play()
-                print("Playing audio for option: \(option) from the beginning.")
-            }
         }
-        player.play()
+        
+        // Count active players and stop if limit reached
+        if players.compactMap({ $0 }).count >= 4 {
+            let alertController = AlertController(title: "Sorry! We can't add more sounds :(")
+            alertController.presentAlert(from: self, duration: 1.0)
+            return
+        }
+        
+        // Find first available slot in players array
+        guard let emptyIndex = players.firstIndex(where: { $0 == nil }) else {
+            print("No available slots for new audio player")
+            return
+        }
+        
+        // Create new player
+        guard let url = Bundle.main.url(forResource: option, withExtension: "mp3") else {
+            print("Audio file not found for option: \(option)")
+            return
+        }
+        
+        do {
+            let newPlayer = try AVAudioPlayer(contentsOf: url)
+            newPlayer.numberOfLoops = -1
+            newPlayer.volume = volumeSlider.value
+            players[emptyIndex] = newPlayer
+            newPlayer.play()
+            toggleSound(option)
+            print("Playing new audio for option: \(option)")
+        } catch {
+            print("Error initializing player for option \(option): \(error.localizedDescription)")
+        }
     }
+//    private func stopSound(for soundName: String) {
+//        // Find the index of the SoundItem with the matching name
+//        if let index = recommendedSounds.firstIndex(where: { $0.name.lowercased() == soundName }) {
+//            // Access the corresponding player in the players array
+//            if let player = players[index] {
+//                player.stop()
+//                player.currentTime = 0
+//                players[index] = nil
+//            }
+//        } else {
+//            print("Sound not found in recommendedSounds: \(soundName)")
+//        }
+//    }
     private func stopSound(for soundName: String) {
-        // Find the index of the SoundItem with the matching name
-        if let index = recommendedSounds.firstIndex(where: { $0.name.lowercased() == soundName }) {
-            // Access the corresponding player in the players array
-            if let player = players[index] {
-                player.stop()
-                player.currentTime = 0
-                players[index] = nil
+        let option = soundName.lowercased()
+        
+        // Find the player that's playing this sound
+        if let index = players.firstIndex(where: { player in
+            if let player = player,
+               let playerURL = Bundle.main.url(forResource: option, withExtension: "mp3") {
+                return player.url == playerURL
             }
+            return false
+        }) {
+            players[index]?.stop()
+            players[index]?.currentTime = 0
+            players[index] = nil
         } else {
-            print("Sound not found in recommendedSounds: \(soundName)")
+            print("No active player found for sound: \(option)")
         }
     }
     private func addPanGesture() {
@@ -539,14 +557,7 @@ class PlayViewController: UIViewController {
             self.containerView.transform = .identity
         }
     }
-    private func updatePlayingImage() {
-        if player.isPlaying {
-            playImageView.image = UIImage(named: "pause_button")
-        } else {
-            playImageView.image = UIImage(named: "play_button")
-        }
-    }
-
+ 
     // MARK: - Selectors
     // Note: handlePanGesture function may seem difficult to understand hence the comments are written
     @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
@@ -592,24 +603,67 @@ class PlayViewController: UIViewController {
         controller.initialValue = titleLabel.text
         self.present(controller, animated: false)
     }
-    @objc private func didTapPlayButton() {
-        if let player = player, player.isPlaying {
-            player.pause()
-        } else {
-            player.play()
-        }
-        updatePlayingImage()
-    }
+//    @objc private func didChangeVolume(_ sender: UISlider) {
+//        let masterVolume = sender.value
+//        
+//        // Update all active players with new master volume
+//        for (index, player) in players.enumerated() {
+//            guard let player = player else { continue }
+//            let soundName = recommendedSounds[index].name.lowercased()
+//            guard let individualVolume = individualVolumes[soundName] else { continue }
+//            
+//            // Calculate final volume as a product of master and individual volumes
+//            player.volume = masterVolume * individualVolume
+//        }
+//    }
+//    @objc private func volumeSliderValueChanged(_ sender: UISlider) {
+//        guard let soundName = sender.accessibilityIdentifier?.lowercased(),
+//              let index = recommendedSounds.firstIndex(where: { $0.name.lowercased() == soundName }),
+//              let audioPlayer = players[index] else { return }
+//        
+//        let individualVolume = sender.value
+//        individualVolumes[soundName] = individualVolume
+//        // Calculate final volume using master volume
+//        audioPlayer.volume = volumeSlider.value * individualVolume
+//    }
     @objc private func didChangeVolume(_ sender: UISlider) {
-        player?.volume = sender.value
+        let masterVolume = sender.value
+        
+        // Update all active players with new master volume
+        for (_, player) in players.enumerated() {
+            guard let player = player,
+                  let url = player.url,
+                  let soundName = url.deletingPathExtension().lastPathComponent.lowercased() as String? else {
+                continue
+            }
+            
+            // Get individual volume for this sound
+            let individualVolume = individualVolumes[soundName] ?? 1.0
+            
+            // Calculate final volume as a product of master and individual volumes
+            player.volume = masterVolume * individualVolume
+        }
     }
     @objc private func volumeSliderValueChanged(_ sender: UISlider) {
-        guard let soundName = sender.accessibilityIdentifier,
-              let index = recommendedSounds.firstIndex(where: { $0.name.lowercased() == soundName }),
-              let audioPlayer = players[index] else { return }
+        guard let soundName = sender.accessibilityIdentifier?.lowercased() else { return }
         
-        let volume = sender.value
-        audioPlayer.volume = volume
+        // Find the player for this sound
+        let player = players.first(where: { player in
+            guard let player = player,
+                  let url = player.url,
+                  let playerSoundName = url.deletingPathExtension().lastPathComponent.lowercased() as String? else {
+                return false
+            }
+            return playerSoundName == soundName
+        })
+        
+        guard let audioPlayer = player else { return }
+        
+        let individualVolume = sender.value
+        individualVolumes[soundName] = individualVolume
+        
+        // Calculate final volume using master volume
+        audioPlayer?.volume = volumeSlider.value * individualVolume
     }
     @objc private func didTapDismissButton(_ sender: UIButton) {
         guard let soundName = sender.accessibilityIdentifier else { return }
@@ -617,7 +671,6 @@ class PlayViewController: UIViewController {
         playingSounds.removeAll { $0 == soundName }
         removeVolumeView(for: soundName)
         removePlayingSoundView(for: soundName)
-        
     }
 }
 
@@ -630,6 +683,7 @@ extension PlayViewController: ValuePassingDelegate {
     }
 }
 
+// MARK: - Collection View Delegate & Data Source
 extension PlayViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -647,7 +701,9 @@ extension PlayViewController: UICollectionViewDataSource, UICollectionViewDelega
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let value = indexPath.item
-        playSound(for: value)
+        //let value = indexPath.item
+        let value = recommendedSounds[indexPath.item]
+        let sanitizedString = value.name.lowercased().replacingOccurrences(of: " ", with: "")
+        playSound(for: sanitizedString)
     }
 }

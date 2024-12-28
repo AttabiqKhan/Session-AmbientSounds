@@ -9,39 +9,39 @@ import Foundation
 import UIKit
 
 enum MoodStates {
-    case veryUnpleasant
     case unpleasant
+    case slightlyUnpleasant
     case neutral
+    case slightlyPleasant
     case pleasant
-    case veryPleasant
     
-    var emoji: String {
-        switch self {
-        case .veryUnpleasant:
-            return "😢"
-        case .unpleasant:
-            return "😕"
-        case .neutral:
-            return "😐"
-        case .pleasant:
-            return "😊"
-        case .veryPleasant:
-            return "😁"
-        }
-    }
+//    var emoji: String {
+//        switch self {
+//        case .unpleasant:
+//            return "😢"
+//        case .slightlyUnpleasant:
+//            return "😕"
+//        case .neutral:
+//            return "😐"
+//        case .slightlyPleasant:
+//            return "😊"
+//        case .pleasant:
+//            return "😁"
+//        }
+//    }
     
     var description: String {
         switch self {
-        case .veryUnpleasant:
-            return "Very Unpleasant"
         case .unpleasant:
             return "Unpleasant"
+        case .slightlyUnpleasant:
+            return "Slightly Unpleasant"
         case .neutral:
             return "Neutral"
+        case .slightlyPleasant:
+            return "Slightly Pleasant"
         case .pleasant:
             return "Pleasant"
-        case .veryPleasant:
-            return "Very Pleasant"
         }
     }
     
@@ -49,17 +49,17 @@ enum MoodStates {
     static func mood(for value: CGFloat) -> MoodStates {
         switch value {
         case 0.0..<0.2:
-            return .veryUnpleasant
-        case 0.2..<0.4:
             return .unpleasant
+        case 0.2..<0.4:
+            return .slightlyUnpleasant
         case 0.4..<0.6:
             return .neutral
         case 0.6..<0.8:
-            return .pleasant
+            return .slightlyPleasant
         case 0.8..<1.0:
-            return .veryPleasant
+            return .pleasant
         default:
-            return .veryPleasant
+            return .pleasant
         }
     }
 }
@@ -83,24 +83,42 @@ class MoodViewController: UIViewController {
         label.numberOfLines = 2
         return label
     }()
+    private let gradientViewContainer: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.backgroundColor = .clear // Set the background color to clear
+        imageView.image = UIImage(named: "unpleasant")
+//        imageView.clipsToBounds = true // Ensure the image respects the corner radius
+        imageView.contentMode = .scaleAspectFill // Adjust image scaling behavior
+        return imageView
+    }()
     private let emojiContainer: UIView = {
         let view = UIView()
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .dimWhite
         view.layer.cornerRadius = 76.autoSized
         return view
     }()
-    private let emojiLabel: UILabel = {
-        let label = UILabel()
-        label.font = .poppinsMedium(ofSize: 72.autoSized)
-        label.text = "😢"
-        label.textAlignment = .center
-        return label
+    private let emojiImageContainer: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.backgroundColor = .clear // Set the background color to clear
+        imageView.image = UIImage(named: "unpleasant_emoji")
+//        imageView.clipsToBounds = true // Ensure the image respects the corner radius
+        imageView.contentMode = .scaleAspectFill // Adjust image scaling behavior
+        return imageView
     }()
+//    private let emojiLabel: UILabel = {
+//        let label = UILabel()
+//        label.font = .poppinsMedium(ofSize: 72.autoSized)
+//        label.text = "😢"
+//        label.textAlignment = .center
+//        return label
+//    }()
     private let moodDescriptionLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 28.autoSized)
         label.textColor = .darkGray
-        label.text = "Very Unpleasant"
+        label.text = "Unpleasant"
         label.textAlignment = .center
         return label
     }()
@@ -133,15 +151,16 @@ class MoodViewController: UIViewController {
         containerView.layer.cornerRadius = 40.autoSized
         containerView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         
-        [lineView, titleLabel, emojiContainer, emojiLabel, moodDescriptionLabel, moodSlider, doneButton].forEach {
+        [lineView, titleLabel, emojiContainer, emojiImageContainer, moodDescriptionLabel, moodSlider, doneButton].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         view.addSubview(containerView)
         
-        [lineView, titleLabel, emojiContainer, moodDescriptionLabel, moodSlider, doneButton].forEach {
+        [lineView, titleLabel, moodDescriptionLabel, moodSlider, doneButton, gradientViewContainer].forEach {
             containerView.addSubview($0)
         }
-        emojiContainer.addSubview(emojiLabel)
+        gradientViewContainer.addSubview(emojiContainer)
+        emojiContainer.addSubview(emojiImageContainer)
         
         NSLayoutConstraint.activate([
             containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -156,13 +175,18 @@ class MoodViewController: UIViewController {
             titleLabel.topAnchor.constraint(equalTo: lineView.bottomAnchor, constant: 32.autoSized),
             titleLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             
-            emojiContainer.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 32.autoSized),
-            emojiContainer.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            gradientViewContainer.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
+            gradientViewContainer.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            gradientViewContainer.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            gradientViewContainer.heightAnchor.constraint(equalToConstant: 200.autoSized),
+            
+            emojiContainer.centerYAnchor.constraint(equalTo: gradientViewContainer.centerYAnchor),
+            emojiContainer.centerXAnchor.constraint(equalTo: gradientViewContainer.centerXAnchor),
             emojiContainer.heightAnchor.constraint(equalToConstant: 152.autoSized),
             emojiContainer.widthAnchor.constraint(equalToConstant: 152.autoSized),
             
-            emojiLabel.centerYAnchor.constraint(equalTo: emojiContainer.centerYAnchor),
-            emojiLabel.centerXAnchor.constraint(equalTo: emojiContainer.centerXAnchor),
+            emojiImageContainer.centerYAnchor.constraint(equalTo: emojiContainer.centerYAnchor),
+            emojiImageContainer.centerXAnchor.constraint(equalTo: emojiContainer.centerXAnchor),
             
             moodDescriptionLabel.topAnchor.constraint(equalTo: emojiContainer.bottomAnchor, constant: 16.autoSized),
             moodDescriptionLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
@@ -248,7 +272,9 @@ extension MoodViewController: CustomSliderDelegate {
     
     func customSliderDidChangeValue(_ slider: CustomSlider, value: CGFloat) {
         let mood = MoodStates.mood(for: value)
-        emojiLabel.text = mood.emoji
+        //emojiLabel.text = mood.emoji
         moodDescriptionLabel.text = mood.description
+        gradientViewContainer.image = UIImage(named: "\(moodDescriptionLabel.text?.lowercased().replacingOccurrences(of: " ", with: "") ?? "")")
+        emojiImageContainer.image = UIImage(named: "\(moodDescriptionLabel.text?.lowercased().replacingOccurrences(of: " ", with: "") ?? "")_emoji")
     }
 }

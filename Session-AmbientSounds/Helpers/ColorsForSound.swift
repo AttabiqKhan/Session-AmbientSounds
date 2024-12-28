@@ -39,7 +39,7 @@ func colorForSoundName(_ soundName: String) -> UIColor {
         return .morningColor
     case "snow": 
         return .snowColor
-    case "coffee": 
+    case "coffeeshop": 
         return .coffeeColor
     case "fire": 
         return .fireColor

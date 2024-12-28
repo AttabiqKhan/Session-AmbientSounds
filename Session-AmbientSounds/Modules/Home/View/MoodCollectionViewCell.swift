@@ -8,9 +8,8 @@
 import Foundation
 import UIKit
 
-class MoodCollectionViewCell: UICollectionViewCell {
+class MoodCollectionViewCell: CollectionViewCell {
     
-    static let identifier = "MoodCollectionViewCell"
     
     override init(frame: CGRect) {
         super.init(frame: frame)
