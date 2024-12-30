@@ -21,8 +21,6 @@ class HomeViewController: BaseViewController {
         label.font = .poppinsMedium(ofSize: 32)
         return label
     }()
-//    private var collectionView: UICollectionView!
-//    private var bottomCollectionView: UICollectionView!
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 162, height: 200)
@@ -54,7 +52,6 @@ class HomeViewController: BaseViewController {
         collectionView.register(BottomCollectionViewCell.self, forCellWithReuseIdentifier: BottomCollectionViewCell.identifier)
         return collectionView
     }()
-
     private let soundItems: [SoundItems] = [
         SoundItems(mainImage: UIImage(named: "stress_relief")!,
                   smallImage1: UIImage(named: "rain")!,
@@ -126,33 +123,17 @@ class HomeViewController: BaseViewController {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         return contentView
     }()
-//    private lazy var collectionView: UICollectionView = {
-//        let layout = UICollectionViewFlowLayout()
-//        layout.scrollDirection = .vertical
-//        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-//        collectionView.backgroundColor = .white
-//        collectionView.translatesAutoresizingMaskIntoConstraints = false
-//        collectionView.delegate = self
-//        collectionView.dataSource = self
-//        collectionView.register(MoodCollectionViewCell.self, forCellWithReuseIdentifier: MoodCollectionViewCell.identifier)
-//        return collectionView
-//    }()
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-//        setupCollectionView()
-//        setupBottomCollectionView()
        
     }
     
     // MARK: - Functions
     override func setupViews() {
         super.setupViews()
-//        view.addSubview(headingLabel)
-//        view.addSubview(emojiView)
-//        emojiView.addSubview(emoji)
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(collectionView)
@@ -161,7 +142,6 @@ class HomeViewController: BaseViewController {
         contentView.addSubview(headingLabel)
         contentView.addSubview(emojiView)
         emojiView.addSubview(emoji)
-        //view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
             headingLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 25.widthRatio),
@@ -198,10 +178,6 @@ class HomeViewController: BaseViewController {
             bottomCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 25.widthRatio),
             bottomCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -25.widthRatio),
             bottomCollectionView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
-            
-//            collectionView.topAnchor.constraint(equalTo: headingLabel.bottomAnchor, constant: 28.autoSized),
-//            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25.widthRatio),
-//            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25.widthRatio),
     
         ])
         emojiView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapEmojiView)))
@@ -227,33 +203,6 @@ class HomeViewController: BaseViewController {
             bottomCollectionView.heightAnchor.constraint(equalToConstant: CGFloat(height)).isActive = true
         }
     }
-//    private func setupCollectionView() {
-//        let layout = UICollectionViewFlowLayout()
-//        layout.itemSize = CGSize(width: 162, height: 200)
-//        layout.minimumLineSpacing = 16
-//        layout.minimumInteritemSpacing = 16
-//        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-//        collectionView.translatesAutoresizingMaskIntoConstraints = false
-//        collectionView.backgroundColor = .white
-//        collectionView.showsVerticalScrollIndicator = false
-//        collectionView.dataSource = self
-//        collectionView.delegate = self
-//        collectionView.register(SoundCollectionViewCell.self, forCellWithReuseIdentifier: SoundCollectionViewCell.identifier)
-//    }
-//    private func setupBottomCollectionView() {
-//        let layout = UICollectionViewFlowLayout()
-//        layout.itemSize = CGSize(width: 73, height: 73)
-//        layout.minimumLineSpacing = 37
-//        layout.minimumInteritemSpacing = 16
-//        layout.scrollDirection = .vertical
-//        bottomCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-//        bottomCollectionView.translatesAutoresizingMaskIntoConstraints = false
-//        bottomCollectionView.backgroundColor = .white
-//        bottomCollectionView.showsVerticalScrollIndicator = false
-//        bottomCollectionView.dataSource = self
-//        bottomCollectionView.delegate = self
-//        bottomCollectionView.register(BottomCollectionViewCell.self, forCellWithReuseIdentifier: BottomCollectionViewCell.identifier)
-//    }
     
     // MARK: - Selectors
     @objc private func didTapEmojiView() {

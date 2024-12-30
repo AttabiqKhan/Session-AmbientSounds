@@ -148,6 +148,7 @@ class PlayViewController: UIViewController {
     // MARK: - Functions
     private func setupUI() {
         view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        titleLabel.text = initialSoundTitle.capitalized
         containerView.layer.cornerRadius = 40.autoSized
         containerView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         
@@ -395,138 +396,60 @@ class PlayViewController: UIViewController {
             print("Error setting up audio session: \(error.localizedDescription)")
         }
     }
-//    private func playSound(for soundName: String) {
-//        let option = soundName.lowercased()
-//        
-//        // Find the index for this sound name
-//        guard let index = recommendedSounds.firstIndex(where: { $0.name.lowercased() == option }) else {
-//            print("Sound not found: \(option)")
-//            return
-//        }
-//        
-//        // Check if the tapped audio is already playing
-//        if let playingPlayer = players[index], playingPlayer.isPlaying {
-//            // Pause the currently playing audio for this cell
-//            print("Pausing audio for option: \(option)")
-//            playingPlayer.stop()
-//            //player.play()
-//            toggleSound(option)
-//            players[index] = nil
-//            return
-//        } else {
-//            // Stop, reset, and play all other audio players from the beginning
-//            for (i, otherPlayer) in players.enumerated() {
-//                if let otherPlayer = otherPlayer {
-//                    // Stop and reset other players
-//                    print("Stopping and resetting audio for option: \(recommendedSounds[i].name.lowercased())")
-//                    otherPlayer.stop()
-//                    otherPlayer.currentTime = 0
-//                    otherPlayer.play()
-//                }
-//            }
-//            
-//            if players.compactMap({ $0 }).count >= 4 {
-//                let alertController = AlertController(title: "Sorry! We can't add more sounds :(")
-//                alertController.presentAlert(from: self, duration: 6.0)
-//                return
-//            }
-//            
-//            // Create or reset the player for the tapped audio
-//            if players[index] == nil {
-//                // Create a new player for the tapped audio
-//                guard let url = Bundle.main.url(forResource: option, withExtension: "mp3") else {
-//                    print("Audio file not found for option: \(option)")
-//                    return
-//                }
-//                do {
-//                    let newPlayer = try AVAudioPlayer(contentsOf: url)
-//                    newPlayer.numberOfLoops = -1
-//                    newPlayer.volume = volumeSlider.value
-//                    players[index] = newPlayer
-//                    newPlayer.play()
-//                    toggleSound(option)
-//                    print("Playing new audio for option: \(option)")
-//                } catch {
-//                    print("Error initializing player for option \(option): \(error.localizedDescription)")
-//                }
-//            } else {
-//                players[index]?.play()
-//                print("Playing audio for option: \(option) from the beginning.")
-//            }
-//        }
-//    }
     private func playSound(for soundName: String) {
-        let option = soundName.lowercased()
+        //let option = soundName.lowercased()
         
         // Find index of existing player for this sound
         let existingPlayerIndex = players.firstIndex(where: { player in
             if let player = player,
-               let playerURL = Bundle.main.url(forResource: option, withExtension: "mp3") {
+               let playerURL = Bundle.main.url(forResource: soundName, withExtension: "mp3") {
                 return player.url == playerURL && player.isPlaying
             }
             return false
         })
-        
         // If sound is already playing, stop it
         if let index = existingPlayerIndex {
-            print("Pausing audio for option: \(option)")
+            print("Pausing audio for option: \(soundName)")
             players[index]?.stop()
             players[index] = nil
-            toggleSound(option)
+            toggleSound(soundName)
             return
         }
-        
         // Count active players and stop if limit reached
-        if players.compactMap({ $0 }).count >= 4 {
+        if players.compactMap({ $0 }).count >= 5 {
             let alertController = AlertController(title: "Sorry! We can't add more sounds :(")
             alertController.presentAlert(from: self, duration: 1.0)
             return
         }
-        
         // Find first available slot in players array
         guard let emptyIndex = players.firstIndex(where: { $0 == nil }) else {
             print("No available slots for new audio player")
             return
         }
-        
         // Create new player
-        guard let url = Bundle.main.url(forResource: option, withExtension: "mp3") else {
-            print("Audio file not found for option: \(option)")
+        guard let url = Bundle.main.url(forResource: soundName, withExtension: "mp3") else {
+            print("Audio file not found for option: \(soundName)")
             return
         }
-        
         do {
             let newPlayer = try AVAudioPlayer(contentsOf: url)
             newPlayer.numberOfLoops = -1
             newPlayer.volume = volumeSlider.value
             players[emptyIndex] = newPlayer
             newPlayer.play()
-            toggleSound(option)
-            print("Playing new audio for option: \(option)")
+            toggleSound(soundName)
+            print("Playing new audio for option: \(soundName)")
         } catch {
-            print("Error initializing player for option \(option): \(error.localizedDescription)")
+            print("Error initializing player for option \(soundName): \(error.localizedDescription)")
         }
     }
-//    private func stopSound(for soundName: String) {
-//        // Find the index of the SoundItem with the matching name
-//        if let index = recommendedSounds.firstIndex(where: { $0.name.lowercased() == soundName }) {
-//            // Access the corresponding player in the players array
-//            if let player = players[index] {
-//                player.stop()
-//                player.currentTime = 0
-//                players[index] = nil
-//            }
-//        } else {
-//            print("Sound not found in recommendedSounds: \(soundName)")
-//        }
-//    }
     private func stopSound(for soundName: String) {
-        let option = soundName.lowercased()
+        //let option = soundName.lowercased()
         
         // Find the player that's playing this sound
         if let index = players.firstIndex(where: { player in
             if let player = player,
-               let playerURL = Bundle.main.url(forResource: option, withExtension: "mp3") {
+               let playerURL = Bundle.main.url(forResource: soundName, withExtension: "mp3") {
                 return player.url == playerURL
             }
             return false
@@ -535,7 +458,7 @@ class PlayViewController: UIViewController {
             players[index]?.currentTime = 0
             players[index] = nil
         } else {
-            print("No active player found for sound: \(option)")
+            print("No active player found for sound: \(soundName)")
         }
     }
     private func addPanGesture() {
@@ -603,29 +526,6 @@ class PlayViewController: UIViewController {
         controller.initialValue = titleLabel.text
         self.present(controller, animated: false)
     }
-//    @objc private func didChangeVolume(_ sender: UISlider) {
-//        let masterVolume = sender.value
-//        
-//        // Update all active players with new master volume
-//        for (index, player) in players.enumerated() {
-//            guard let player = player else { continue }
-//            let soundName = recommendedSounds[index].name.lowercased()
-//            guard let individualVolume = individualVolumes[soundName] else { continue }
-//            
-//            // Calculate final volume as a product of master and individual volumes
-//            player.volume = masterVolume * individualVolume
-//        }
-//    }
-//    @objc private func volumeSliderValueChanged(_ sender: UISlider) {
-//        guard let soundName = sender.accessibilityIdentifier?.lowercased(),
-//              let index = recommendedSounds.firstIndex(where: { $0.name.lowercased() == soundName }),
-//              let audioPlayer = players[index] else { return }
-//        
-//        let individualVolume = sender.value
-//        individualVolumes[soundName] = individualVolume
-//        // Calculate final volume using master volume
-//        audioPlayer.volume = volumeSlider.value * individualVolume
-//    }
     @objc private func didChangeVolume(_ sender: UISlider) {
         let masterVolume = sender.value
         
@@ -666,6 +566,11 @@ class PlayViewController: UIViewController {
         audioPlayer?.volume = volumeSlider.value * individualVolume
     }
     @objc private func didTapDismissButton(_ sender: UIButton) {
+        if players.compactMap({ $0 }).count == 1 {
+            let alertController = AlertController(title: "One audio should be playing!") //design implementation needed
+            alertController.presentAlert(from: self, duration: 1.0)
+            return
+        }
         guard let soundName = sender.accessibilityIdentifier else { return }
         stopSound(for: soundName)
         playingSounds.removeAll { $0 == soundName }
