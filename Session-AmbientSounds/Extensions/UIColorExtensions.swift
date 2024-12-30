@@ -117,4 +117,7 @@ public extension UIColor {
     @nonobjc class var lavenderMist: UIColor {
         return UIColor(red: 100.0 / 255.0, green: 73.0 / 255.0, blue: 133.0 / 255.0, alpha: 1.0)
     }
+    @nonobjc class var mainBackgroundColor: UIColor {
+        return UIColor(red: 254.0 / 255.0, green: 239.0 / 255.0, blue: 235.0 / 255.0, alpha: 1.0)
+    }
 }

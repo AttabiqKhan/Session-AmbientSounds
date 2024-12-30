@@ -409,10 +409,12 @@ class PlayViewController: UIViewController {
         })
         // If sound is already playing, stop it
         if let index = existingPlayerIndex {
-            print("Pausing audio for option: \(soundName)")
-            players[index]?.stop()
-            players[index] = nil
-            toggleSound(soundName)
+//            print("Pausing audio for option: \(soundName)")
+//            players[index]?.stop()
+//            players[index] = nil
+//            toggleSound(soundName)
+            let alertController = AlertController(title: "Sound is already playing")
+            alertController.presentAlert(from: self, duration: 1.0)
             return
         }
         // Count active players and stop if limit reached
