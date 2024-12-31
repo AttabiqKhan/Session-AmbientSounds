@@ -23,9 +23,9 @@ class HomeViewController: BaseViewController {
     }()
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 162, height: 200)
+        layout.itemSize = CGSize(width: 162.autoSized, height: 200.autoSized)
         layout.minimumLineSpacing = 16
-        layout.minimumInteritemSpacing = 16
+        layout.minimumInteritemSpacing = 8
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -38,9 +38,9 @@ class HomeViewController: BaseViewController {
     }()
     private lazy var bottomCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 73, height: 73)
+        layout.itemSize = CGSize(width: 73.autoSized, height: 73.autoSized)
         layout.minimumLineSpacing = 37
-        layout.minimumInteritemSpacing = 16
+        layout.minimumInteritemSpacing = 8
         layout.scrollDirection = .vertical
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -107,7 +107,7 @@ class HomeViewController: BaseViewController {
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "Recommended sounds"
-        label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
+        label.font = .bold(ofSize: 28.autoSized)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -127,7 +127,6 @@ class HomeViewController: BaseViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupViews()
        
     }
     
@@ -177,7 +176,7 @@ class HomeViewController: BaseViewController {
             bottomCollectionView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 24.autoSized),
             bottomCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 25.widthRatio),
             bottomCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -25.widthRatio),
-            bottomCollectionView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+            bottomCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20.autoSized)
     
         ])
         emojiView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapEmojiView)))

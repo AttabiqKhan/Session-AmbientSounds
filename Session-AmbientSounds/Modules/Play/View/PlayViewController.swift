@@ -408,12 +408,8 @@ class PlayViewController: UIViewController {
             return false
         })
         // If sound is already playing, stop it
-        if let index = existingPlayerIndex {
-//            print("Pausing audio for option: \(soundName)")
-//            players[index]?.stop()
-//            players[index] = nil
-//            toggleSound(soundName)
-            let alertController = AlertController(title: "Sound is already playing")
+        if existingPlayerIndex != nil {
+            let alertController = AlertController(title: "Sound is already playing") // design needed
             alertController.presentAlert(from: self, duration: 1.0)
             return
         }
