@@ -416,7 +416,7 @@ class PlayViewController: UIViewController {
         // Count active players and stop if limit reached
         if players.compactMap({ $0 }).count >= 5 {
             let alertController = AlertController(title: "Sorry! We can't add more sounds :(")
-            alertController.presentAlert(from: self, duration: 1.0)
+            alertController.presentAlert(from: self, duration: 1.5)
             return
         }
         // Find first available slot in players array
@@ -604,7 +604,6 @@ extension PlayViewController: UICollectionViewDataSource, UICollectionViewDelega
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //let value = indexPath.item
         let value = recommendedSounds[indexPath.item]
         let sanitizedString = value.name.lowercased().replacingOccurrences(of: " ", with: "")
         playSound(for: sanitizedString)

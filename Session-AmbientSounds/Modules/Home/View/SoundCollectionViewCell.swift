@@ -21,13 +21,6 @@ class SoundCollectionViewCell: CollectionViewCell {
         img.contentMode = .scaleAspectFill
         return img
     }()
-//    private let smallImageViewWrapper: UIView = {
-//        let view = UIView()
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        view.layer.cornerRadius = 12
-//        view.layer.masksToBounds = true
-//        return view
-//    }()
     private let smallImageView1: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -67,9 +60,6 @@ class SoundCollectionViewCell: CollectionViewCell {
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
     }()
-//    private let smallImage1 = createSmallImageView()
-//    private let smallImage2 = createSmallImageView()
-//    private let smallImage3 = createSmallImageView()
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .semiBold(ofSize: 19.autoSized)
@@ -96,6 +86,7 @@ class SoundCollectionViewCell: CollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     private func setupViews() {
         contentView.addSubview(mainImageViewWrapper)
         mainImageViewWrapper.addSubview(mainImage)
@@ -178,10 +169,4 @@ class SoundCollectionViewCell: CollectionViewCell {
         smallImageView3.layer.borderColor = UIColor.black.withAlphaComponent(0.03).cgColor
         smallImageView3.layer.borderWidth = 2
     }
-//    private static func createSmallImageView() -> UIImageView {
-//        let img = UIImageView()
-//        img.translatesAutoresizingMaskIntoConstraints = false
-//        img.contentMode = .scaleAspectFill
-//        return img
-//    }
 }

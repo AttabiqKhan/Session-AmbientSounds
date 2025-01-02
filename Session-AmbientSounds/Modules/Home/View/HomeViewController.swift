@@ -205,9 +205,11 @@ class HomeViewController: BaseViewController {
     
     // MARK: - Selectors
     @objc private func didTapEmojiView() {
-        let controller = MoodViewController()
-        controller.modalPresentationStyle = .overCurrentContext
-        self.present(controller, animated: false)
+//        let controller = MoodViewController()
+//        controller.modalPresentationStyle = .overCurrentContext
+//        self.present(controller, animated: false)
+        let controller = LibraryViewController()
+        self.navigationController?.pushViewController(controller, animated: false)
     }
 }
 
