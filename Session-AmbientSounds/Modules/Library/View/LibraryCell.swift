@@ -16,9 +16,8 @@ class TableViewCell: UITableViewCell {
 class LibraryCell: TableViewCell {
     
     struct SoundType {
-         let icon: String
-         let tintColor: UIColor
-     }
+        let icon: String
+    }
     
     // MARK: - UI Components
     private let container: View = {
@@ -101,55 +100,45 @@ class LibraryCell: TableViewCell {
         ])
     }
     func configure(with title: String, icon: String, iconBackground: UIColor, soundTypes: [SoundType]) {
-            titleLabel.text = title
-            iconImageView.image = UIImage(named: icon)
-            iconContainer.backgroundColor = iconBackground
-            
-            // Clear existing sound type views
-            soundTypeViews.forEach { $0.removeFromSuperview() }
-            stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
-            soundTypeViews.removeAll()
-            
-            // Add new sound type views
-            let visibleCount = min(soundTypes.count, maxVisibleSoundTypes)
-            for i in 0..<visibleCount {
-                let soundType = soundTypes[i]
-                let typeView = createSoundTypeView(icon: soundType.icon, tintColor: soundType.tintColor)
-                stackView.addArrangedSubview(typeView)
-                soundTypeViews.append(typeView)
-            }
-            
-            // Add overflow indicator if needed
-            if soundTypes.count > maxVisibleSoundTypes {
-                overflowLabel.text = "+\(soundTypes.count - maxVisibleSoundTypes)"
-                stackView.addArrangedSubview(overflowLabel)
-            }
+        titleLabel.text = title
+        iconImageView.image = UIImage(named: icon)
+        iconContainer.backgroundColor = iconBackground
+        
+        soundTypeViews.forEach { $0.removeFromSuperview() }
+        stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        soundTypeViews.removeAll()
+        
+        let visibleCount = min(soundTypes.count, maxVisibleSoundTypes)
+        for i in 0..<visibleCount {
+            let soundType = soundTypes[i]
+            let typeView = createSoundTypeView(icon: soundType.icon)
+            stackView.addArrangedSubview(typeView)
+            soundTypeViews.append(typeView)
         }
-        private func createSoundTypeView(icon: String, tintColor: UIColor) -> View {
-            let container = View()
-            container.backgroundColor = colorForSoundName(icon)
-            container.layer.cornerRadius = 12.autoSized
-            container.translatesAutoresizingMaskIntoConstraints = false
-            container.layer.borderWidth = 1.0
-            container.layer.borderColor = UIColor.sliderContainerColor.cgColor
-            
-            let imageView = UIImageView(image: UIImage(named: icon)?.withRenderingMode(.alwaysTemplate))
-            imageView.tintColor = tintColor
-            imageView.contentMode = .scaleAspectFit
-            imageView.translatesAutoresizingMaskIntoConstraints = false
-            
-            container.addSubview(imageView)
-            
-            NSLayoutConstraint.activate([
-                container.widthAnchor.constraint(equalToConstant: 24.autoSized),
-                container.heightAnchor.constraint(equalToConstant: 24.autoSized),
-                
-                imageView.centerXAnchor.constraint(equalTo: container.centerXAnchor),
-                imageView.centerYAnchor.constraint(equalTo: container.centerYAnchor),
-                imageView.widthAnchor.constraint(equalToConstant: 14.autoSized),
-                imageView.heightAnchor.constraint(equalToConstant: 14.autoSized)
-            ])
-            
-            return container
+        if soundTypes.count > maxVisibleSoundTypes {
+            overflowLabel.text = "+\(soundTypes.count - maxVisibleSoundTypes)"
+            stackView.addArrangedSubview(overflowLabel)
         }
+    }
+    private func createSoundTypeView(icon: String) -> View {
+        let container = View(backgroundColor: colorForSoundName(icon), cornerRadius: 12.autoSized)
+        container.layer.borderWidth = 1.0
+        container.layer.borderColor = UIColor.sliderContainerColor.cgColor
+        
+        let imageView = ImageView(imageName: icon)
+        imageView.contentMode = .scaleAspectFit
+        
+        container.addSubview(imageView)
+        
+        NSLayoutConstraint.activate([
+            container.widthAnchor.constraint(equalToConstant: 24.autoSized),
+            container.heightAnchor.constraint(equalToConstant: 24.autoSized),
+            
+            imageView.centerXAnchor.constraint(equalTo: container.centerXAnchor),
+            imageView.centerYAnchor.constraint(equalTo: container.centerYAnchor),
+            imageView.widthAnchor.constraint(equalToConstant: 14.autoSized),
+            imageView.heightAnchor.constraint(equalToConstant: 14.autoSized)
+        ])
+        return container
+    }
 }

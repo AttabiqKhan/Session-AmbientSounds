@@ -63,6 +63,7 @@
 		596151DF2CEB622F00C34AFD /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 596151DE2CEB622F00C34AFD /* CustomSlider.swift */; };
 		59CC31BA2D1187F700F9DDAE /* ColorsForSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CC31B92D1187F700F9DDAE /* ColorsForSound.swift */; };
 		59CC31BC2D11A65800F9DDAE /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CC31BB2D11A65800F9DDAE /* AlertController.swift */; };
+		59D2B84B2D27F3F000695254 /* LibraryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D2B84A2D27F3F000695254 /* LibraryData.swift */; };
 		59DBE2722D0F268C0085B8A1 /* RecommendedSoundCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DBE2712D0F268C0085B8A1 /* RecommendedSoundCollectionViewCell.swift */; };
 		59DBE2752D0F285B0085B8A1 /* SoundCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DBE2742D0F285B0085B8A1 /* SoundCategory.swift */; };
 		59DD9C212D129F4300EC91A0 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DD9C202D129F4300EC91A0 /* UIApplication.swift */; };
@@ -131,6 +132,7 @@
 		596151DE2CEB622F00C34AFD /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
 		59CC31B92D1187F700F9DDAE /* ColorsForSound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsForSound.swift; sourceTree = "<group>"; };
 		59CC31BB2D11A65800F9DDAE /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
+		59D2B84A2D27F3F000695254 /* LibraryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryData.swift; sourceTree = "<group>"; };
 		59DBE2712D0F268C0085B8A1 /* RecommendedSoundCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedSoundCollectionViewCell.swift; sourceTree = "<group>"; };
 		59DBE2742D0F285B0085B8A1 /* SoundCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundCategory.swift; sourceTree = "<group>"; };
 		59DD9C202D129F4300EC91A0 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				5909F10C2D25187B00A4D1B0 /* SoundMix.swift */,
+				59D2B84A2D27F3F000695254 /* LibraryData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -579,6 +582,7 @@
 				59CC31BA2D1187F700F9DDAE /* ColorsForSound.swift in Sources */,
 				591030E72D1D39A500A49546 /* SoundCollectionViewCell.swift in Sources */,
 				59319A092D2698CB0088987A /* LibraryCell.swift in Sources */,
+				59D2B84B2D27F3F000695254 /* LibraryData.swift in Sources */,
 				591B238E2CE8E9E200E737A5 /* UIViewControllerExtensions.swift in Sources */,
 				591B23852CE8E98500E737A5 /* Label.swift in Sources */,
 				5913DE902CF85B7E00BC04E8 /* PlayViewController.swift in Sources */,

@@ -20,15 +20,17 @@ class LibraryViewController: UIViewController {
         let tableView = UITableView()
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
+        tableView.tintColor = .clear
+        tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.tintColor = .clear
         tableView.register(LibraryCell.self, forCellReuseIdentifier: LibraryCell.identifier)
         return tableView
     }()
     
     // MARK: - Properties
+    let libraryData = LibraryData.data
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -64,22 +66,17 @@ class LibraryViewController: UIViewController {
 extension LibraryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return libraryData.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: LibraryCell.identifier, for: indexPath) as! LibraryCell
-        let soundTypes = [
-            LibraryCell.SoundType(icon: "rain", tintColor: .blue),
-            LibraryCell.SoundType(icon: "coffeeshop", tintColor: .brown),
-            LibraryCell.SoundType(icon: "fire", tintColor: .orange),
-            LibraryCell.SoundType(icon: "scuba", tintColor: .purple)
-        ]
-        cell.configure(
-            with: "Rainy cafe",
-            icon: "rainy_day",
-            iconBackground: UIColor(red: 1, green: 0.9, blue: 0.9, alpha: 1), // Light pink
-            soundTypes: soundTypes
-        )
+        let data = libraryData[indexPath.row] 
+           cell.configure(
+               with: data.title,
+               icon: data.icon,
+               iconBackground: .mainBackgroundColor,
+               soundTypes: data.soundTypes
+           )
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
