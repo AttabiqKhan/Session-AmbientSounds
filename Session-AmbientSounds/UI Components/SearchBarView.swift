@@ -24,8 +24,8 @@ class SearchBarView: UIView {
         return tf
     }()
     private let placeholderLabel: Label = {
-        let label = Label(text: "Search", textColor: .gray)
-        label.font = .systemFont(ofSize: 16.autoSized)
+        let label = Label(text: "Search", textColor: .neutralGray)
+        label.font = .medium(ofSize: 16.autoSized)
         return label
     }()
     private let clearButton: Button = {
@@ -90,7 +90,7 @@ class SearchBarView: UIView {
         ])
         searchImageLeadingConstraint?.isActive = false
         
-        searchTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 50.widthRatio, height: 1))
+        searchTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 52.widthRatio, height: 1))
         searchTextField.leftViewMode = .always
     }
     private func setupTargets() {

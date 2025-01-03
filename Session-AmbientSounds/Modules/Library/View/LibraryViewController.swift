@@ -68,11 +68,24 @@ extension LibraryViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: LibraryCell.identifier, for: indexPath) as! LibraryCell
-        print("Cell at row \(indexPath.row+1) tapped")
-        cell.selectionStyle = .none
+        let soundTypes = [
+            LibraryCell.SoundType(icon: "rain", tintColor: .blue),
+            LibraryCell.SoundType(icon: "coffeeshop", tintColor: .brown),
+            LibraryCell.SoundType(icon: "fire", tintColor: .orange),
+            LibraryCell.SoundType(icon: "scuba", tintColor: .purple)
+        ]
+        cell.configure(
+            with: "Rainy cafe",
+            icon: "rainy_day",
+            iconBackground: UIColor(red: 1, green: 0.9, blue: 0.9, alpha: 1), // Light pink
+            soundTypes: soundTypes
+        )
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 86.autoSized
+        return UITableView.automaticDimension
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Cell at row \(indexPath.row+1) tapped")
     }
 }
