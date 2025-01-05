@@ -26,7 +26,6 @@ struct LibraryData {
             LibraryCell.SoundType(icon: "waves"),
             LibraryCell.SoundType(icon: "piano"),
             LibraryCell.SoundType(icon: "orchestra"),
-            LibraryCell.SoundType(icon: "guitar")
         ]),
         (title: "Intimate Night", icon: "intimate_night", soundTypes: [
             LibraryCell.SoundType(icon: "night"),
@@ -42,9 +41,7 @@ struct LibraryData {
         ]),
         (title: "Tropical Paradise", icon: "library", soundTypes: [
             LibraryCell.SoundType(icon: "waves"),
-            LibraryCell.SoundType(icon: "wind"),
-            LibraryCell.SoundType(icon: "night"),
-            LibraryCell.SoundType(icon: "play")
+            LibraryCell.SoundType(icon: "wind")
         ])
     ]
 }

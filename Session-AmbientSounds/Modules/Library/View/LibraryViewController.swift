@@ -30,12 +30,16 @@ class LibraryViewController: UIViewController {
     }()
     
     // MARK: - Properties
-    let libraryData = LibraryData.data
+    //private var libraryData = LibraryData.data
+    private var libraryData: [LibraryItems] = []
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        LibraryManager.shared.delegate = self
+        updateLibraryData()
+        searchBar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dummySearch)))
     }
     
     // MARK: - Functions
@@ -61,6 +65,14 @@ class LibraryViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20.autoSized)
         ])
     }
+    private func updateLibraryData() {
+        libraryData = LibraryManager.shared.getLibraryItems()
+        tableView.reloadData()
+    }
+    
+    @objc private func dummySearch() {
+        navigationController?.popViewController(animated: false)
+    }
 }
 
 extension LibraryViewController: UITableViewDelegate, UITableViewDataSource {
@@ -70,7 +82,7 @@ extension LibraryViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: LibraryCell.identifier, for: indexPath) as! LibraryCell
-        let data = libraryData[indexPath.row] 
+        let data = libraryData[indexPath.row]
            cell.configure(
                with: data.title,
                icon: data.icon,
@@ -84,5 +96,12 @@ extension LibraryViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Cell at row \(indexPath.row+1) tapped")
+    }
+}
+
+// MARK: - Updating of Data
+extension LibraryViewController: LibraryManagerDelegate {
+    func libraryDidUpdate() {
+        updateLibraryData()
     }
 }

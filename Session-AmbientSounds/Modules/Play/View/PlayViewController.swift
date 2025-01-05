@@ -580,9 +580,26 @@ class PlayViewController: UIViewController {
 // MARK: - For updation of value
 extension PlayViewController: ValuePassingDelegate {
     
+//    func didEnterValue(_ value: String) {
+//        titleLabel.text = value
+//        favouriteImageView.image = UIImage(named: "favourite_done")
+//    }
     func didEnterValue(_ value: String) {
+        let newLibraryItem = LibraryItems(
+            title: value,
+            icon: "cozy_fire",  // You can modify this based on your needs
+            soundTypes: getCurrentPlayingSoundTypes()
+        )
+        
+        LibraryManager.shared.addToLibrary(newLibraryItem)
         titleLabel.text = value
         favouriteImageView.image = UIImage(named: "favourite_done")
+    }
+    
+    private func getCurrentPlayingSoundTypes() -> [LibraryCell.SoundType] {
+        return playingSounds.map { soundName in
+            LibraryCell.SoundType(icon: soundName.lowercased())
+        }
     }
 }
 

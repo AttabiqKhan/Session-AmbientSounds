@@ -91,7 +91,7 @@ class RenamingViewController: UIViewController {
             doneButton.bottomAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.bottomAnchor, constant: -40.autoSized)
         ])
         if let value = initialValue {
-            textField.placeholder = value
+            textField.text = value
         }
     }
     

@@ -64,6 +64,8 @@
 		59CC31BA2D1187F700F9DDAE /* ColorsForSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CC31B92D1187F700F9DDAE /* ColorsForSound.swift */; };
 		59CC31BC2D11A65800F9DDAE /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CC31BB2D11A65800F9DDAE /* AlertController.swift */; };
 		59D2B84B2D27F3F000695254 /* LibraryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D2B84A2D27F3F000695254 /* LibraryData.swift */; };
+		59D2B84E2D2811EF00695254 /* LibraryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D2B84D2D2811EF00695254 /* LibraryManager.swift */; };
+		59D2B8502D28123400695254 /* LibraryItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D2B84F2D28123400695254 /* LibraryItems.swift */; };
 		59DBE2722D0F268C0085B8A1 /* RecommendedSoundCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DBE2712D0F268C0085B8A1 /* RecommendedSoundCollectionViewCell.swift */; };
 		59DBE2752D0F285B0085B8A1 /* SoundCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DBE2742D0F285B0085B8A1 /* SoundCategory.swift */; };
 		59DD9C212D129F4300EC91A0 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DD9C202D129F4300EC91A0 /* UIApplication.swift */; };
@@ -133,6 +135,8 @@
 		59CC31B92D1187F700F9DDAE /* ColorsForSound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsForSound.swift; sourceTree = "<group>"; };
 		59CC31BB2D11A65800F9DDAE /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		59D2B84A2D27F3F000695254 /* LibraryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryData.swift; sourceTree = "<group>"; };
+		59D2B84D2D2811EF00695254 /* LibraryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryManager.swift; sourceTree = "<group>"; };
+		59D2B84F2D28123400695254 /* LibraryItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryItems.swift; sourceTree = "<group>"; };
 		59DBE2712D0F268C0085B8A1 /* RecommendedSoundCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedSoundCollectionViewCell.swift; sourceTree = "<group>"; };
 		59DBE2742D0F285B0085B8A1 /* SoundCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundCategory.swift; sourceTree = "<group>"; };
 		59DD9C202D129F4300EC91A0 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
@@ -155,6 +159,7 @@
 		5909F1072D2516D000A4D1B0 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				59D2B84C2D2811E100695254 /* Helper */,
 				5909F1092D2516E200A4D1B0 /* Model */,
 				5909F1082D2516DC00A4D1B0 /* View */,
 			);
@@ -175,6 +180,7 @@
 			children = (
 				5909F10C2D25187B00A4D1B0 /* SoundMix.swift */,
 				59D2B84A2D27F3F000695254 /* LibraryData.swift */,
+				59D2B84F2D28123400695254 /* LibraryItems.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -455,6 +461,14 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		59D2B84C2D2811E100695254 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				59D2B84D2D2811EF00695254 /* LibraryManager.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		59D9E4412CE9FF46007778F8 /* Mood */ = {
 			isa = PBXGroup;
 			children = (
@@ -570,6 +584,7 @@
 				59F46B5D2D2047C900FDF6FE /* Slider.swift in Sources */,
 				591B23872CE8E98500E737A5 /* View.swift in Sources */,
 				591B23842CE8E98500E737A5 /* Button.swift in Sources */,
+				59D2B84E2D2811EF00695254 /* LibraryManager.swift in Sources */,
 				59DBE2752D0F285B0085B8A1 /* SoundCategory.swift in Sources */,
 				591B23AF2CE8F87600E737A5 /* ButtonWithImage.swift in Sources */,
 				5909F10F2D251DEE00A4D1B0 /* SearchBarView.swift in Sources */,
@@ -580,6 +595,7 @@
 				591B23AD2CE8F6E400E737A5 /* BaseViewController.swift in Sources */,
 				591030E82D1D39A500A49546 /* BottomCollectionViewCell.swift in Sources */,
 				59CC31BA2D1187F700F9DDAE /* ColorsForSound.swift in Sources */,
+				59D2B8502D28123400695254 /* LibraryItems.swift in Sources */,
 				591030E72D1D39A500A49546 /* SoundCollectionViewCell.swift in Sources */,
 				59319A092D2698CB0088987A /* LibraryCell.swift in Sources */,
 				59D2B84B2D27F3F000695254 /* LibraryData.swift in Sources */,

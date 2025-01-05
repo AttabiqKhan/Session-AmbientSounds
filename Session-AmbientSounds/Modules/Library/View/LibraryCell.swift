@@ -114,10 +114,13 @@ class LibraryCell: TableViewCell {
             let typeView = createSoundTypeView(icon: soundType.icon)
             stackView.addArrangedSubview(typeView)
             soundTypeViews.append(typeView)
+            stackView.addArrangedSubview(overflowLabel)
         }
         if soundTypes.count > maxVisibleSoundTypes {
             overflowLabel.text = "+\(soundTypes.count - maxVisibleSoundTypes)"
-            stackView.addArrangedSubview(overflowLabel)
+        }
+        else {
+            overflowLabel.alpha = 0
         }
     }
     private func createSoundTypeView(icon: String) -> View {
