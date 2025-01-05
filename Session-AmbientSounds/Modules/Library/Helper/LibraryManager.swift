@@ -11,23 +11,64 @@ protocol LibraryManagerDelegate: AnyObject {
     func libraryDidUpdate()
 }
 
+//class LibraryManager {
+//    static let shared = LibraryManager()
+//    private init() {}
+//    
+//    private var items: [LibraryItems] = []
+//    weak var delegate: LibraryManagerDelegate?
+//    
+//    func addToLibrary(_ item: LibraryItems) {
+//        if !items.contains(where: { $0.title == item.title }) {
+//            items.insert(item, at: 0)
+//            delegate?.libraryDidUpdate()
+//        }
+//    }
+//    func removeFromLibrary(id: String) {
+//        items.removeAll(where: { $0.id == id })
+//        delegate?.libraryDidUpdate()
+//    }
+//    func getLibraryItems() -> [LibraryItems] {
+//        return items
+//    }
+//}
 class LibraryManager {
     static let shared = LibraryManager()
-    private init() {}
+    private init() {
+        loadItemsFromCoreData()
+    }
     
     private var items: [LibraryItems] = []
     weak var delegate: LibraryManagerDelegate?
     
-    func addToLibrary(_ item: LibraryItems) {
-        if !items.contains(where: { $0.title == item.title }) {
-            items.insert(item, at: 0)
-            delegate?.libraryDidUpdate()
-        }
+    private func loadItemsFromCoreData() {
+        items = CoreDataManager.shared.fetchAllLibraryItems()
     }
+    
+    func addToLibrary(_ item: LibraryItems) {
+//        if !items.contains(where: { $0.title == item.title }) {
+//            items.insert(item, at: 0)
+//            CoreDataManager.shared.saveLibraryItem(item)
+//            delegate?.libraryDidUpdate()
+//        }
+        let isDuplicate = items.contains { existingItem in
+                existingItem.title == item.title &&
+                existingItem.soundTypes == item.soundTypes
+            }
+            
+            if !isDuplicate {
+                items.insert(item, at: 0)
+                CoreDataManager.shared.saveLibraryItem(item)
+                delegate?.libraryDidUpdate()
+            }
+    }
+    
     func removeFromLibrary(id: String) {
         items.removeAll(where: { $0.id == id })
+        CoreDataManager.shared.deleteLibraryItem(id: id)
         delegate?.libraryDidUpdate()
     }
+    
     func getLibraryItems() -> [LibraryItems] {
         return items
     }

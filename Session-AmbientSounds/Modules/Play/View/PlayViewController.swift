@@ -142,6 +142,7 @@ class PlayViewController: UIViewController {
         setupUI()
         addPanGesture()
         setupAudioSession()
+        CoreDataManager.shared.fetchAllLibraryItems()
         playSound(for: initialSoundTitle)
     }
     
@@ -522,9 +523,11 @@ class PlayViewController: UIViewController {
 
         // Check if the current mix is already in the library
         if let currentID = getCurrentLibraryItemID() {
+            let alert = AlertController(title: "\(currentTitle) removed from favorites")
             // If it exists, remove it
             LibraryManager.shared.removeFromLibrary(id: currentID)
             updateFavoriteButton(isFavorite: false)
+            alert.presentAlert(from: self)
         } else {
             // If it doesn't exist, open the renaming controller for the user to name it
             let controller = RenamingViewController()

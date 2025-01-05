@@ -41,6 +41,8 @@
 		591B23AD2CE8F6E400E737A5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591B23AB2CE8F6E400E737A5 /* BaseViewController.swift */; };
 		591B23AF2CE8F87600E737A5 /* ButtonWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591B23AE2CE8F87600E737A5 /* ButtonWithImage.swift */; };
 		591B23B32CE8FF4900E737A5 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591B23B22CE8FF4900E737A5 /* HomeViewController.swift */; };
+		591BB01D2D2AF0870066A67C /* LibraryData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 591BB01B2D2AF0870066A67C /* LibraryData.xcdatamodeld */; };
+		591BB01F2D2AF22F0066A67C /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591BB01E2D2AF22F0066A67C /* CoreDataManager.swift */; };
 		59319A092D2698CB0088987A /* LibraryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59319A082D2698CB0088987A /* LibraryCell.swift */; };
 		5960B1912D01837100C8068C /* coffeeshop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5960B17B2D01837000C8068C /* coffeeshop.mp3 */; };
 		5960B1922D01837100C8068C /* fire.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5960B17C2D01837000C8068C /* fire.mp3 */; };
@@ -112,6 +114,8 @@
 		591B23AE2CE8F87600E737A5 /* ButtonWithImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonWithImage.swift; sourceTree = "<group>"; };
 		591B23B22CE8FF4900E737A5 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		591B23B62CE90B3F00E737A5 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
+		591BB01C2D2AF0870066A67C /* LibraryModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LibraryModel.xcdatamodel; sourceTree = "<group>"; };
+		591BB01E2D2AF22F0066A67C /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		59319A082D2698CB0088987A /* LibraryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryCell.swift; sourceTree = "<group>"; };
 		5960B17B2D01837000C8068C /* coffeeshop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = coffeeshop.mp3; sourceTree = "<group>"; };
 		5960B17C2D01837000C8068C /* fire.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fire.mp3; sourceTree = "<group>"; };
@@ -207,6 +211,7 @@
 		591B23582CE8E79C00E737A5 = {
 			isa = PBXGroup;
 			children = (
+				591BB01B2D2AF0870066A67C /* LibraryData.xcdatamodeld */,
 				591B23622CE8E79C00E737A5 /* Products */,
 				591B23632CE8E79C00E737A5 /* Session-AmbientSounds */,
 			);
@@ -457,6 +462,7 @@
 			children = (
 				59CC31B92D1187F700F9DDAE /* ColorsForSound.swift */,
 				59CC31BB2D11A65800F9DDAE /* AlertController.swift */,
+				591BB01E2D2AF22F0066A67C /* CoreDataManager.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -586,6 +592,7 @@
 				591B23842CE8E98500E737A5 /* Button.swift in Sources */,
 				59D2B84E2D2811EF00695254 /* LibraryManager.swift in Sources */,
 				59DBE2752D0F285B0085B8A1 /* SoundCategory.swift in Sources */,
+				591BB01F2D2AF22F0066A67C /* CoreDataManager.swift in Sources */,
 				591B23AF2CE8F87600E737A5 /* ButtonWithImage.swift in Sources */,
 				5909F10F2D251DEE00A4D1B0 /* SearchBarView.swift in Sources */,
 				59CC31BC2D11A65800F9DDAE /* AlertController.swift in Sources */,
@@ -594,6 +601,7 @@
 				5913DE922CF8670A00BC04E8 /* CircularView.swift in Sources */,
 				591B23AD2CE8F6E400E737A5 /* BaseViewController.swift in Sources */,
 				591030E82D1D39A500A49546 /* BottomCollectionViewCell.swift in Sources */,
+				591BB01D2D2AF0870066A67C /* LibraryData.xcdatamodeld in Sources */,
 				59CC31BA2D1187F700F9DDAE /* ColorsForSound.swift in Sources */,
 				59D2B8502D28123400695254 /* LibraryItems.swift in Sources */,
 				591030E72D1D39A500A49546 /* SoundCollectionViewCell.swift in Sources */,
@@ -820,6 +828,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		591BB01B2D2AF0870066A67C /* LibraryData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				591BB01C2D2AF0870066A67C /* LibraryModel.xcdatamodel */,
+			);
+			currentVersion = 591BB01C2D2AF0870066A67C /* LibraryModel.xcdatamodel */;
+			path = LibraryData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 591B23592CE8E79C00E737A5 /* Project object */;
 }
