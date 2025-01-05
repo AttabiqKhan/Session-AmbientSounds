@@ -39,7 +39,7 @@ class LibraryViewController: UIViewController {
         setupUI()
         LibraryManager.shared.delegate = self
         updateLibraryData()
-        searchBar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dummySearch)))
+        searchBar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dummySearch))) // need to remove this after the implementation
     }
     
     // MARK: - Functions
@@ -95,7 +95,7 @@ extension LibraryViewController: UITableViewDelegate, UITableViewDataSource {
         return UITableView.automaticDimension
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Cell at row \(indexPath.row+1) tapped")
+        print("Cell at row \(indexPath.row+1) tapped") // need to remove this after the implementation
     }
 }
 

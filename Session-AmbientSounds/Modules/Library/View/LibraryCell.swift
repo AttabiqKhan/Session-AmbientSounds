@@ -15,7 +15,7 @@ class TableViewCell: UITableViewCell {
 
 class LibraryCell: TableViewCell {
     
-    struct SoundType {
+    struct SoundType: Equatable {
         let icon: String
     }
     

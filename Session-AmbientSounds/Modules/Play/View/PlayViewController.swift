@@ -518,11 +518,21 @@ class PlayViewController: UIViewController {
         }
     }
     @objc private func didTapFavouriteView() {
-        let controller = RenamingViewController()
-        controller.modalPresentationStyle = .overCurrentContext
-        controller.delegate = self
-        controller.initialValue = titleLabel.text
-        self.present(controller, animated: false)
+        guard let currentTitle = titleLabel.text else { return }
+
+        // Check if the current mix is already in the library
+        if let currentID = getCurrentLibraryItemID() {
+            // If it exists, remove it
+            LibraryManager.shared.removeFromLibrary(id: currentID)
+            updateFavoriteButton(isFavorite: false)
+        } else {
+            // If it doesn't exist, open the renaming controller for the user to name it
+            let controller = RenamingViewController()
+            controller.modalPresentationStyle = .overCurrentContext
+            controller.delegate = self
+            controller.initialValue = titleLabel.text
+            self.present(controller, animated: false)
+        }
     }
     @objc private func didChangeVolume(_ sender: UISlider) {
         let masterVolume = sender.value
@@ -577,13 +587,9 @@ class PlayViewController: UIViewController {
     }
 }
 
-// MARK: - For updation of value
+// MARK: - For updation of value and adding it to the library
 extension PlayViewController: ValuePassingDelegate {
     
-//    func didEnterValue(_ value: String) {
-//        titleLabel.text = value
-//        favouriteImageView.image = UIImage(named: "favourite_done")
-//    }
     func didEnterValue(_ value: String) {
         let newLibraryItem = LibraryItems(
             title: value,
@@ -593,13 +599,25 @@ extension PlayViewController: ValuePassingDelegate {
         
         LibraryManager.shared.addToLibrary(newLibraryItem)
         titleLabel.text = value
-        favouriteImageView.image = UIImage(named: "favourite_done")
+        updateFavoriteButton(isFavorite: true)
     }
-    
+    private func updateFavoriteButton(isFavorite: Bool) {
+        if isFavorite {
+            favouriteImageView.image = UIImage(named: "favourite_done")
+        } else {
+            favouriteImageView.image = UIImage(named: "favourite")
+        }
+    }
     private func getCurrentPlayingSoundTypes() -> [LibraryCell.SoundType] {
         return playingSounds.map { soundName in
             LibraryCell.SoundType(icon: soundName.lowercased())
         }
+    }
+    private func getCurrentLibraryItemID() -> String? {
+        // Match the current playing sound types to find the corresponding library item
+        let playingSoundTypes = getCurrentPlayingSoundTypes()
+        return LibraryManager.shared.getLibraryItems()
+            .first(where: { $0.soundTypes == playingSoundTypes })?.id
     }
 }
 

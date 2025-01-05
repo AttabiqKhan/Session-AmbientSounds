@@ -24,6 +24,10 @@ class LibraryManager {
             delegate?.libraryDidUpdate()
         }
     }
+    func removeFromLibrary(id: String) {
+        items.removeAll(where: { $0.id == id })
+        delegate?.libraryDidUpdate()
+    }
     func getLibraryItems() -> [LibraryItems] {
         return items
     }
