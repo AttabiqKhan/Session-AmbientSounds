@@ -28,9 +28,18 @@ class LibraryViewController: UIViewController {
         tableView.register(LibraryCell.self, forCellReuseIdentifier: LibraryCell.identifier)
         return tableView
     }()
+    private let visibleLabel: Label = {
+        let label = Label(
+            text: "Your library is empty! Start exploring to add your favourite sounds.",
+            textAlignment: .center,
+            numberOfLines: 0,
+            textColor: .primaryDarkGray
+        )
+        label.font = .medium(ofSize: 19.autoSized)
+        return label
+    }()
     
     // MARK: - Properties
-    //private var libraryData = LibraryData.data
     private var libraryData: [LibraryItems] = []
     
     // MARK: - Life Cycle
@@ -67,9 +76,20 @@ class LibraryViewController: UIViewController {
     }
     private func updateLibraryData() {
         libraryData = LibraryManager.shared.getLibraryItems()
+        if libraryData.isEmpty {
+            addLabel()
+        }
         tableView.reloadData()
     }
-    
+    private func addLabel() {
+        view.addSubview(visibleLabel)
+        
+        NSLayoutConstraint.activate([
+            visibleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25.widthRatio),
+            visibleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25.widthRatio),
+            visibleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
     @objc private func dummySearch() {
         navigationController?.popViewController(animated: false)
     }
@@ -86,7 +106,7 @@ extension LibraryViewController: UITableViewDelegate, UITableViewDataSource {
            cell.configure(
                with: data.title,
                icon: data.icon,
-               iconBackground: .mainBackgroundColor,
+               iconBackground: .softLavender,
                soundTypes: data.soundTypes
            )
         return cell
@@ -96,6 +116,9 @@ extension LibraryViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Cell at row \(indexPath.row+1) tapped") // need to remove this after the implementation
+        let vc = LibraryManagementPopupController()
+        vc.modalPresentationStyle = .overCurrentContext
+        self.present(vc, animated: false)
     }
 }
 

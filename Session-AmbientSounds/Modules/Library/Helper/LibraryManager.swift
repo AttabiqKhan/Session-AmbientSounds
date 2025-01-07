@@ -45,7 +45,7 @@ class LibraryManager {
         items = CoreDataManager.shared.fetchAllLibraryItems()
     }
     
-    func addToLibrary(_ item: LibraryItems) {
+    func addToLibrary(_ item: LibraryItems) -> Bool {
 //        if !items.contains(where: { $0.title == item.title }) {
 //            items.insert(item, at: 0)
 //            CoreDataManager.shared.saveLibraryItem(item)
@@ -61,6 +61,7 @@ class LibraryManager {
                 CoreDataManager.shared.saveLibraryItem(item)
                 delegate?.libraryDidUpdate()
             }
+        return isDuplicate
     }
     
     func removeFromLibrary(id: String) {

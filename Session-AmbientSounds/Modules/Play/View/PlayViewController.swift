@@ -126,6 +126,7 @@ class PlayViewController: UIViewController {
     private var playingSounds: [String] = []
     private var individualVolumes: [String: Float] = [:]
     private var initialSoundTitle: String
+    private var isAlreadyFavorite: Bool = false
     
     // MARK: - Initializers
     init(initialSoundTitle: String) {
@@ -142,7 +143,6 @@ class PlayViewController: UIViewController {
         setupUI()
         addPanGesture()
         setupAudioSession()
-        CoreDataManager.shared.fetchAllLibraryItems()
         playSound(for: initialSoundTitle)
     }
     
@@ -522,7 +522,8 @@ class PlayViewController: UIViewController {
         guard let currentTitle = titleLabel.text else { return }
 
         // Check if the current mix is already in the library
-        if let currentID = getCurrentLibraryItemID() {
+        if isAlreadyFavorite {
+            guard let currentID = getCurrentLibraryItemID() else { return }
             let alert = AlertController(title: "\(currentTitle) removed from favorites")
             // If it exists, remove it
             LibraryManager.shared.removeFromLibrary(id: currentID)
@@ -596,12 +597,23 @@ extension PlayViewController: ValuePassingDelegate {
     func didEnterValue(_ value: String) {
         let newLibraryItem = LibraryItems(
             title: value,
-            icon: "cozy_fire",  // You can modify this based on your needs
+            icon: "favorite_library_icon",  //
             soundTypes: getCurrentPlayingSoundTypes()
         )
         
-        LibraryManager.shared.addToLibrary(newLibraryItem)
+        let isDuplicate = LibraryManager.shared.addToLibrary(newLibraryItem)
+           
+           if isDuplicate {
+               // Show a visual alert or message (using your existing alert controller)
+               let alert = AlertController(title: "A mix with the same title and sounds already exists.")
+               alert.presentAlert(from: self)
+           } else {
+               // Optionally handle the case where the item was successfully added
+               let alert = AlertController(title: "\(newLibraryItem.title) added to favorites")
+               alert.presentAlert(from: self)
+           }
         titleLabel.text = value
+        isAlreadyFavorite = true
         updateFavoriteButton(isFavorite: true)
     }
     private func updateFavoriteButton(isFavorite: Bool) {

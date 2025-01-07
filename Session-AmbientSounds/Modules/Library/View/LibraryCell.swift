@@ -27,9 +27,9 @@ class LibraryCell: TableViewCell {
         view.tintColor = .clear
         return view
     }()
-    private let iconContainer = View(cornerRadius: 26.autoSized)
+    private let iconContainer = View(cornerRadius: 16.autoSized)
     private let iconImageView: ImageView = {
-        let imageView = ImageView(imageName: "cozy_fire")
+        let imageView = ImageView(imageName: "favorite_library_icon")
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -45,9 +45,9 @@ class LibraryCell: TableViewCell {
         label.font = .medium(ofSize: 13.autoSized)
         return label
     }()
+    private var soundTypeViews: [View] = []
     
     // MARK: - Properties
-    private var soundTypeViews: [View] = []
     private let maxVisibleSoundTypes = 3
     
     // MARK: - Initializers
