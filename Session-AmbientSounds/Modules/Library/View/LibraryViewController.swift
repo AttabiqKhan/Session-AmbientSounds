@@ -54,7 +54,7 @@ class LibraryViewController: UIViewController {
         searchBar.delegate = self
         updateLibraryData()
     }
-    
+  
     // MARK: - Functions
     private func setupUI() {
         view.backgroundColor = .white
@@ -141,7 +141,8 @@ extension LibraryViewController: UITableViewDelegate, UITableViewDataSource {
             with: data.title,
             icon: data.icon,
             iconBackground: .softLavender,
-            soundTypes: data.soundTypes
+            soundTypes: data.soundTypes,
+            id: data.id
         )
         return cell
     }
@@ -150,9 +151,6 @@ extension LibraryViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Cell at row \(indexPath.row+1) tapped") // need to remove this after the implementation
-        let vc = LibraryManagementPopupController()
-        vc.modalPresentationStyle = .overCurrentContext
-        self.present(vc, animated: false)
     }
 }
 

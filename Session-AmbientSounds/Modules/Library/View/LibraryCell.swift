@@ -38,7 +38,11 @@ class LibraryCell: TableViewCell {
         label.font = .semiBold(ofSize: 16.autoSized)
         return label
     }()
-    private let moreButton = Button(image: UIImage(named: "menu"), tintColor: .clear)
+    private lazy var moreButton: Button = {
+        let button = Button(image: UIImage(named: "menu"), tintColor: .clear)
+        button.addTarget(self, action: #selector(moreButtonTapped), for: .touchUpInside)
+        return button
+    }()
     private let stackView = StackView(axis: .horizontal, spacing: 4.autoSized, alignment: .fill, distribution: .fill)
     private let overflowLabel: Label = {
         let label = Label(text: "+1", textColor: .titleColor)
@@ -49,6 +53,8 @@ class LibraryCell: TableViewCell {
     
     // MARK: - Properties
     private let maxVisibleSoundTypes = 3
+    private var mixId: String?
+    private let coreDataManager = CoreDataManager.shared
     
     // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -99,7 +105,8 @@ class LibraryCell: TableViewCell {
             moreButton.heightAnchor.constraint(equalToConstant: 24.autoSized)
         ])
     }
-    func configure(with title: String, icon: String, iconBackground: UIColor, soundTypes: [SoundType]) {
+    func configure(with title: String, icon: String, iconBackground: UIColor, soundTypes: [SoundType], id: String) {
+        mixId = id
         titleLabel.text = title
         iconImageView.image = UIImage(named: icon)
         iconContainer.backgroundColor = iconBackground
@@ -143,5 +150,14 @@ class LibraryCell: TableViewCell {
             imageView.heightAnchor.constraint(equalToConstant: 14.autoSized)
         ])
         return container
+    }
+    @objc private func moreButtonTapped() {
+        guard let parentVC = self.window?.rootViewController else { return }
+        let vc = LibraryManagementPopupController()
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.mixTitle = titleLabel.text
+        vc.mixId = mixId
+        vc.coreDataManager = coreDataManager
+        parentVC.present(vc, animated: false)
     }
 }

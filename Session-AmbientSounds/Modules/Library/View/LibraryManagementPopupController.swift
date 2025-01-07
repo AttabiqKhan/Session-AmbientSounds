@@ -38,6 +38,10 @@ class LibraryManagementPopupController: UIViewController {
             title: "Rename mix"
         )
     ]
+    var mixId: String?
+    var mixTitle: String?
+    weak var coreDataManager: CoreDataManager?
+    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,13 +78,42 @@ class LibraryManagementPopupController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -48.autoSized)
         ])
     }
-//    func showPresentation() {
-//        presentationHelper.presentSelf()
-//    }
-//    
-//    func dismissPresentation() {
-//        presentationHelper.dismissSelf()
-//    }
+    private func handleDelete() {
+        guard let id = mixId else { return }
+        
+        // Create alert to confirm deletion
+        let alert = UIAlertController(
+            title: "Remove Mix",
+            message: "Are you sure you want to remove this mix from your library?",
+            preferredStyle: .alert
+        )
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Remove", style: .destructive) { [weak self] _ in
+            self?.coreDataManager?.deleteLibraryItem(id: id)
+            self?.dismiss(animated: false)
+        })
+        present(alert, animated: false)
+    }
+    private func handleRename() {
+        let renamingVC = RenamingViewController()
+        renamingVC.modalPresentationStyle = .overFullScreen
+        renamingVC.initialValue = mixTitle
+        renamingVC.delegate = self
+        
+        // Dismiss current popup before showing rename view
+        dismiss(animated: false) {
+            guard let rootVC = UIApplication.shared.keyWindow?.rootViewController else { return }
+            rootVC.present(renamingVC, animated: false)
+        }
+    }
+    //    func showPresentation() {
+    //        presentationHelper.presentSelf()
+    //    }
+    //
+    //    func dismissPresentation() {
+    //        presentationHelper.dismissSelf()
+    //    }
 }
 
 extension LibraryManagementPopupController: UITableViewDelegate, UITableViewDataSource {
@@ -96,5 +129,24 @@ extension LibraryManagementPopupController: UITableViewDelegate, UITableViewData
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        switch indexPath.row {
+        case 0:
+            handleDelete()
+        case 1:
+            handleRename()
+        default:
+            break
+        }
+    }
+}
+
+extension LibraryManagementPopupController: ValuePassingDelegate {
+    func didEnterValue(_ value: String) {
+        guard let id = mixId else { return }
+        coreDataManager?.renameLibraryItem(id: id, newName: value)
     }
 }

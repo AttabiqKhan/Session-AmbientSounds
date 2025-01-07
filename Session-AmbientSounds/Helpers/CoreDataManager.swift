@@ -17,10 +17,9 @@ class CoreDataManager {
     
     // MARK: - Core Data stack
     private lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "LibraryData") 
+        let container = NSPersistentContainer(name: "LibraryData")
         return container
     }()
-    
     private lazy var viewContext: NSManagedObjectContext = {
         return persistentContainer.viewContext
     }()
@@ -65,7 +64,6 @@ class CoreDataManager {
             print("Error saving library item: \(error)")
         }
     }
-    
     func fetchAllLibraryItems() -> [LibraryItems] {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "LibraryItem")
         
@@ -92,7 +90,6 @@ class CoreDataManager {
             return []
         }
     }
-    
     func deleteLibraryItem(id: String) {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "LibraryItem")
         fetchRequest.predicate = NSPredicate(format: "id == %@", id)
@@ -103,6 +100,20 @@ class CoreDataManager {
             try viewContext.save()
         } catch {
             print("Error deleting library item: \(error)")
+        }
+    }
+    func renameLibraryItem(id: String, newName: String) {
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "LibraryItem")
+        fetchRequest.predicate = NSPredicate(format: "id == %@", id)
+        
+        do {
+            let objects = try viewContext.fetch(fetchRequest)
+            if let item = objects.first {
+                item.setValue(newName, forKey: "title")  // Assuming "title" is your attribute name
+                try viewContext.save()
+            }
+        } catch {
+            print("Error renaming library item: \(error)")
         }
     }
 }

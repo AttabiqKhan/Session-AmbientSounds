@@ -46,10 +46,12 @@ class RenamingViewController: UIViewController {
     // MARK: - Properties
     weak var delegate: ValuePassingDelegate?
     var initialValue: String? // Property to store the updated value
+    private var presentationHelper: PresentationHelper!
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        presentationHelper = PresentationHelper(containerView: containerView, viewController: self)
         setupUI()
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -60,6 +62,8 @@ class RenamingViewController: UIViewController {
         view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         containerView.layer.cornerRadius = 40.autoSized
         containerView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        let panGesture = UIPanGestureRecognizer(target: presentationHelper, action: #selector(presentationHelper.handlePanGesture(_:)))
+        containerView.addGestureRecognizer(panGesture)
         
         view.addSubview(containerView)
         [lineView, titleLabel, textField, doneButton].forEach {
