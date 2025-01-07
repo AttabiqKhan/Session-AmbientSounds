@@ -17,6 +17,7 @@ class LibraryManagementPopupController: UIViewController {
         let tableView = UITableView()
         tableView.backgroundColor = .clear
         tableView.tintColor = .clear
+        tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self

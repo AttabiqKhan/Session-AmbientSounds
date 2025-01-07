@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol SearchBarViewDelegate: AnyObject {
+    func searchBar(_ searchBar: SearchBarView, didUpdateSearchText text: String)
+}
+
 class SearchBarView: UIView {
     
     // MARK: - UI Components
@@ -41,6 +45,12 @@ class SearchBarView: UIView {
     private var textFieldTrailingConstraint: NSLayoutConstraint?
     private var isSearchActive = false
     private var originalPlaceholderCenter: CGPoint?
+    weak var delegate: SearchBarViewDelegate?
+    private var searchText: String = "" {
+        didSet {
+            delegate?.searchBar(self, didUpdateSearchText: searchText)
+        }
+    }
     
     // MARK: - Initializers
     init() {
@@ -120,16 +130,21 @@ class SearchBarView: UIView {
             self.layoutIfNeeded()
         }
     }
+    func getCurrentSearchText() -> String {
+        return searchText
+    }
     
     // MARK: - Selectors
     @objc private func clearButtonTapped() {
         searchTextField.text = ""
+        searchText = ""
         clearButton.isHidden = true
         if !searchTextField.isFirstResponder {
             animateToInactiveState()
         }
     }
     @objc private func textFieldDidChange() {
+        searchText = searchTextField.text ?? ""
         clearButton.isHidden = searchTextField.text?.isEmpty ?? true
     }
 }
