@@ -45,6 +45,7 @@ class LibraryViewController: UIViewController {
     private var libraryData: [LibraryItems] = []
     private var filteredLibraryData: [LibraryItems] = []
     private var isSearching: Bool = false
+    private var coreDataManager = CoreDataManager.shared
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -54,7 +55,12 @@ class LibraryViewController: UIViewController {
         searchBar.delegate = self
         updateLibraryData()
     }
-  
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        LibraryManager.shared.refreshItems()
+        updateLibraryData()
+    }
+    
     // MARK: - Functions
     private func setupUI() {
         view.backgroundColor = .white
@@ -144,20 +150,20 @@ extension LibraryViewController: UITableViewDelegate, UITableViewDataSource {
             soundTypes: data.soundTypes,
             id: data.id
         )
+        cell.delegate = self
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
-    }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Cell at row \(indexPath.row+1) tapped") // need to remove this after the implementation
     }
 }
 
 // MARK: - Updating of Data
 extension LibraryViewController: LibraryManagerDelegate {
     func libraryDidUpdate() {
-        updateLibraryData()
+        DispatchQueue.main.async { [weak self] in
+            self?.updateLibraryData()
+        }
     }
 }
 
@@ -165,5 +171,36 @@ extension LibraryViewController: LibraryManagerDelegate {
 extension LibraryViewController: SearchBarViewDelegate {
     func searchBar(_ searchBar: SearchBarView, didUpdateSearchText text: String) {
         filterLibraryItems(with: text)
+    }
+}
+
+// MARK: - For showing the pop-up for renaming and deleting
+extension LibraryViewController: LibraryCellDelegate {
+    func didTapMoreButton(mixId: String, mixTitle: String) {
+        let vc = LibraryManagementPopupController()
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.mixTitle = mixTitle
+        vc.mixId = mixId
+        vc.coreDataManager = coreDataManager
+        vc.delegate = self // Set the delegate
+        self.present(vc, animated: false)
+    }
+}
+
+// MARK: - For handling the renaming and deleting functionality
+extension LibraryViewController: LibraryManagementDelegate {
+    func didDeleteItem(id: String) {
+        filteredLibraryData.removeAll { $0.id == id }
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    func didRenameItem(id: String, newTitle: String) {
+        if let index = filteredLibraryData.firstIndex(where: { $0.id == id }) {
+            filteredLibraryData[index].title = newTitle
+        }
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 }

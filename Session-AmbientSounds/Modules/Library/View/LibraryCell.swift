@@ -13,6 +13,10 @@ class TableViewCell: UITableViewCell {
     }
 }
 
+protocol LibraryCellDelegate: AnyObject {
+    func didTapMoreButton(mixId: String, mixTitle: String)
+}
+
 class LibraryCell: TableViewCell {
     
     struct SoundType: Equatable, Codable {
@@ -54,7 +58,7 @@ class LibraryCell: TableViewCell {
     // MARK: - Properties
     private let maxVisibleSoundTypes = 3
     private var mixId: String?
-    private let coreDataManager = CoreDataManager.shared
+    weak var delegate: LibraryCellDelegate?
     
     // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -152,12 +156,7 @@ class LibraryCell: TableViewCell {
         return container
     }
     @objc private func moreButtonTapped() {
-        guard let parentVC = self.window?.rootViewController else { return }
-        let vc = LibraryManagementPopupController()
-        vc.modalPresentationStyle = .overCurrentContext
-        vc.mixTitle = titleLabel.text
-        vc.mixId = mixId
-        vc.coreDataManager = coreDataManager
-        parentVC.present(vc, animated: false)
+        guard let mixId = mixId, let title = titleLabel.text else { return }
+        delegate?.didTapMoreButton(mixId: mixId, mixTitle: title)
     }
 }

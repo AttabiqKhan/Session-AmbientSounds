@@ -9,7 +9,7 @@ import Foundation
 
 struct LibraryItems {
     let id: String
-    let title: String
+    var title: String
     let icon: String
     let soundTypes: [LibraryCell.SoundType]
     

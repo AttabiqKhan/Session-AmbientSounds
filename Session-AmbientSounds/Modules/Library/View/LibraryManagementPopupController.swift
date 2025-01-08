@@ -8,6 +8,11 @@
 import Foundation
 import UIKit
 
+protocol LibraryManagementDelegate: AnyObject {
+    func didDeleteItem(id: String)
+    func didRenameItem(id: String, newTitle: String)
+}
+
 class LibraryManagementPopupController: UIViewController {
     
     // MARK: - Variables
@@ -41,6 +46,7 @@ class LibraryManagementPopupController: UIViewController {
     var mixId: String?
     var mixTitle: String?
     weak var coreDataManager: CoreDataManager?
+    weak var delegate: LibraryManagementDelegate?
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -90,7 +96,9 @@ class LibraryManagementPopupController: UIViewController {
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         alert.addAction(UIAlertAction(title: "Remove", style: .destructive) { [weak self] _ in
+            LibraryManager.shared.removeFromLibrary(id: id)
             self?.coreDataManager?.deleteLibraryItem(id: id)
+            self?.delegate?.didDeleteItem(id: id)
             self?.dismiss(animated: false)
         })
         present(alert, animated: false)
@@ -101,7 +109,6 @@ class LibraryManagementPopupController: UIViewController {
         renamingVC.initialValue = mixTitle
         renamingVC.delegate = self
         
-        // Dismiss current popup before showing rename view
         dismiss(animated: false) {
             guard let rootVC = UIApplication.shared.keyWindow?.rootViewController else { return }
             rootVC.present(renamingVC, animated: false)
@@ -148,5 +155,6 @@ extension LibraryManagementPopupController: ValuePassingDelegate {
     func didEnterValue(_ value: String) {
         guard let id = mixId else { return }
         coreDataManager?.renameLibraryItem(id: id, newName: value)
+        delegate?.didRenameItem(id: id, newTitle: value)
     }
 }

@@ -11,26 +11,24 @@ import CoreData
 class CoreDataManager {
     static let shared = CoreDataManager()
     
-    private init() {
-        loadPersistentStore()
-    }
+    private init() {}
     
     // MARK: - Core Data stack
     private lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "LibraryData")
-        return container
-    }()
-    private lazy var viewContext: NSManagedObjectContext = {
-        return persistentContainer.viewContext
-    }()
-    
-    private func loadPersistentStore() {
-        persistentContainer.loadPersistentStores { description, error in
+        container.loadPersistentStores { description, error in
             if let error = error {
                 fatalError("Unable to load persistent stores: \(error)")
             }
         }
-    }
+        return container
+    }()
+    private lazy var viewContext: NSManagedObjectContext = {
+        let context = persistentContainer.viewContext
+        context.automaticallyMergesChangesFromParent = true
+        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        return context
+    }()
     
     // MARK: - CRUD Operations with LibraryItems model
     func saveLibraryItem(_ item: LibraryItems) {
@@ -109,7 +107,7 @@ class CoreDataManager {
         do {
             let objects = try viewContext.fetch(fetchRequest)
             if let item = objects.first {
-                item.setValue(newName, forKey: "title")  // Assuming "title" is your attribute name
+                item.setValue(newName, forKey: "title")
                 try viewContext.save()
             }
         } catch {
