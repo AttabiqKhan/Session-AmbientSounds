@@ -12,7 +12,15 @@ import AVFoundation
 class PlayViewController: UIViewController {
     
     // MARK: - UI Elements
-    private let containerView = View(backgroundColor: .white)
+    private let scrollView: UIScrollView = {
+        let sv = UIScrollView()
+        sv.showsVerticalScrollIndicator = false
+        sv.translatesAutoresizingMaskIntoConstraints = false
+        sv.bounces = false
+        return sv
+    }()
+    private let containerView = View(backgroundColor: .white, cornerRadius: 40.autoSized)
+    private let secondaryContainer = View(backgroundColor: .white)
     private let lineView = View(
         backgroundColor: .lineColor,
         cornerRadius: 2.5
@@ -150,7 +158,6 @@ class PlayViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         titleLabel.text = initialSoundTitle.capitalized
-        containerView.layer.cornerRadius = 40.autoSized
         containerView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         
         view.addSubview(containerView)
@@ -404,6 +411,11 @@ class PlayViewController: UIViewController {
             return
         }
         do {
+            if isAlreadyFavorite {
+                    isAlreadyFavorite = false
+                    updateFavoriteButton(isFavorite: false)
+                    titleLabel.text = "Current Mix"
+            }
             let newPlayer = try AVAudioPlayer(contentsOf: url)
             newPlayer.numberOfLoops = -1
             newPlayer.volume = volumeSlider.value
@@ -589,8 +601,10 @@ extension PlayViewController: ValuePassingDelegate {
     private func updateFavoriteButton(isFavorite: Bool) {
         if isFavorite {
             favouriteImageView.image = UIImage(named: "favourite_done")
+            isAlreadyFavorite = true
         } else {
             favouriteImageView.image = UIImage(named: "favourite")
+            isAlreadyFavorite = false
         }
     }
     private func getCurrentPlayingSoundTypes() -> [LibraryCell.SoundType] {
