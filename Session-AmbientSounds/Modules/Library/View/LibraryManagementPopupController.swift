@@ -85,23 +85,19 @@ class LibraryManagementPopupController: UIViewController {
         ])
     }
     private func handleDelete() {
-        guard let id = mixId else { return }
-        
-        // Create alert to confirm deletion
-        let alert = UIAlertController(
-            title: "Remove Mix",
-            message: "Are you sure you want to remove this mix from your library?",
-            preferredStyle: .alert
-        )
-        
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        alert.addAction(UIAlertAction(title: "Remove", style: .destructive) { [weak self] _ in
-            LibraryManager.shared.removeFromLibrary(id: id)
-            self?.coreDataManager?.deleteLibraryItem(id: id)
-            self?.delegate?.didDeleteItem(id: id)
-            self?.dismiss(animated: false)
-        })
-        present(alert, animated: false)
+        guard mixId != nil else { return }
+            
+            let deleteVC = DeleteViewController()
+            deleteVC.modalPresentationStyle = .overFullScreen
+            deleteVC.modalTransitionStyle = .crossDissolve
+            deleteVC.mixId = mixId
+            deleteVC.mixTitle = mixTitle
+            deleteVC.delegate = delegate
+            
+            dismiss(animated: false) {
+                guard let rootVC = UIApplication.shared.keyWindow?.rootViewController else { return }
+                rootVC.present(deleteVC, animated: false)
+            }
     }
     private func handleRename() {
         let renamingVC = RenamingViewController()

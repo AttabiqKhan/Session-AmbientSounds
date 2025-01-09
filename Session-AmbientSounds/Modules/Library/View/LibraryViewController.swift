@@ -122,9 +122,7 @@ class LibraryViewController: UIViewController {
     private func updateVisibleLabel() {
         if filteredLibraryData.isEmpty {
             visibleLabel.isHidden = false
-            visibleLabel.text = isSearching ?
-            "No results. Explore other keywords." :
-            "Your library is empty! Start exploring to add your favourite sounds."
+            visibleLabel.text = isSearching ? "No results. Explore other keywords." : "Your library is empty! Start exploring to add your favourite sounds."
         } else {
             visibleLabel.isHidden = true
         }
@@ -182,7 +180,7 @@ extension LibraryViewController: LibraryCellDelegate {
         vc.mixTitle = mixTitle
         vc.mixId = mixId
         vc.coreDataManager = coreDataManager
-        vc.delegate = self // Set the delegate
+        vc.delegate = self
         self.present(vc, animated: false)
     }
 }

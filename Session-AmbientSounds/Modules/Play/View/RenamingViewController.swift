@@ -101,7 +101,7 @@ class RenamingViewController: UIViewController {
     
     // MARK: - Selectors
     @objc private func doneButtonTapped() {
-        guard let text = textField.text else { return }
+        guard let text = textField.text, !text.isEmpty else { return }
         delegate?.didEnterValue(text)
         dismiss(animated: true, completion: nil)
     }

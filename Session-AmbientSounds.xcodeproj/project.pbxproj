@@ -44,6 +44,7 @@
 		591BB01D2D2AF0870066A67C /* LibraryData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 591BB01B2D2AF0870066A67C /* LibraryData.xcdatamodeld */; };
 		591BB01F2D2AF22F0066A67C /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591BB01E2D2AF22F0066A67C /* CoreDataManager.swift */; };
 		59319A092D2698CB0088987A /* LibraryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59319A082D2698CB0088987A /* LibraryCell.swift */; };
+		595625AF2D2EA6170035E2A9 /* DeleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 595625AE2D2EA6170035E2A9 /* DeleteViewController.swift */; };
 		595FFFC42D2BD770006F7FD5 /* LibraryManagementPopupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 595FFFC32D2BD770006F7FD5 /* LibraryManagementPopupController.swift */; };
 		595FFFC62D2BD906006F7FD5 /* LibraryManagementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 595FFFC52D2BD906006F7FD5 /* LibraryManagementCell.swift */; };
 		595FFFC82D2BDC6F006F7FD5 /* PresentationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 595FFFC72D2BDC6F006F7FD5 /* PresentationHelper.swift */; };
@@ -121,6 +122,7 @@
 		591BB01C2D2AF0870066A67C /* LibraryModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LibraryModel.xcdatamodel; sourceTree = "<group>"; };
 		591BB01E2D2AF22F0066A67C /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		59319A082D2698CB0088987A /* LibraryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryCell.swift; sourceTree = "<group>"; };
+		595625AE2D2EA6170035E2A9 /* DeleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteViewController.swift; sourceTree = "<group>"; };
 		595FFFC32D2BD770006F7FD5 /* LibraryManagementPopupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryManagementPopupController.swift; sourceTree = "<group>"; };
 		595FFFC52D2BD906006F7FD5 /* LibraryManagementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryManagementCell.swift; sourceTree = "<group>"; };
 		595FFFC72D2BDC6F006F7FD5 /* PresentationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationHelper.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 				59319A082D2698CB0088987A /* LibraryCell.swift */,
 				595FFFC52D2BD906006F7FD5 /* LibraryManagementCell.swift */,
 				595FFFC32D2BD770006F7FD5 /* LibraryManagementPopupController.swift */,
+				595625AE2D2EA6170035E2A9 /* DeleteViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -597,6 +600,7 @@
 			files = (
 				59DD9C212D129F4300EC91A0 /* UIApplication.swift in Sources */,
 				591B23A72CE8ECE700E737A5 /* OnboardingCell.swift in Sources */,
+				595625AF2D2EA6170035E2A9 /* DeleteViewController.swift in Sources */,
 				59DBE2722D0F268C0085B8A1 /* RecommendedSoundCollectionViewCell.swift in Sources */,
 				59E751292CF995A000FAE5F8 /* RenamingViewController.swift in Sources */,
 				59F46B5D2D2047C900FDF6FE /* Slider.swift in Sources */,

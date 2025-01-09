@@ -110,7 +110,7 @@ class PlayViewController: UIViewController {
         alignment: .fill,
         distribution: .fill
     )
-
+    
     // MARK: - Properties
     private var recommendedSounds: [SoundItem] = [
         SoundItem(name: "Piano", icon: UIImage(named: "piano"), backgroundColor: .pianoColor),
@@ -154,22 +154,18 @@ class PlayViewController: UIViewController {
         containerView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         
         view.addSubview(containerView)
-        [
-            titleLabel,
-            lineView,
-            favouriteContainer,
-            volumeSlider,
-            libraryContainer,
-            playView,
-            volumeIcon,
-            recommendedLabel,
-            collectionView,
-            playingSoundsStackView,
-            mixSoundsLabel,
-            volumeControlStackView
-        ].forEach {
-            containerView.addSubview($0)
-        }
+        containerView.addSubview(titleLabel)
+        containerView.addSubview(lineView)
+        containerView.addSubview(favouriteContainer)
+        containerView.addSubview(volumeSlider)
+        containerView.addSubview(libraryContainer)
+        containerView.addSubview(playView)
+        containerView.addSubview(volumeIcon)
+        containerView.addSubview(recommendedLabel)
+        containerView.addSubview(collectionView)
+        containerView.addSubview(playingSoundsStackView)
+        containerView.addSubview(mixSoundsLabel)
+        containerView.addSubview(volumeControlStackView)
         favouriteContainer.addSubview(favouriteImageView)
         libraryContainer.addSubview(libraryImageView)
         playView.addSubview(playImageView)
@@ -244,13 +240,7 @@ class PlayViewController: UIViewController {
             collectionView.bottomAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.bottomAnchor, constant: -0.autoSized)
         ])
     }
-    private func setupInitialPlayingView() {
-        // Add one initial dummy playing view
-        addPlayingSoundView(for: "Rain")
-        addVolumeView(for: "Rain")
-    }
     private func addPlayingSoundView(for soundName: String) {
-        
         let backgroundColor = colorForSoundName(soundName)
         let playingSoundView: View = {
             let view = View(backgroundColor: backgroundColor, cornerRadius: 16.autoSized)
@@ -278,7 +268,6 @@ class PlayViewController: UIViewController {
     }
     private func addVolumeView(for soundName: String) {
         let backgroundColor = colorForSoundName(soundName)
-
         let container = View()
         let playingSoundView: View = {
             let view = View(backgroundColor: backgroundColor, cornerRadius: 28.autoSized)
@@ -312,7 +301,7 @@ class PlayViewController: UIViewController {
             slider.addTarget(self, action: #selector(volumeSliderValueChanged(_:)), for: .valueChanged)
             return slider
         }()
-
+        
         volumeControlStackView.addArrangedSubview(container)
         container.addSubview(playingSoundView)
         container.addSubview(volumeSlider)
@@ -344,17 +333,11 @@ class PlayViewController: UIViewController {
         ])
     }
     private func removeVolumeView(for soundName: String) {
-        // Find and remove the container view that matches the sound name
         for arrangedSubview in volumeControlStackView.arrangedSubviews {
-            // Check if this container has the playingSoundView with matching image
             if let playingSoundView = arrangedSubview.subviews.first(where: { $0.subviews.first is UIImageView }),
                let imageView = playingSoundView.subviews.first as? UIImageView,
                imageView.image == UIImage(named: soundName.lowercased()) {
-                
-                // Remove the container from the stack view
                 arrangedSubview.removeFromSuperview()
-                
-                // Animate the removal if needed
                 UIView.animate(withDuration: 0.2) {
                     self.volumeControlStackView.layoutIfNeeded()
                 }
@@ -363,7 +346,6 @@ class PlayViewController: UIViewController {
         }
     }
     private func removePlayingSoundView(for soundName: String) {
-        // Remove view from stack view
         for arrangedSubview in playingSoundsStackView.arrangedSubviews {
             if let imageView = arrangedSubview.subviews.compactMap({ $0 as? UIImageView }).first,
                imageView.image == UIImage(named: soundName.lowercased()) {
@@ -375,12 +357,10 @@ class PlayViewController: UIViewController {
     }
     private func toggleSound(_ soundName: String) {
         if playingSounds.contains(soundName) {
-            // Stop sound and remove the view
             playingSounds.removeAll { $0 == soundName }
             removePlayingSoundView(for: soundName)
             removeVolumeView(for: soundName)
         } else {
-            // Play sound and add the view
             playingSounds.append(soundName)
             addPlayingSoundView(for: soundName)
             addVolumeView(for: soundName)
@@ -398,9 +378,6 @@ class PlayViewController: UIViewController {
         }
     }
     private func playSound(for soundName: String) {
-        //let option = soundName.lowercased()
-        
-        // Find index of existing player for this sound
         let existingPlayerIndex = players.firstIndex(where: { player in
             if let player = player,
                let playerURL = Bundle.main.url(forResource: soundName, withExtension: "mp3") {
@@ -408,24 +385,20 @@ class PlayViewController: UIViewController {
             }
             return false
         })
-        // If sound is already playing, stop it
         if existingPlayerIndex != nil {
             let alertController = AlertController(title: "Sound is already playing") // design needed
             alertController.presentAlert(from: self, duration: 1.0)
             return
         }
-        // Count active players and stop if limit reached
         if players.compactMap({ $0 }).count >= 5 {
             let alertController = AlertController(title: "Sorry! We can't add more sounds :(")
             alertController.presentAlert(from: self, duration: 1.5)
             return
         }
-        // Find first available slot in players array
         guard let emptyIndex = players.firstIndex(where: { $0 == nil }) else {
             print("No available slots for new audio player")
             return
         }
-        // Create new player
         guard let url = Bundle.main.url(forResource: soundName, withExtension: "mp3") else {
             print("Audio file not found for option: \(soundName)")
             return
@@ -443,9 +416,6 @@ class PlayViewController: UIViewController {
         }
     }
     private func stopSound(for soundName: String) {
-        //let option = soundName.lowercased()
-        
-        // Find the player that's playing this sound
         if let index = players.firstIndex(where: { player in
             if let player = player,
                let playerURL = Bundle.main.url(forResource: soundName, withExtension: "mp3") {
@@ -479,7 +449,7 @@ class PlayViewController: UIViewController {
             self.containerView.transform = .identity
         }
     }
- 
+    
     // MARK: - Selectors
     // Note: handlePanGesture function may seem difficult to understand hence the comments are written
     @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
@@ -520,17 +490,14 @@ class PlayViewController: UIViewController {
     }
     @objc private func didTapFavouriteView() {
         guard let currentTitle = titleLabel.text else { return }
-
-        // Check if the current mix is already in the library
+        
         if isAlreadyFavorite {
             guard let currentID = getCurrentLibraryItemID() else { return }
             let alert = AlertController(title: "\(currentTitle) removed from favorites")
-            // If it exists, remove it
             LibraryManager.shared.removeFromLibrary(id: currentID)
             updateFavoriteButton(isFavorite: false)
             alert.presentAlert(from: self)
         } else {
-            // If it doesn't exist, open the renaming controller for the user to name it
             let controller = RenamingViewController()
             controller.modalPresentationStyle = .overCurrentContext
             controller.delegate = self
@@ -541,18 +508,13 @@ class PlayViewController: UIViewController {
     @objc private func didChangeVolume(_ sender: UISlider) {
         let masterVolume = sender.value
         
-        // Update all active players with new master volume
         for (_, player) in players.enumerated() {
             guard let player = player,
                   let url = player.url,
                   let soundName = url.deletingPathExtension().lastPathComponent.lowercased() as String? else {
                 continue
             }
-            
-            // Get individual volume for this sound
             let individualVolume = individualVolumes[soundName] ?? 1.0
-            
-            // Calculate final volume as a product of master and individual volumes
             player.volume = masterVolume * individualVolume
         }
     }
@@ -602,19 +564,27 @@ extension PlayViewController: ValuePassingDelegate {
         )
         
         let isDuplicate = LibraryManager.shared.addToLibrary(newLibraryItem)
-           
-           if isDuplicate {
-               // Show a visual alert or message (using your existing alert controller)
-               let alert = AlertController(title: "A mix with the same title and sounds already exists.")
-               alert.presentAlert(from: self)
-           } else {
-               // Optionally handle the case where the item was successfully added
-               let alert = AlertController(title: "\(newLibraryItem.title) added to favorites")
-               alert.presentAlert(from: self)
-           }
-        titleLabel.text = value
-        isAlreadyFavorite = true
-        updateFavoriteButton(isFavorite: true)
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            if let presentedVC = self.presentedViewController {
+                presentedVC.dismiss(animated: true) {
+                    self.showAlert(isDuplicate: isDuplicate, title: newLibraryItem.title)
+                }
+            } else {
+                self.showAlert(isDuplicate: isDuplicate, title: newLibraryItem.title) // dummy, design discussion required
+            }
+            if !isDuplicate {
+                titleLabel.text = value
+                isAlreadyFavorite = true
+                updateFavoriteButton(isFavorite: true)
+            }
+        }
+    }
+    private func showAlert(isDuplicate: Bool, title: String) {
+        let message = isDuplicate ? "Same mix already exists.": "\(title) added to favorites"
+        let alert = AlertController(title: message)
+        alert.presentAlert(from: self, duration: 0.5)
     }
     private func updateFavoriteButton(isFavorite: Bool) {
         if isFavorite {
