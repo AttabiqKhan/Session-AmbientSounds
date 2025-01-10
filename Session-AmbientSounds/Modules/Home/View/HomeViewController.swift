@@ -23,9 +23,9 @@ class HomeViewController: BaseViewController {
     }()
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 162.autoSized, height: 200.autoSized)
-        layout.minimumLineSpacing = 16
-        layout.minimumInteritemSpacing = 8
+        layout.itemSize = CGSize(width: 162.widthRatio, height: 200.autoSized)
+        layout.minimumLineSpacing = 16.autoSized
+        layout.minimumInteritemSpacing = 8.widthRatio
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -38,7 +38,7 @@ class HomeViewController: BaseViewController {
     }()
     private lazy var bottomCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 73.autoSized, height: 73.autoSized)
+        layout.itemSize = CGSize(width: 73.widthRatio, height: 73.widthRatio)
         layout.minimumLineSpacing = 37
         layout.minimumInteritemSpacing = 8
         layout.scrollDirection = .vertical
@@ -238,7 +238,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         if collectionView == self.bottomCollectionView {
             let soundName = bottomItems[indexPath.item].label.lowercased().replacingOccurrences(of: " ", with: "")
             let vc = PlayViewController(initialSoundTitle: soundName)
-            vc.modalPresentationStyle = .overCurrentContext
+            vc.modalPresentationStyle = .overFullScreen
             self.present(vc, animated: false)
         }
     }

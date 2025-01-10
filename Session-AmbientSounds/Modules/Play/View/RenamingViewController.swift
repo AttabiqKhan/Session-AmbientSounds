@@ -16,13 +16,9 @@ class RenamingViewController: UIViewController {
     // MARK: - UI Elements
     private let containerView = View(backgroundColor: .white)
     private let lineView = View(backgroundColor: .lineColor, cornerRadius: 2.5)
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Name your mix"
-        label.textAlignment = .center
-        label.textColor = .titleColor
+    private let titleLabel: Label = {
+        let label = Label(text: "Name your mix", textAlignment: .center, numberOfLines: 0, textColor: .titleColor)
         label.font = .bold(ofSize: 28.autoSized)
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     private let textField: TextField = {
@@ -45,18 +41,24 @@ class RenamingViewController: UIViewController {
     
     // MARK: - Properties
     weak var delegate: ValuePassingDelegate?
-    var initialValue: String? // Property to store the updated value
+    var initialValue: String?
     private var presentationHelper: PresentationHelper!
+    private var containerViewBottomConstraint: NSLayoutConstraint!
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         presentationHelper = PresentationHelper(containerView: containerView, viewController: self)
         setupUI()
+        setupKeyboardObservers()
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
+    
     // MARK: - Functions
     private func setupUI() {
         view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
@@ -64,16 +66,19 @@ class RenamingViewController: UIViewController {
         containerView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         let panGesture = UIPanGestureRecognizer(target: presentationHelper, action: #selector(presentationHelper.handlePanGesture(_:)))
         containerView.addGestureRecognizer(panGesture)
+        containerViewBottomConstraint = containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         
         view.addSubview(containerView)
-        [lineView, titleLabel, textField, doneButton].forEach {
-            containerView.addSubview($0)
-        }
+        containerView.addSubview(lineView)
+        containerView.addSubview(titleLabel)
+        containerView.addSubview(textField)
+        containerView.addSubview(doneButton)
+        
         
         NSLayoutConstraint.activate([
             containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            containerViewBottomConstraint,
             
             lineView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16.autoSized),
             lineView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
@@ -98,8 +103,26 @@ class RenamingViewController: UIViewController {
             textField.text = value
         }
     }
+    private func setupKeyboardObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
     
     // MARK: - Selectors
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+        let keyboardHeight = keyboardFrame.height
+        containerViewBottomConstraint.constant = -keyboardHeight
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        containerViewBottomConstraint.constant = 0
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+    }
     @objc private func doneButtonTapped() {
         guard let text = textField.text, !text.isEmpty else { return }
         delegate?.didEnterValue(text)

@@ -30,7 +30,7 @@ class BottomCollectionViewCell: CollectionViewCell {
         super.init(frame: frame)
         contentView.layer.borderColor = UIColor.lightGray.cgColor
         contentView.layer.borderWidth = 0.3
-        contentView.layer.cornerRadius = 36.autoSized
+        contentView.layer.cornerRadius = 36.widthRatio
         setupViews()
     }
     required init?(coder: NSCoder) {
@@ -41,7 +41,7 @@ class BottomCollectionViewCell: CollectionViewCell {
         contentView.addSubview(titleLabel)
         
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 25.autoSized),
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 25.widthRatio),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 25.widthRatio),
             imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -25.widthRatio),
             imageView.heightAnchor.constraint(equalToConstant: 24.autoSized),

@@ -135,4 +135,7 @@ public extension UIColor {
     @nonobjc class var softLavender: UIColor {
         return UIColor(red: 242.0 / 255.0, green: 239.0 / 255.0, blue: 246.0 / 255.0, alpha: 1.0)
     }
+    @nonobjc class var waveBlue: UIColor {
+        return UIColor(red: 161.0 / 255.0, green: 84.0 / 255.0, blue: 242.0 / 255.0, alpha: 1.0)
+    }
 }

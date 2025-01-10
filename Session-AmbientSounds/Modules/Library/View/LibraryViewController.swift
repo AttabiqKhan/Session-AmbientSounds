@@ -143,6 +143,7 @@ class LibraryViewController: UIViewController {
     }
 }
 
+// MARK: - TableView Delegates & Data Source
 extension LibraryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -20,6 +20,11 @@ class PlayViewController: UIViewController {
         sv.contentInsetAdjustmentBehavior = .never
         return sv
     }()
+    lazy var waveView: WaveView = {
+        let view = WaveView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     private let containerView = View(backgroundColor: .white, cornerRadius: 40.autoSized)
     private let secondaryContainer = View(backgroundColor: .white)
     private let lineView = View(
@@ -160,7 +165,9 @@ class PlayViewController: UIViewController {
         view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         titleLabel.text = initialSoundTitle.capitalized
         containerView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-        
+//        waveView.setupWaves(count: 1) // Default wave count
+//        waveView.startAnimation()
+        //view.addSubview(waveView)
         view.addSubview(containerView)
         view.addSubview(scrollView)
         scrollView.addSubview(secondaryContainer)
@@ -181,6 +188,11 @@ class PlayViewController: UIViewController {
         playView.addSubview(playImageView)
         
         NSLayoutConstraint.activate([
+//            waveView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            waveView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            waveView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+//            waveView.heightAnchor.constraint(equalToConstant: 392.autoSized),
+            
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scrollView.topAnchor.constraint(equalTo: containerView.bottomAnchor),
@@ -400,6 +412,9 @@ class PlayViewController: UIViewController {
         }
     }
     private func playSound(for soundName: String) {
+        let count = players.compactMap({ $0 }).count
+//        waveView.setupWaves(count: count)
+//        waveView.startAnimation()
         let existingPlayerIndex = players.firstIndex(where: { player in
             if let player = player,
                let playerURL = Bundle.main.url(forResource: soundName, withExtension: "mp3") {
