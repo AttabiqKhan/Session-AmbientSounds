@@ -51,6 +51,7 @@ class LibraryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupTapGesture()
         LibraryManager.shared.delegate = self
         searchBar.delegate = self
         updateLibraryData()
@@ -95,6 +96,11 @@ class LibraryViewController: UIViewController {
             dummyButton.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
         ])
     }
+    private func setupTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapOutside))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+    }
     private func updateLibraryData() {
         libraryData = LibraryManager.shared.getLibraryItems()
         filteredLibraryData = libraryData
@@ -128,6 +134,10 @@ class LibraryViewController: UIViewController {
         }
     }
     
+    // MARK: - Selectors
+    @objc private func didTapOutside() {
+        view.endEditing(true)
+    }
     @objc private func didTapDummyButton() {
         navigationController?.popViewController(animated: false)
     }

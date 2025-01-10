@@ -123,7 +123,9 @@ class SearchBarView: UIView {
     private func animateToInactiveState() {
         searchImageLeadingConstraint?.isActive = false
         searchImageCenterConstraint?.isActive = true
-        
+        textFieldTrailingConstraint?.isActive = false
+        textFieldTrailingConstraint = searchTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+        textFieldTrailingConstraint?.isActive = true
         UIView.animate(withDuration: 0.3) {
             self.placeholderLabel.alpha = 1
             self.clearButton.isHidden = true

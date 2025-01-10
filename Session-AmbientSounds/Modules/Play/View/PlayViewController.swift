@@ -520,10 +520,10 @@ class PlayViewController: UIViewController {
         
         if isAlreadyFavorite {
             guard let currentID = getCurrentLibraryItemID() else { return }
-            let alert = AlertController(title: "\(currentTitle) removed from favorites")
+            //let alert = AlertController(title: "\(currentTitle) removed from favorites")
             LibraryManager.shared.removeFromLibrary(id: currentID)
             updateFavoriteButton(isFavorite: false)
-            alert.presentAlert(from: self)
+            //alert.presentAlert(from: self)
         } else {
             let controller = RenamingViewController()
             controller.modalPresentationStyle = .overCurrentContext
@@ -596,10 +596,10 @@ extension PlayViewController: ValuePassingDelegate {
             guard let self = self else { return }
             if let presentedVC = self.presentedViewController {
                 presentedVC.dismiss(animated: true) {
-                    self.showAlert(isDuplicate: isDuplicate, title: newLibraryItem.title)
+                    //self.showAlert(isDuplicate: isDuplicate, title: newLibraryItem.title)
                 }
             } else {
-                self.showAlert(isDuplicate: isDuplicate, title: newLibraryItem.title) // dummy, design discussion required
+                //self.showAlert(isDuplicate: isDuplicate, title: newLibraryItem.title) // dummy, design discussion required
             }
             if !isDuplicate {
                 titleLabel.text = value
