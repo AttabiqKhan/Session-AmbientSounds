@@ -17,6 +17,7 @@ class PlayViewController: UIViewController {
         sv.showsVerticalScrollIndicator = false
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.bounces = false
+        sv.contentInsetAdjustmentBehavior = .never
         return sv
     }()
     private let containerView = View(backgroundColor: .white, cornerRadius: 40.autoSized)
@@ -161,6 +162,8 @@ class PlayViewController: UIViewController {
         containerView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         
         view.addSubview(containerView)
+        view.addSubview(scrollView)
+        scrollView.addSubview(secondaryContainer)
         containerView.addSubview(titleLabel)
         containerView.addSubview(lineView)
         containerView.addSubview(favouriteContainer)
@@ -168,19 +171,25 @@ class PlayViewController: UIViewController {
         containerView.addSubview(libraryContainer)
         containerView.addSubview(playView)
         containerView.addSubview(volumeIcon)
-        containerView.addSubview(recommendedLabel)
-        containerView.addSubview(collectionView)
+        secondaryContainer.addSubview(recommendedLabel)
+        secondaryContainer.addSubview(collectionView)
         containerView.addSubview(playingSoundsStackView)
-        containerView.addSubview(mixSoundsLabel)
-        containerView.addSubview(volumeControlStackView)
+        secondaryContainer.addSubview(mixSoundsLabel)
+        secondaryContainer.addSubview(volumeControlStackView)
         favouriteContainer.addSubview(favouriteImageView)
         libraryContainer.addSubview(libraryImageView)
         playView.addSubview(playImageView)
         
         NSLayoutConstraint.activate([
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.topAnchor.constraint(equalTo: containerView.bottomAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
             containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            containerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 392.autoSized),
+            containerView.heightAnchor.constraint(equalToConstant: 334.autoSized),
             
             lineView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16.autoSized),
             lineView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
@@ -228,23 +237,29 @@ class PlayViewController: UIViewController {
             volumeSlider.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -25.widthRatio),
             volumeSlider.heightAnchor.constraint(equalToConstant: 6.autoSized),
             
-            mixSoundsLabel.topAnchor.constraint(equalTo: volumeSlider.bottomAnchor, constant: 32.autoSized),
-            mixSoundsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25.widthRatio),
-            mixSoundsLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25.widthRatio),
+            secondaryContainer.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            secondaryContainer.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            secondaryContainer.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            secondaryContainer.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            secondaryContainer.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            
+            mixSoundsLabel.topAnchor.constraint(equalTo: secondaryContainer.topAnchor),
+            mixSoundsLabel.leadingAnchor.constraint(equalTo: secondaryContainer.leadingAnchor, constant: 25.widthRatio),
+            mixSoundsLabel.trailingAnchor.constraint(equalTo: secondaryContainer.trailingAnchor, constant: -25.widthRatio),
             
             volumeControlStackView.topAnchor.constraint(equalTo: mixSoundsLabel.bottomAnchor, constant: 24.autoSized),
-            volumeControlStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25.widthRatio),
-            volumeControlStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25.widthRatio),
+            volumeControlStackView.leadingAnchor.constraint(equalTo: secondaryContainer.leadingAnchor, constant: 25.widthRatio),
+            volumeControlStackView.trailingAnchor.constraint(equalTo: secondaryContainer.trailingAnchor, constant: -25.widthRatio),
             
             recommendedLabel.topAnchor.constraint(equalTo: volumeControlStackView.bottomAnchor, constant: 32.autoSized),
-            recommendedLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25.widthRatio),
-            recommendedLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25.widthRatio),
+            recommendedLabel.leadingAnchor.constraint(equalTo: secondaryContainer.leadingAnchor, constant: 25.widthRatio),
+            recommendedLabel.trailingAnchor.constraint(equalTo: secondaryContainer.trailingAnchor, constant: -25.widthRatio),
             
             collectionView.topAnchor.constraint(equalTo: recommendedLabel.bottomAnchor, constant: 24.autoSized),
-            collectionView.heightAnchor.constraint(equalToConstant: 220.autoSized),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20.widthRatio),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20.widthRatio),
-            collectionView.bottomAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.bottomAnchor, constant: -0.autoSized)
+            collectionView.leadingAnchor.constraint(equalTo: secondaryContainer.leadingAnchor, constant: 20.widthRatio),
+            collectionView.trailingAnchor.constraint(equalTo: secondaryContainer.trailingAnchor, constant: -20.widthRatio),
+            collectionView.heightAnchor.constraint(equalToConstant: 241.autoSized),
+            collectionView.bottomAnchor.constraint(equalTo: secondaryContainer.bottomAnchor)
         ])
     }
     private func addPlayingSoundView(for soundName: String) {
@@ -412,9 +427,9 @@ class PlayViewController: UIViewController {
         }
         do {
             if isAlreadyFavorite {
-                    isAlreadyFavorite = false
-                    updateFavoriteButton(isFavorite: false)
-                    titleLabel.text = "Current Mix"
+                isAlreadyFavorite = false
+                updateFavoriteButton(isFavorite: false)
+                titleLabel.text = "Current Mix"
             }
             let newPlayer = try AVAudioPlayer(contentsOf: url)
             newPlayer.numberOfLoops = -1
