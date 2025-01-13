@@ -11,7 +11,11 @@ class AlertController: UIViewController {
     
     // MARK: - UI Elements
     private let containerView = View(backgroundColor: .lavenderMist, cornerRadius: 8.autoSized)
-    private let titleLabel = Label(text: "", textColor: .white)
+    private let titleLabel: Label = {
+        let label = Label(text: "", textColor: .white)
+        label.font = .medium(ofSize: 16.autoSized)
+        return label
+    }()
     
     // MARK: - Initializers
     init(title: String) {

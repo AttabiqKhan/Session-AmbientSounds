@@ -124,6 +124,12 @@ class PlayViewController: UIViewController {
         alignment: .fill,
         distribution: .fill
     )
+    private lazy var dismissImageView: ImageView = {
+        let iv = ImageView(imageName: "dismiss")
+        iv.isUserInteractionEnabled = true
+        iv.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapDismissView)))
+        return iv
+    }()
     
     // MARK: - Properties
     private var recommendedSounds: [SoundItem] = [
@@ -141,6 +147,9 @@ class PlayViewController: UIViewController {
     private var individualVolumes: [String: Float] = [:]
     private var initialSoundTitle: String
     private var isAlreadyFavorite: Bool = false
+    private var topConstraint: NSLayoutConstraint!
+    private var originalTopConstant: CGFloat = 392.autoSized // Original position
+    private var collapsedTopConstant: CGFloat = 0
     
     // MARK: - Initializers
     init(initialSoundTitle: String) {
@@ -155,16 +164,18 @@ class PlayViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        addPanGesture()
         setupAudioSession()
         playSound(for: initialSoundTitle)
+        setupPanGesture()
     }
     
     // MARK: - Functions
     private func setupUI() {
+        topConstraint = containerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 442.autoSized)
         view.backgroundColor = .white
         titleLabel.text = initialSoundTitle.capitalized
         containerView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        view.addSubview(dismissImageView)
         view.addSubview(waveView)
         view.addSubview(containerView)
         view.addSubview(scrollView)
@@ -186,9 +197,14 @@ class PlayViewController: UIViewController {
         playView.addSubview(playImageView)
         
         NSLayoutConstraint.activate([
+            dismissImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25.widthRatio),
+            dismissImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16.autoSized),
+            dismissImageView.heightAnchor.constraint(equalToConstant: 32.autoSized),
+            dismissImageView.widthAnchor.constraint(equalToConstant: 32.autoSized),
+            
             waveView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             waveView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            waveView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            waveView.topAnchor.constraint(equalTo: dismissImageView.bottomAnchor, constant: 2.autoSized),
             waveView.heightAnchor.constraint(equalToConstant: 442.autoSized),
             
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -198,7 +214,7 @@ class PlayViewController: UIViewController {
             
             containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            containerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 392.autoSized),
+            topConstraint,
             containerView.heightAnchor.constraint(equalToConstant: 334.autoSized),
             
             lineView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16.autoSized),
@@ -473,61 +489,56 @@ class PlayViewController: UIViewController {
             print("No active player found for sound: \(soundName)")
         }
     }
-    private func addPanGesture() {
+    private func setupPanGesture() {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
-        view.addGestureRecognizer(panGesture)
+        containerView.addGestureRecognizer(panGesture)
     }
-    private func dismissSelf() {
-        UIView.animate(withDuration: 0.3, animations: {
-            self.containerView.transform = CGAffineTransform(translationX: 0, y: self.view.bounds.height)
-            self.view.backgroundColor = .clear
-        }, completion: { _ in
-            self.dismiss(animated: false, completion: nil)
-        })
-    }
-    private func presentSelf() {
-        containerView.transform = CGAffineTransform(translationX: 0, y: view.bounds.height)
+    private func moveToCollapsedPosition() {
         UIView.animate(withDuration: 0.3) {
-            self.view.backgroundColor = UIColor.black.withAlphaComponent(0.4)
-            self.containerView.transform = .identity
+            self.topConstraint.constant = self.collapsedTopConstant
+            self.view.layoutIfNeeded()
+        }
+    }
+    private func moveToOriginalPosition() {
+        UIView.animate(withDuration: 0.3) {
+            self.topConstraint.constant = self.originalTopConstant
+            self.view.layoutIfNeeded()
         }
     }
     
     // MARK: - Selectors
-    // Note: handlePanGesture function may seem difficult to understand hence the comments are written
     @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
-        // Get the vertical translation of the gesture relative to the containerView.
-        let translation = gesture.translation(in: containerView)
-        
-        // Calculate the progress of the drag as a fraction of the containerView's height.
-        let progress = translation.y / containerView.bounds.height
-        
+        let translation = gesture.translation(in: view).y // How far the user dragged
+        let totalDraggableDistance = originalTopConstant - collapsedTopConstant // Total distance between positions
+
         switch gesture.state {
         case .changed:
-            // If the user is dragging downwards (positive Y direction), update the containerView's position.
-            if translation.y > 0 {
-                containerView.transform = CGAffineTransform(translationX: 0, y: translation.y)
-            }
-        case .ended, .cancelled:
-            // Get the vertical velocity of the gesture.
-            let velocity = gesture.velocity(in: containerView).y
+            // Update the top constraint dynamically during drag
+            let newConstant = max(collapsedTopConstant, min(originalTopConstant, topConstraint.constant + translation))
+            topConstraint.constant = newConstant
+            view.layoutIfNeeded() // Apply the layout changes
+            gesture.setTranslation(.zero, in: view) // Reset translation to avoid cumulative effects
+
+        case .ended:
+            let dragPercentage = abs(topConstraint.constant - originalTopConstant) / totalDraggableDistance
             
-            // Determine if the gesture should result in dismissing the view.
-            // Conditions:
-            // 1. Drag progress exceeds 30% of the containerView's height.
-            // 2. Gesture velocity exceeds 1000 points per second in the downward direction.
-            let shouldDismiss = progress > 0.3 || velocity > 1000
-            if shouldDismiss {
-                // If dismiss conditions are met, dismiss the view.
-                dismissSelf()
+            if dragPercentage >= 0.5 {
+                if topConstraint.constant < originalTopConstant {
+                    // User dragged upwards: move to collapsed position
+                    moveToCollapsedPosition()
+                } else {
+                    // User dragged downwards: move to original position
+                    moveToOriginalPosition()
+                }
             } else {
-                // If dismiss conditions are not met, animate the containerView back to its original position.
-                UIView.animate(withDuration: 0.3) {
-                    self.containerView.transform = .identity
+                // Drag didn't exceed 50%, revert to the current position
+                if topConstraint.constant == collapsedTopConstant {
+                    moveToCollapsedPosition()
+                } else {
+                    moveToOriginalPosition()
                 }
             }
         default:
-            // Do nothing for other gesture states.
             break
         }
     }
@@ -594,6 +605,9 @@ class PlayViewController: UIViewController {
         removeVolumeView(for: soundName)
         removePlayingSoundView(for: soundName)
         setupWaves(playingSounds.count) // Updated Waves
+    }
+    @objc private func didTapDismissView() {
+        dismiss(animated: false)
     }
 }
 

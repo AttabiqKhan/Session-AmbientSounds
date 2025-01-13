@@ -117,22 +117,19 @@ extension BaseViewController: BottomTabBarDelegate {
                 viewController = HomeViewController()
                 print("Home Tab Selected")
             case .sounds:
-                //viewController = SoundsViewController()
                 print("Sounds Tab Selected")
             case .add:
 //                let addViewController = AddViewController()
 //                addViewController.modalPresentationStyle = .overFullScreen
-//                present(addViewController, animated: true, completion: nil)
+//                present(addViewController, animated: false)
 //                return
                 print("Add Tab Selected")
             case .explore:
-//                viewController = DummyViewController()
                 print("Explore Tab Selected")
             case .library:
                 viewController = LibraryViewController()
                 print("Library Tab Selected")
             }
-
             if let vc = viewController {
                 viewControllersCache[tab] = vc
             }

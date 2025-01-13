@@ -11,7 +11,7 @@ class HomeViewController: BaseViewController {
     
     // MARK: - UI Elements
     private let headingLabel: Label = {
-        let label = Label(text: "Based on\nyour mood", textAlignment: .left, numberOfLines: 0, textColor: .black)
+        let label = Label(text: "Based on\nyour mood", textAlignment: .left, numberOfLines: 0, textColor: .titleColor)
         label.font = .bold(ofSize: 28.autoSized)
         return label
     }()
@@ -104,12 +104,9 @@ class HomeViewController: BaseViewController {
         BottomItem(image: UIImage(named: "forest")!, label: "Forest", backgroundColor: .forestColor),
         BottomItem(image: UIImage(named: "birds")!, label: "Birds", backgroundColor: .birdsColor)
     ]
-    private let descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Recommended sounds"
+    private let descriptionLabel: Label = {
+        let label = Label(text: "Recommended sounds", textAlignment: .left, numberOfLines: 0, textColor: .titleColor)
         label.font = .bold(ofSize: 28.autoSized)
-        label.textColor = .black
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     private let scrollView: UIScrollView = {
@@ -118,16 +115,11 @@ class HomeViewController: BaseViewController {
         scroll.showsVerticalScrollIndicator = false
         return scroll
     }()
-    private let contentView: UIView = {
-        let contentView = UIView()
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        return contentView
-    }()
+    private let contentView = View()
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-       
     }
     
     // MARK: - Functions
@@ -208,8 +200,6 @@ class HomeViewController: BaseViewController {
         let controller = MoodViewController()
         controller.modalPresentationStyle = .overCurrentContext
         self.present(controller, animated: false)
-//        let controller = LibraryViewController()
-//        self.navigationController?.pushViewController(controller, animated: false)
     }
 }
 
