@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LibraryViewController: UIViewController {
+class LibraryViewController: BaseViewController {
     
     // MARK: - UI Components
     private let searchBar = SearchBarView()
@@ -39,7 +39,6 @@ class LibraryViewController: UIViewController {
         label.isHidden = true
         return label
     }()
-    private let dummyButton = Button(type: .system, image: UIImage(named: "home_icon"), tintColor: .black) // remove later
     
     // MARK: - Properties
     private var libraryData: [LibraryItems] = []
@@ -50,7 +49,6 @@ class LibraryViewController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
         setupTapGesture()
         LibraryManager.shared.delegate = self
         searchBar.delegate = self
@@ -63,14 +61,13 @@ class LibraryViewController: UIViewController {
     }
     
     // MARK: - Functions
-    private func setupUI() {
+    override func setupViews() {
+        super.setupViews()
         view.backgroundColor = .white
         view.addSubview(searchBar)
         view.addSubview(titleLabel)
         view.addSubview(tableView)
         view.addSubview(visibleLabel)
-        view.addSubview(dummyButton)
-        dummyButton.addTarget(self, action: #selector(didTapDummyButton), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32.autoSized),
@@ -85,15 +82,11 @@ class LibraryViewController: UIViewController {
             tableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24.autoSized),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25.widthRatio),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25.widthRatio),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20.autoSized),
+            tableView.bottomAnchor.constraint(equalTo: bottomTabBar.topAnchor, constant: -10.autoSized),
             
             visibleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25.widthRatio),
             visibleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25.widthRatio),
-            visibleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            
-            dummyButton.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 32.autoSized),
-            dummyButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            dummyButton.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
+            visibleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
     private func setupTapGesture() {
@@ -137,9 +130,6 @@ class LibraryViewController: UIViewController {
     // MARK: - Selectors
     @objc private func didTapOutside() {
         view.endEditing(true)
-    }
-    @objc private func didTapDummyButton() {
-        navigationController?.popViewController(animated: false)
     }
 }
 

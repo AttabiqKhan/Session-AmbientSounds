@@ -20,7 +20,7 @@ class PlayViewController: UIViewController {
         sv.contentInsetAdjustmentBehavior = .never
         return sv
     }()
-    lazy var waveView: WaveView = {
+    private let waveView: WaveView = {
         let view = WaveView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -162,12 +162,10 @@ class PlayViewController: UIViewController {
     
     // MARK: - Functions
     private func setupUI() {
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        view.backgroundColor = .white
         titleLabel.text = initialSoundTitle.capitalized
         containerView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-//        waveView.setupWaves(count: 1) // Default wave count
-//        waveView.startAnimation()
-        //view.addSubview(waveView)
+        view.addSubview(waveView)
         view.addSubview(containerView)
         view.addSubview(scrollView)
         scrollView.addSubview(secondaryContainer)
@@ -188,10 +186,10 @@ class PlayViewController: UIViewController {
         playView.addSubview(playImageView)
         
         NSLayoutConstraint.activate([
-//            waveView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            waveView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            waveView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-//            waveView.heightAnchor.constraint(equalToConstant: 392.autoSized),
+            waveView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            waveView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            waveView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            waveView.heightAnchor.constraint(equalToConstant: 442.autoSized),
             
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -412,9 +410,6 @@ class PlayViewController: UIViewController {
         }
     }
     private func playSound(for soundName: String) {
-        let count = players.compactMap({ $0 }).count
-//        waveView.setupWaves(count: count)
-//        waveView.startAnimation()
         let existingPlayerIndex = players.firstIndex(where: { player in
             if let player = player,
                let playerURL = Bundle.main.url(forResource: soundName, withExtension: "mp3") {

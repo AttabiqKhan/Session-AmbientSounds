@@ -205,11 +205,11 @@ class HomeViewController: BaseViewController {
     
     // MARK: - Selectors
     @objc private func didTapEmojiView() {
-//        let controller = MoodViewController()
-//        controller.modalPresentationStyle = .overCurrentContext
-//        self.present(controller, animated: false)
-        let controller = LibraryViewController()
-        self.navigationController?.pushViewController(controller, animated: false)
+        let controller = MoodViewController()
+        controller.modalPresentationStyle = .overCurrentContext
+        self.present(controller, animated: false)
+//        let controller = LibraryViewController()
+//        self.navigationController?.pushViewController(controller, animated: false)
     }
 }
 
@@ -238,7 +238,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         if collectionView == self.bottomCollectionView {
             let soundName = bottomItems[indexPath.item].label.lowercased().replacingOccurrences(of: " ", with: "")
             let vc = PlayViewController(initialSoundTitle: soundName)
-            vc.modalPresentationStyle = .overFullScreen
+            vc.modalPresentationStyle = .fullScreen
             self.present(vc, animated: false)
         }
     }
