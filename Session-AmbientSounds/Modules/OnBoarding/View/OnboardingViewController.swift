@@ -63,6 +63,7 @@ class OnboardingViewController: UIViewController {
             isLastItem: true
         )
     ]
+    var onboardingCompletionHandler: (() -> Void)?
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -111,6 +112,7 @@ class OnboardingViewController: UIViewController {
             // Navigate to the next view controller after the last page
             let vc = HomeViewController()
             navigationController?.pushViewController(vc, animated: true)
+            onboardingCompletionHandler?()
         } else {
             // Calculate the next index's offset
             let nextIndex = currentIndex + 1
@@ -136,7 +138,7 @@ extension OnboardingViewController: UICollectionViewDataSource, UICollectionView
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OnboardingCell", for: indexPath) as! OnboardingCell
         let item = onboardingItems[indexPath.item]
         cell.configure(with: item)
-        updateActionButtonTitle(for: item)
+        //updateActionButtonTitle(for: item)
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

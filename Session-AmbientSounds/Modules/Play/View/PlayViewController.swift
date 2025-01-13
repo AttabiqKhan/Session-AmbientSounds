@@ -392,11 +392,17 @@ class PlayViewController: UIViewController {
             playingSounds.removeAll { $0 == soundName }
             removePlayingSoundView(for: soundName)
             removeVolumeView(for: soundName)
+            setupWaves(playingSounds.count) //Updated Waves
         } else {
             playingSounds.append(soundName)
             addPlayingSoundView(for: soundName)
             addVolumeView(for: soundName)
+            setupWaves(playingSounds.count)
         }
+    }
+    private func setupWaves(_ count : Int){
+        waveView.setupWaves(count: count)
+        waveView.startAnimation()
     }
     private func setupAudioSession() {
         do {
@@ -418,7 +424,7 @@ class PlayViewController: UIViewController {
             return false
         })
         if existingPlayerIndex != nil {
-            let alertController = AlertController(title: "Sound is already playing") // design needed
+            let alertController = AlertController(title: "The sound is already added.")
             alertController.presentAlert(from: self, duration: 1.0)
             return
         }
@@ -526,7 +532,7 @@ class PlayViewController: UIViewController {
         }
     }
     @objc private func didTapFavouriteView() {
-        guard let currentTitle = titleLabel.text else { return }
+        guard titleLabel.text != nil else { return }
         
         if isAlreadyFavorite {
             guard let currentID = getCurrentLibraryItemID() else { return }
@@ -587,6 +593,7 @@ class PlayViewController: UIViewController {
         playingSounds.removeAll { $0 == soundName }
         removeVolumeView(for: soundName)
         removePlayingSoundView(for: soundName)
+        setupWaves(playingSounds.count) // Updated Waves
     }
 }
 

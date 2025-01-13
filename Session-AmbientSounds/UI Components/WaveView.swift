@@ -107,7 +107,7 @@ class WaveView: UIView {
 
     // MARK: - Drawing Multiple Waves
     override func draw(_ rect: CGRect) {
-        let yPosition = [150.0, 350.0, 370.0, 390.0, 420.0] // Base Y positions for each wave from top
+        let yPosition = [110.0, 250.0, 270.0, 290.0, 320.0] // Base Y positions for each wave from top
         for (index, waveLayer) in waveLayers.enumerated() {
             let path = UIBezierPath()
             let width = Double(rect.width)
