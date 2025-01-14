@@ -46,6 +46,13 @@ class LibraryViewController: BaseViewController {
     private var isSearching: Bool = false
     private var coreDataManager = CoreDataManager.shared
     
+    init() {
+        super.init(initialTab: .library)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()

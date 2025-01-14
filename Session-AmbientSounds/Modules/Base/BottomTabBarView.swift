@@ -29,6 +29,7 @@ class BottomTabBarView: UIView {
             updateTabAppearance()
         }
     }
+    private var observerId: String?
     
     // MARK: - Initializers
     override init(frame: CGRect) {
@@ -37,10 +38,19 @@ class BottomTabBarView: UIView {
         self.backgroundColor = .clear
         setupViews()
         handleTaps()
-        updateTabAppearance()
+        // Register for updates
+        observerId = UUID().uuidString
+        TabBarManager.shared.addObserver(id: observerId!) { [weak self] newTab in
+            self?.selectedTab = newTab
+        }
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    deinit {
+        if let id = observerId {
+            TabBarManager.shared.removeObserver(id: id)
+        }
     }
     
     // MARK: - Functions
@@ -94,6 +104,7 @@ class BottomTabBarView: UIView {
         libraryButton.buttonLabel.textColor = .neutralGray
         
         switch selectedTab {
+            
         case .home:
             homeButton.buttonImage.image = UIImage(named: "home_icon")
             homeButton.buttonLabel.textColor = .lavenderMist
@@ -112,23 +123,23 @@ class BottomTabBarView: UIView {
     }
 
     // MARK: - Selectors
-    @objc func tappedHome() {
-        selectedTab = .home
+    @objc private func tappedHome() {
+        TabBarManager.shared.currentTab = .home
         delegate?.didSelectTab(.home)
     }
-    @objc func tappedSounds() {
-        selectedTab = .sounds
+    @objc private func tappedSounds() {
+        TabBarManager.shared.currentTab = .sounds
         delegate?.didSelectTab(.sounds)
     }
-    @objc func tappedAdd() {
+    @objc private func tappedAdd() {
         delegate?.didSelectTab(.add)
     }
-    @objc func tappedExplore() {
-        selectedTab = .explore
+    @objc private func tappedExplore() {
+        TabBarManager.shared.currentTab = .explore
         delegate?.didSelectTab(.explore)
     }
-    @objc func tappedLibrary() {
-        selectedTab = .library
+    @objc private func tappedLibrary() {
+        TabBarManager.shared.currentTab = .library
         delegate?.didSelectTab(.library)
     }
 }

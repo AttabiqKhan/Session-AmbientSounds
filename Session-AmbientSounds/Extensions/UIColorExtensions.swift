@@ -138,4 +138,7 @@ public extension UIColor {
     @nonobjc class var waveBlue: UIColor {
         return UIColor(red: 161.0 / 255.0, green: 84.0 / 255.0, blue: 242.0 / 255.0, alpha: 1.0)
     }
+    @nonobjc class var searchBorderColor: UIColor {
+        return UIColor(red: 0.0 / 255.0, green: 0.0 / 255.0, blue: 0.0 / 255.0, alpha: 0.07)
+    }
 }

@@ -15,75 +15,19 @@ enum TabBarFeatures {
     case explore
     case library
 }
-
-//class BaseViewController: UIViewController {
-//    
-//    let bottomTabBar = BottomTabBarView()
-//    
-//    init() {
-//        super.init(nibName: nil, bundle: nil)
-//        bottomTabBar.delegate = self
-//    }
-//    required public init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//    
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        view.backgroundColor = .white
-//        setupViews()
-//    }
-//    func setupViews() {
-//        view.addSubview(bottomTabBar)
-//        
-//        NSLayoutConstraint.activate([
-//            bottomTabBar.heightAnchor.constraint(equalToConstant: 96.autoSized),
-//            bottomTabBar.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -21.autoSized),
-//            bottomTabBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            bottomTabBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//        ])
-//    }
-//}
-//
-//extension BaseViewController: BottomTabBarDelegate {
-//    func didSelectTab(_ tab: TabBarFeatures) {
-//        var viewController: UIViewController?
-//        switch tab {
-//        case .home:
-//            viewController = HomeViewController()
-//            print("Home")
-//        case .sounds:
-//            print("Sounds")
-//        case .add:
-//            print("Add")
-//        case .explore:
-//            print("Explore")
-//        case .library:
-//            viewController = LibraryViewController()
-//            print("Library")
-//        }
-//        if let viewController = viewController {
-//            navigateTo(viewController: viewController)
-//        }
-//    }
-//    private func navigateTo(viewController: UIViewController) {
-//        if let navigationController = self.navigationController {
-//            navigationController.pushViewController(viewController, animated: false)
-//        } else {
-//            viewController.modalPresentationStyle = .fullScreen
-//            present(viewController, animated: false, completion: nil)
-//        }
-//    }
-//}
 class BaseViewController: UIViewController {
     
     let bottomTabBar = BottomTabBarView()
     private var viewControllersCache: [TabBarFeatures: UIViewController] = [:]
-    init() {
+    
+    init(initialTab: TabBarFeatures? = nil) {
         super.init(nibName: nil, bundle: nil)
         bottomTabBar.delegate = self
+        if let tab = initialTab {
+            TabBarManager.shared.currentTab = tab
+        }
     }
-    required public init?(coder: NSCoder) {
+    required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -117,6 +61,7 @@ extension BaseViewController: BottomTabBarDelegate {
                 viewController = HomeViewController()
                 print("Home Tab Selected")
             case .sounds:
+                viewController = SoundsViewController()
                 print("Sounds Tab Selected")
             case .add:
 //                let addViewController = AddViewController()

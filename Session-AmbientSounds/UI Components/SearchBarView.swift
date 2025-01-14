@@ -22,8 +22,9 @@ class SearchBarView: UIView {
     private let searchTextField: TextField = {
         let tf = TextField(borderStyle: .none, placeHolder: "")
         tf.backgroundColor = .tertiary
+        tf.textColor = .titleColor
         tf.layer.cornerRadius = 24.autoSized
-        tf.layer.borderColor = UIColor.systemGray5.cgColor
+        tf.layer.borderColor = UIColor.searchBorderColor.cgColor
         tf.layer.borderWidth = 1.0
         return tf
     }()
@@ -116,7 +117,6 @@ class SearchBarView: UIView {
         textFieldTrailingConstraint?.isActive = true
         UIView.animate(withDuration: 0.3) {
             self.placeholderLabel.alpha = 0
-            //self.clearButton.isHidden = self.searchTextField.text?.isEmpty ?? true
             self.clearButton.isHidden = false
             self.layoutIfNeeded()
         }
@@ -148,7 +148,6 @@ class SearchBarView: UIView {
     }
     @objc private func textFieldDidChange() {
         searchText = searchTextField.text ?? ""
-//        clearButton.isHidden = searchTextField.text?.isEmpty ?? true
     }
 }
 
