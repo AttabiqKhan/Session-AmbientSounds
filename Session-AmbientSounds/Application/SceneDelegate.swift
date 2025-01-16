@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if hasCompletedOnboarding {
             // Onboarding is completed; show HomeViewController
-            let nav = UINavigationController(rootViewController: HomeViewController())
+            let nav = UINavigationController(rootViewController: OnboardingViewController())
             window?.rootViewController = nav
             nav.setNavigationBarHidden(true, animated: false)
         } else {
@@ -32,7 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 UserDefaults.standard.synchronize()
                 
                 // Switch to HomeViewController
-                let nav = UINavigationController(rootViewController: HomeViewController())
+                let nav = UINavigationController(rootViewController: OnboardingViewController())
                 self.window?.rootViewController = nav
                 nav.setNavigationBarHidden(true, animated: false)
                 self.window?.makeKeyAndVisible()

@@ -80,6 +80,9 @@
 		59E1EC5C2D31025D00C3F593 /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E1EC5B2D31025D00C3F593 /* WaveView.swift */; };
 		59E751292CF995A000FAE5F8 /* RenamingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E751282CF9959F00FAE5F8 /* RenamingViewController.swift */; };
 		59F2D0E92D36452800089F14 /* SoundsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F2D0E82D36452800089F14 /* SoundsViewController.swift */; };
+		59F2D0ED2D364A7400089F14 /* SoundsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F2D0EC2D364A7400089F14 /* SoundsTableViewCell.swift */; };
+		59F2D0EF2D364AC000089F14 /* SoundsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F2D0EE2D364AC000089F14 /* SoundsCollectionViewCell.swift */; };
+		59F2D0F42D364E1600089F14 /* SoundDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F2D0F32D364E1600089F14 /* SoundDataProvider.swift */; };
 		59F46B5B2D203F6E00FDF6FE /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F46B5A2D203F6E00FDF6FE /* StackView.swift */; };
 		59F46B5D2D2047C900FDF6FE /* Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F46B5C2D2047C900FDF6FE /* Slider.swift */; };
 /* End PBXBuildFile section */
@@ -161,6 +164,9 @@
 		59E1EC5B2D31025D00C3F593 /* WaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
 		59E751282CF9959F00FAE5F8 /* RenamingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenamingViewController.swift; sourceTree = "<group>"; };
 		59F2D0E82D36452800089F14 /* SoundsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundsViewController.swift; sourceTree = "<group>"; };
+		59F2D0EC2D364A7400089F14 /* SoundsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundsTableViewCell.swift; sourceTree = "<group>"; };
+		59F2D0EE2D364AC000089F14 /* SoundsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundsCollectionViewCell.swift; sourceTree = "<group>"; };
+		59F2D0F32D364E1600089F14 /* SoundDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundDataProvider.swift; sourceTree = "<group>"; };
 		59F46B5A2D203F6E00FDF6FE /* StackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
 		59F46B5C2D2047C900FDF6FE /* Slider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -529,6 +535,8 @@
 			isa = PBXGroup;
 			children = (
 				59F2D0E82D36452800089F14 /* SoundsViewController.swift */,
+				59F2D0EC2D364A7400089F14 /* SoundsTableViewCell.swift */,
+				59F2D0EE2D364AC000089F14 /* SoundsCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -536,6 +544,7 @@
 		59F2D0EB2D36472800089F14 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				59F2D0F32D364E1600089F14 /* SoundDataProvider.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -631,6 +640,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59F2D0F42D364E1600089F14 /* SoundDataProvider.swift in Sources */,
 				59DD9C212D129F4300EC91A0 /* UIApplication.swift in Sources */,
 				591B23A72CE8ECE700E737A5 /* OnboardingCell.swift in Sources */,
 				595625AF2D2EA6170035E2A9 /* DeleteViewController.swift in Sources */,
@@ -641,6 +651,7 @@
 				591B23872CE8E98500E737A5 /* View.swift in Sources */,
 				591B23842CE8E98500E737A5 /* Button.swift in Sources */,
 				59D2B84E2D2811EF00695254 /* LibraryManager.swift in Sources */,
+				59F2D0ED2D364A7400089F14 /* SoundsTableViewCell.swift in Sources */,
 				595FFFC62D2BD906006F7FD5 /* LibraryManagementCell.swift in Sources */,
 				59DBE2752D0F285B0085B8A1 /* SoundCategory.swift in Sources */,
 				591BB01F2D2AF22F0066A67C /* CoreDataManager.swift in Sources */,
@@ -664,6 +675,7 @@
 				5913DE902CF85B7E00BC04E8 /* PlayViewController.swift in Sources */,
 				591030EA2D1D3A0200A49546 /* Data.swift in Sources */,
 				596151DD2CEB478F00C34AFD /* MoodViewController.swift in Sources */,
+				59F2D0EF2D364AC000089F14 /* SoundsCollectionViewCell.swift in Sources */,
 				59F46B5B2D203F6E00FDF6FE /* StackView.swift in Sources */,
 				5909F10B2D25177000A4D1B0 /* LibraryViewController.swift in Sources */,
 				596151DF2CEB622F00C34AFD /* CustomSlider.swift in Sources */,
