@@ -106,8 +106,6 @@ class OnboardingViewController: UIViewController {
     // Note: actionButtonTapped function may seem difficult to understand hence the comments are written
     @objc private func actionButtonTapped() {
         let currentIndex = pageControl.currentPage
-        print("Current Index: \(currentIndex)")
-        
         if currentIndex == onboardingItems.count - 1 {
             // Navigate to the next view controller after the last page
             let vc = HomeViewController()

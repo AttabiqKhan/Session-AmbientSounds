@@ -2,7 +2,7 @@
 //  UIFontExtension.swift
 //  AppExtensions
 //
-//  Created by Ali on 30/10/2024.
+//  Created by Attabiq Khan on 30/10/2024.
 //
 
 import UIKit

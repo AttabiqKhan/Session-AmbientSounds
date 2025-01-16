@@ -32,8 +32,6 @@ class SoundTableViewCell: TableViewCell {
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.showsHorizontalScrollIndicator = false
         cv.showsVerticalScrollIndicator = false
-        cv.isUserInteractionEnabled = true
-        cv.allowsSelection = true
         return cv
     }()
     
@@ -55,7 +53,7 @@ class SoundTableViewCell: TableViewCell {
         contentView.addSubview(headingLabel)
         contentView.addSubview(collectionView)
         NSLayoutConstraint.activate([
-            headingLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 32.autoSized),
+            headingLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 26.autoSized), // need to check why Zeplin's constraints are not working
             headingLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             headingLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             

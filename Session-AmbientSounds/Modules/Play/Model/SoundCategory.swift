@@ -15,6 +15,6 @@ struct SoundCategory {
 
 struct SoundItem {
     let name: String
-    let icon: UIImage?
+    let icon: UIImage!
     let backgroundColor: UIColor
 }

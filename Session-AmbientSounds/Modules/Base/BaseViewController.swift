@@ -2,7 +2,7 @@
 //  BaseViewController.swift
 //  
 //
-//  Created by Ali on 30/10/2024.
+//  Created by Attabiq Khan on 30/10/2024.
 //
 
 import Foundation
@@ -51,7 +51,6 @@ class BaseViewController: UIViewController {
 extension BaseViewController: BottomTabBarDelegate {
     
     func didSelectTab(_ tab: TabBarFeatures) {
-        print("didSelectTab called for tab: \(tab)")
         var viewController: UIViewController?
         if let cachedVC = viewControllersCache[tab] {
             viewController = cachedVC
@@ -59,10 +58,8 @@ extension BaseViewController: BottomTabBarDelegate {
             switch tab {
             case .home:
                 viewController = HomeViewController()
-                print("Home Tab Selected")
             case .sounds:
                 viewController = SoundsViewController()
-                print("Sounds Tab Selected")
             case .add:
 //                let addViewController = AddViewController()
 //                addViewController.modalPresentationStyle = .overFullScreen
@@ -73,7 +70,6 @@ extension BaseViewController: BottomTabBarDelegate {
                 print("Explore Tab Selected")
             case .library:
                 viewController = LibraryViewController()
-                print("Library Tab Selected")
             }
             if let vc = viewController {
                 viewControllersCache[tab] = vc

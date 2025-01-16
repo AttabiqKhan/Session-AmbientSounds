@@ -47,7 +47,7 @@ class SoundsCollectionViewCell: CollectionViewCell {
             
             imageName.topAnchor.constraint(equalTo: cellView.bottomAnchor, constant: 8.autoSized),
             imageName.centerXAnchor.constraint(equalTo: cellView.centerXAnchor),
-            imageName.heightAnchor.constraint(equalToConstant: 13.autoSized)
+            imageName.heightAnchor.constraint(equalToConstant: 14.autoSized)  // need to check why Zeplin's constraints are not working
         ])
     }
     func configure(with item: SoundItem) {
@@ -59,4 +59,3 @@ class SoundsCollectionViewCell: CollectionViewCell {
         cellView.layer.borderWidth = 2.autoSized
     }
 }
-
